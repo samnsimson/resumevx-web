@@ -1,0 +1,49 @@
+'use client';
+import { FC } from 'react';
+import { Show, Stack, StackProps, VStack } from '@chakra-ui/react';
+import { SectionTitle } from '../ui/section-title';
+import { LuZap } from 'react-icons/lu';
+import { usePdfStore } from '@/lib/store/pdf.store';
+import { NoDataPlaceholder } from './no-data-palceholder';
+import { Bio } from './sections/bio';
+import { Summary } from './sections/summary';
+import { Skills } from './sections/skills';
+import { Experience } from './sections/experience';
+
+interface ResumePreviewProps extends StackProps {
+	activeDocumentPath: string | null;
+}
+
+export const ResumePreview: FC<ResumePreviewProps> = ({ ...props }) => {
+	const { resume } = usePdfStore((state) => state);
+	return (
+		<VStack height={'full'} width={'full'} overflow={'hidden'} {...props}>
+			<SectionTitle title="Preview" description="Preview of your result" icon={LuZap} />
+			<Stack
+				flex={1}
+				minHeight={0}
+				width={'full'}
+				height={'full'}
+				bg={'bg.muted'}
+				rounded={'lg'}
+				border={'1px solid'}
+				borderColor={'border.emphasized'}
+				padding={3}
+			>
+				<Show when={!resume}>
+					<NoDataPlaceholder />
+				</Show>
+				<Show when={resume}>
+					{(resume) => (
+						<VStack width={'full'} height={'full'} overflow={'scroll'} gap={4}>
+							<Bio resume={resume} />
+							<Summary resume={resume} />
+							<Skills resume={resume} />
+							<Experience resume={resume} />
+						</VStack>
+					)}
+				</Show>
+			</Stack>
+		</VStack>
+	);
+};
