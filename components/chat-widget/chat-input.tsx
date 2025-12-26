@@ -8,7 +8,7 @@ import { Controller } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { rewriteDocumentMutation } from '@/lib/api/@tanstack/react-query.gen';
 import { useChatStore } from '@/lib/store/chat.store';
-import { usePdfStore } from '@/lib/store/pdf.store';
+import { useDocumentStore } from '@/lib/store/document.store';
 import { RewriteDocumentResponse } from '@/lib/api/types.gen';
 
 interface ChatInputProps extends StackProps {
@@ -18,7 +18,7 @@ interface ChatInputProps extends StackProps {
 export const ChatInput: FC<ChatInputProps> = ({ ...props }) => {
 	const { form } = useWorkspaceForm();
 	const { addMessage, setSubmitting, isSubmitting } = useChatStore();
-	const { setResume } = usePdfStore();
+	const { setResume } = useDocumentStore();
 	const successMessage = 'Resume has been updated successfully! The changes have been applied to your resume.';
 	const errorMessage = 'An error occurred while rewriting the document';
 	const { mutate: rewriteDocument } = useMutation({

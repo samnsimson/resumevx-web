@@ -4,10 +4,10 @@ import { Button, ButtonProps, Show, Spinner } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import { IconType } from 'react-icons';
 import { LuLogOut } from 'react-icons/lu';
-import { usePdfStore } from '@/lib/store/pdf.store';
+import { useDocumentStore } from '@/lib/store/document.store';
 import { useChatStore } from '@/lib/store/chat.store';
-import { signOutMutation } from '@/lib/api/@tanstack/react-query.gen';
-import { useMutation } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+import { signOutOptions } from '@/lib/api/@tanstack/react-query.gen';
 
 interface LogoutButtonProps extends ButtonProps {
 	label?: string;
@@ -17,22 +17,25 @@ interface LogoutButtonProps extends ButtonProps {
 
 export const LogoutButton: FC<LogoutButtonProps> = ({ label, icon: Icon, iconOnly, ...props }) => {
 	const router = useRouter();
-	const { clearPdf, clearResume } = usePdfStore((state) => state);
+	const { clearFileData, clearResumeData } = useDocumentStore((state) => state);
 	const { clearMessages } = useChatStore((state) => state);
 	const [isLoading, setIsLoading] = useState(false);
-	const { mutateAsync: signOut } = useMutation({ ...signOutMutation() });
-
-	const onSuccess = () => {
-		clearPdf();
-		clearResume();
-		clearMessages();
-		setIsLoading(false);
-		router.replace('/auth/login');
-	};
+	const { refetch: logout } = useQuery({ ...signOutOptions(), enabled: false });
 
 	const handleLogout = async () => {
-		setIsLoading(true);
-		await signOut({}, { onSuccess });
+		try {
+			setIsLoading(true);
+			const { error } = await logout();
+			if (error) throw new Error(error.message);
+			clearFileData();
+			clearResumeData();
+			clearMessages();
+			router.replace('/auth/login');
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	return (

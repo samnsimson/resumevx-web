@@ -1,7 +1,7 @@
 'use client';
 import { FC, useState } from 'react';
 import { Document, Page, pdfjs, Outline } from 'react-pdf';
-import { usePdfStore } from '@/lib/store/pdf.store';
+import { useDocumentStore } from '@/lib/store/document.store';
 import { Box, Show, Spinner, StackProps, VStack } from '@chakra-ui/react';
 import { PdfPagination } from './pdf-pagination';
 import { NoDataPlaceholder } from '@/components/resume-preview/no-data-palceholder';
@@ -15,7 +15,7 @@ interface PDFViewerProps extends StackProps {
 }
 
 export const PDFViewer: FC<PDFViewerProps> = ({ activeDocumentPath, ...props }) => {
-	const { pdf } = usePdfStore((state) => state);
+	const { pdf } = useDocumentStore((state) => state);
 	const [numPages, setNumPages] = useState(0);
 	const [pageNumber, setPageNumber] = useState(1);
 

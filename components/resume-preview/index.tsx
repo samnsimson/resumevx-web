@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { Show, Stack, StackProps, VStack } from '@chakra-ui/react';
 import { SectionTitle } from '../ui/section-title';
 import { LuZap } from 'react-icons/lu';
-import { usePdfStore } from '@/lib/store/pdf.store';
+import { useDocumentStore } from '@/lib/store/document.store';
 import { NoDataPlaceholder } from './no-data-palceholder';
 import { Bio } from './sections/bio';
 import { Summary } from './sections/summary';
@@ -15,7 +15,7 @@ interface ResumePreviewProps extends StackProps {
 }
 
 export const ResumePreview: FC<ResumePreviewProps> = ({ ...props }) => {
-	const { resume } = usePdfStore((state) => state);
+	const { resume } = useDocumentStore((state) => state);
 	return (
 		<VStack height={'full'} width={'full'} overflow={'hidden'} {...props}>
 			<SectionTitle title="Preview" description="Preview of your result" icon={LuZap} />

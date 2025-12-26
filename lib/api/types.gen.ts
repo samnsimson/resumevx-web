@@ -572,10 +572,14 @@ export type ParseDocumentError = ParseDocumentErrors[keyof ParseDocumentErrors];
 
 export type ParseDocumentResponses = {
     /**
+     * Response Parsedocument
+     *
      * Successful Response
      */
-    200: unknown;
+    200: string;
 };
+
+export type ParseDocumentResponse = ParseDocumentResponses[keyof ParseDocumentResponses];
 
 export type ExtractDocumentData = {
     body?: never;

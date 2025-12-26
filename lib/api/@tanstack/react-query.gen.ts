@@ -4,7 +4,7 @@ import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanst
 
 import { client } from '../client.gen';
 import { AuthApi, DocumentApi, type Options, UserApi } from '../sdk.gen';
-import type { ExtractDocumentData, ExtractDocumentError, ExtractDocumentResponse, GetCurrentUserData, GetCurrentUserResponse, GetSessionData, GetSessionResponse, GetUserData, GetUserError, GetUserResponse, ParseDocumentData, ParseDocumentError, RewriteDocumentData, RewriteDocumentError, RewriteDocumentResponse, SignInData, SignInError, SignInResponse, SignOutData, SignUpData, SignUpError, SignUpResponse, UploadDocumentData, UploadDocumentError, UploadDocumentResponse } from '../types.gen';
+import type { ExtractDocumentData, ExtractDocumentError, ExtractDocumentResponse, GetCurrentUserData, GetCurrentUserResponse, GetSessionData, GetSessionResponse, GetUserData, GetUserError, GetUserResponse, ParseDocumentData, ParseDocumentError, ParseDocumentResponse, RewriteDocumentData, RewriteDocumentError, RewriteDocumentResponse, SignInData, SignInError, SignInResponse, SignOutData, SignUpData, SignUpError, SignUpResponse, UploadDocumentData, UploadDocumentError, UploadDocumentResponse } from '../types.gen';
 
 /**
  * Login
@@ -165,8 +165,8 @@ export const uploadDocumentMutation = (options?: Partial<Options<UploadDocumentD
 /**
  * Parse Document
  */
-export const parseDocumentMutation = (options?: Partial<Options<ParseDocumentData>>): UseMutationOptions<unknown, ParseDocumentError, Options<ParseDocumentData>> => {
-    const mutationOptions: UseMutationOptions<unknown, ParseDocumentError, Options<ParseDocumentData>> = {
+export const parseDocumentMutation = (options?: Partial<Options<ParseDocumentData>>): UseMutationOptions<ParseDocumentResponse, ParseDocumentError, Options<ParseDocumentData>> => {
+    const mutationOptions: UseMutationOptions<ParseDocumentResponse, ParseDocumentError, Options<ParseDocumentData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await DocumentApi.parseDocument({
                 ...options,

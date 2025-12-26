@@ -2,19 +2,16 @@ import { ChatWidget } from '@/components/chat-widget';
 import { ResumeUpload } from '@/components/ui/file-upload';
 import { JobDescription } from '@/components/ui/job-description';
 import { ResumePreview } from '@/components/resume-preview';
-import { DocumentService } from '@/lib/api';
 import { SimpleGrid, GridItem, VStack } from '@chakra-ui/react';
-import { headers } from 'next/headers';
 import { FC } from 'react';
 
 const WorkspacePage: FC<PageProps<'/workspace'>> = async () => {
-	const { data } = await DocumentService.getActiveDocument({ headers: await headers() });
-	console.log('🚀 ~ WorkspacePage ~ data:', data);
+	const data = null;
 	return (
 		<SimpleGrid columns={12} gap={4} height={'full'} width={'full'} overflow={'hidden'} paddingBottom={4}>
 			<GridItem colSpan={3} height={'full'} overflow={'hidden'}>
 				<VStack height={'full'} width={'full'}>
-					<ResumeUpload activeDocumentPath={data ? data.resumePath : null} overflow={'auto'} />
+					<ResumeUpload activeDocumentPath={data} overflow={'auto'} />
 					<JobDescription flex={1} overflow={'auto'} />
 				</VStack>
 			</GridItem>
@@ -22,7 +19,7 @@ const WorkspacePage: FC<PageProps<'/workspace'>> = async () => {
 				<ChatWidget />
 			</GridItem>
 			<GridItem colSpan={5} height={'full'} overflow={'hidden'}>
-				<ResumePreview activeDocumentPath={data ? data.resumePath : null} width={'full'} height={'full'} />
+				<ResumePreview activeDocumentPath={data} width={'full'} height={'full'} />
 			</GridItem>
 		</SimpleGrid>
 	);
