@@ -9,7 +9,8 @@ import { useMutation } from '@tanstack/react-query';
 import { rewriteDocumentMutation } from '@/lib/api/@tanstack/react-query.gen';
 import { useChatStore } from '@/lib/store/chat.store';
 import { useDocumentStore } from '@/lib/store/document.store';
-import { RewriteDocumentResponse } from '@/lib/api/types.gen';
+import { DocumentDataOutput } from '@/lib/api/types.gen';
+import { toaster } from '../ui/toaster';
 
 interface ChatInputProps extends StackProps {
 	[x: string]: unknown;
@@ -18,7 +19,7 @@ interface ChatInputProps extends StackProps {
 export const ChatInput: FC<ChatInputProps> = ({ ...props }) => {
 	const { form } = useWorkspaceForm();
 	const { addMessage, setSubmitting, isSubmitting } = useChatStore();
-	const { setResume } = useDocumentStore();
+	const { parsedData, setResumeData } = useDocumentStore();
 	const successMessage = 'Resume has been updated successfully! The changes have been applied to your resume.';
 	const errorMessage = 'An error occurred while rewriting the document';
 	const { mutate: rewriteDocument } = useMutation({
@@ -27,9 +28,9 @@ export const ChatInput: FC<ChatInputProps> = ({ ...props }) => {
 		onError: (error) => onError(error as Error),
 	});
 
-	function onSuccess({ summary, ...data }: RewriteDocumentResponse) {
+	function onSuccess({ summary, data }: DocumentDataOutput) {
 		setSubmitting(false);
-		setResume(data);
+		setResumeData(data);
 		addMessage({ role: 'assistant', content: summary ?? successMessage });
 	}
 
@@ -38,11 +39,12 @@ export const ChatInput: FC<ChatInputProps> = ({ ...props }) => {
 		addMessage({ role: 'assistant', content: error instanceof Error ? error.message : errorMessage });
 	}
 
-	async function onSubmit(data: WorkspaceSchema) {
-		addMessage({ role: 'user', content: data.input });
+	async function onSubmit({ input, jobDescription }: WorkspaceSchema) {
+		if (!parsedData) return toaster.error({ title: 'No resume found', description: 'Please upload a resume to continue', closable: true });
+		addMessage({ role: 'user', content: input });
 		setSubmitting(true);
 		form?.reset({ ...form.getValues(), input: '' });
-		rewriteDocument({ body: data });
+		rewriteDocument({ body: { inputMessage: input, jobRequirement: jobDescription, resumeContent: parsedData } });
 	}
 
 	if (!form) return null;

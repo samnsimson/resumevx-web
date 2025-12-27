@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { Box, For, HStack, List, StackProps, Text, VStack } from '@chakra-ui/react';
 import { ResumeSectionHeading } from './component/heading';
-import { RewriteDocumentResponse } from '@/lib/api';
+import { DocumentData } from '@/lib/api';
 
 interface ExperienceProps extends StackProps {
-	resume: Omit<RewriteDocumentResponse, 'summary'>;
+	resume: DocumentData;
 }
 
 export const Experience: FC<ExperienceProps> = ({ resume, ...props }) => {
@@ -23,8 +23,8 @@ export const Experience: FC<ExperienceProps> = ({ resume, ...props }) => {
 									<Text fontSize={'sm'}>{experience.company}</Text>
 								</Box>
 								<Box>
-									<Text fontSize={'xs'}>From: {experience.start_date}</Text>
-									<Text fontSize={'xs'}>To: {experience.end_date}</Text>
+									<Text fontSize={'xs'}>From: {experience.startDate}</Text>
+									<Text fontSize={'xs'}>To: {experience.endDate}</Text>
 								</Box>
 							</HStack>
 							<Box paddingLeft={4}>

@@ -1,7 +1,8 @@
 'use client';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import { UploadDocumentResult, RewriteDocumentResponse } from '@/lib/api/types.gen';
+import { UploadDocumentResult, DocumentData } from '@/lib/api/types.gen';
+import { createEncryptedStorage } from './utils';
 
 interface FileData extends UploadDocumentResult {
 	file: File | null;
@@ -10,13 +11,13 @@ interface FileData extends UploadDocumentResult {
 export interface PdfStore {
 	fileData: FileData | null;
 	isLoading: boolean;
-	resumeData: Omit<RewriteDocumentResponse, 'summary'> | null;
+	resumeData: DocumentData | null;
 	loadingState: 'uploading' | 'parsing' | 'none';
 	parsedData: string | null;
 	setFileData: (fileData: FileData) => void;
 	setIsLoading: (isLoading: boolean) => void;
 	setLoadingState: (loadingState: 'uploading' | 'parsing' | 'none') => void;
-	setResumeData: (resumeData: Omit<RewriteDocumentResponse, 'summary'>) => void;
+	setResumeData: (resumeData: DocumentData) => void;
 	setParsedData: (parsedData: string) => void;
 	clearFileData: () => void;
 	clearResumeData: () => void;
@@ -33,14 +34,14 @@ export const useDocumentStore = create<PdfStore>()(
 			setFileData: (fileData: FileData) => set({ fileData }),
 			setIsLoading: (isLoading: boolean) => set({ isLoading }),
 			setLoadingState: (loadingState: 'uploading' | 'parsing' | 'none') => set({ loadingState }),
-			setResumeData: (resumeData) => set({ resumeData }),
+			setResumeData: (resumeData: DocumentData) => set({ resumeData }),
 			setParsedData: (parsedData: string) => set({ parsedData }),
 			clearFileData: () => set({ fileData: null }),
 			clearResumeData: () => set({ resumeData: null }),
 		}),
 		{
 			name: 'resumevx-document-store',
-			storage: createJSONStorage(() => sessionStorage),
+			storage: createJSONStorage(() => createEncryptedStorage()),
 		},
 	),
 );

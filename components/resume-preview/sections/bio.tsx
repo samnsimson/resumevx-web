@@ -1,10 +1,10 @@
-import { RewriteDocumentResponse } from '@/lib/api';
+import { DocumentData } from '@/lib/api';
 import { Heading, HStack, StackProps, Text, VStack } from '@chakra-ui/react';
 import Link from 'next/link';
 import { FC } from 'react';
 
 interface BioProps extends StackProps {
-	resume: Omit<RewriteDocumentResponse, 'summary'>;
+	resume: DocumentData;
 }
 
 export const Bio: FC<BioProps> = ({ resume, ...props }) => {

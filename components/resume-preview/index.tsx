@@ -9,13 +9,14 @@ import { Bio } from './sections/bio';
 import { Summary } from './sections/summary';
 import { Skills } from './sections/skills';
 import { Experience } from './sections/experience';
+import { Education } from './sections/education';
 
 interface ResumePreviewProps extends StackProps {
 	activeDocumentPath: string | null;
 }
 
 export const ResumePreview: FC<ResumePreviewProps> = ({ ...props }) => {
-	const { resume } = useDocumentStore((state) => state);
+	const { resumeData } = useDocumentStore((state) => state);
 	return (
 		<VStack height={'full'} width={'full'} overflow={'hidden'} {...props}>
 			<SectionTitle title="Preview" description="Preview of your result" icon={LuZap} />
@@ -30,16 +31,17 @@ export const ResumePreview: FC<ResumePreviewProps> = ({ ...props }) => {
 				borderColor={'border.emphasized'}
 				padding={3}
 			>
-				<Show when={!resume}>
+				<Show when={!resumeData}>
 					<NoDataPlaceholder />
 				</Show>
-				<Show when={resume}>
+				<Show when={resumeData}>
 					{(resume) => (
 						<VStack width={'full'} height={'full'} overflow={'scroll'} gap={4}>
 							<Bio resume={resume} />
 							<Summary resume={resume} />
 							<Skills resume={resume} />
 							<Experience resume={resume} />
+							<Education resume={resume} />
 						</VStack>
 					)}
 				</Show>

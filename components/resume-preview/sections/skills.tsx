@@ -1,10 +1,10 @@
-import { RewriteDocumentResponse } from '@/lib/api';
+import { DocumentData } from '@/lib/api';
 import { For, HStack, StackProps, Tag, VStack } from '@chakra-ui/react';
 import { FC } from 'react';
 import { ResumeSectionHeading } from './component/heading';
 
 interface SkillsProps extends StackProps {
-	resume: Omit<RewriteDocumentResponse, 'summary'>;
+	resume: DocumentData;
 }
 
 export const Skills: FC<SkillsProps> = ({ resume, ...props }) => {
