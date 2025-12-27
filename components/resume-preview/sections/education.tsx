@@ -14,8 +14,8 @@ export const Education: FC<EducationProps> = ({ resume, ...props }) => {
 			<VStack align={'start'} width={'full'} gap={3}>
 				<For each={resume.education}>
 					{(education, index) => (
-						<HStack justify={'space-between'} width={'full'}>
-							<VStack key={index} align={'start'} gap={0}>
+						<HStack key={index} justify={'space-between'} width={'full'}>
+							<VStack align={'start'} gap={0}>
 								<Text fontSize={'sm'} fontWeight={'bold'}>
 									{education.institution}
 								</Text>

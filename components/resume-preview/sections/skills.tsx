@@ -1,5 +1,5 @@
 import { DocumentData } from '@/lib/api';
-import { For, HStack, StackProps, Tag, VStack } from '@chakra-ui/react';
+import { StackProps, Text, VStack } from '@chakra-ui/react';
 import { FC } from 'react';
 import { ResumeSectionHeading } from './component/heading';
 
@@ -11,7 +11,10 @@ export const Skills: FC<SkillsProps> = ({ resume, ...props }) => {
 	return (
 		<VStack align={'start'} width={'full'} {...props}>
 			<ResumeSectionHeading>Professional Skills</ResumeSectionHeading>
-			<HStack flexWrap={'wrap'} gap={2}>
+			<Text fontSize={'xs'} textAlign={'justify'}>
+				{resume.skills.join(' - ')}
+			</Text>
+			{/* <HStack flexWrap={'wrap'} gap={2}>
 				<For each={resume.skills}>
 					{(skill, index) => (
 						<Tag.Root colorPalette={'green'} variant={'surface'} key={index}>
@@ -19,7 +22,7 @@ export const Skills: FC<SkillsProps> = ({ resume, ...props }) => {
 						</Tag.Root>
 					)}
 				</For>
-			</HStack>
+			</HStack> */}
 		</VStack>
 	);
 };

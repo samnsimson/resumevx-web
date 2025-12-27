@@ -15,7 +15,7 @@ export const UploadList = () => {
 			w="full"
 			boxSize={'full'}
 			rounded={'lg'}
-			key={fileData.filename}
+			key={fileData.file?.name}
 			border={'1px solid'}
 			borderColor={'green.500'}
 			backgroundColor={'green.subtle'}
@@ -25,7 +25,7 @@ export const UploadList = () => {
 				<HStack align={'center'}>
 					<LuFile color="green" />
 					<Text color={'green.fg'} fontWeight={'semibold'}>
-						{fileData.filename}
+						{fileData.file?.name}
 					</Text>
 				</HStack>
 				<IconButton size="sm" colorPalette="green" variant="ghost" rounded="full" onClick={clearFileData}>
