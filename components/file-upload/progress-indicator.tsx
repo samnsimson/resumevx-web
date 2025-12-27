@@ -7,6 +7,7 @@ export const ProgressIndicator = () => {
 
 	const loadingStatusText = {
 		uploading: 'Uploading your file...',
+		extracting: 'Extracting information...',
 		parsing: 'Parsing your file...',
 		none: 'Loading...',
 	};

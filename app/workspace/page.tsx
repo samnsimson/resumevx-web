@@ -1,6 +1,6 @@
 import { ChatWidget } from '@/components/chat-widget';
-import { ResumeUpload } from '@/components/ui/file-upload';
-import { JobDescription } from '@/components/ui/job-description';
+import { ResumeUpload } from '@/components/file-upload';
+import { JobDescription } from '@/components/job-description';
 import { ResumePreview } from '@/components/resume-preview';
 import { SimpleGrid, GridItem, VStack } from '@chakra-ui/react';
 import { FC } from 'react';

@@ -2,7 +2,7 @@
 import { FC } from 'react';
 import { Field, Stack, StackProps, Textarea, VStack } from '@chakra-ui/react';
 import { LuBriefcase } from 'react-icons/lu';
-import { SectionTitle } from '../section-title';
+import { SectionTitle } from '@/components/ui/section-title';
 import { useWorkspaceForm } from '@/lib/hooks/useWorkspaceForm';
 import { Controller } from 'react-hook-form';
 

@@ -98,14 +98,29 @@ export class DocumentApi {
      * Parse Document
      */
     public static parseDocument<ThrowOnError extends boolean = false>(options: Options<ParseDocumentData, ThrowOnError>) {
-        return (options.client ?? client).post<ParseDocumentResponses, ParseDocumentErrors, ThrowOnError>({ url: '/document/parse', ...options });
+        return (options.client ?? client).post<ParseDocumentResponses, ParseDocumentErrors, ThrowOnError>({
+            ...formDataBodySerializer,
+            url: '/document/parse',
+            ...options,
+            headers: {
+                'Content-Type': null,
+                ...options.headers
+            }
+        });
     }
     
     /**
      * Extract Document
      */
     public static extractDocument<ThrowOnError extends boolean = false>(options: Options<ExtractDocumentData, ThrowOnError>) {
-        return (options.client ?? client).post<ExtractDocumentResponses, ExtractDocumentErrors, ThrowOnError>({ url: '/document/extract', ...options });
+        return (options.client ?? client).post<ExtractDocumentResponses, ExtractDocumentErrors, ThrowOnError>({
+            url: '/document/extract',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
     }
     
     /**

@@ -41,6 +41,16 @@ export type Basics = {
 };
 
 /**
+ * Body_parseDocument
+ */
+export type BodyParseDocument = {
+    /**
+     * File
+     */
+    file: Blob | File;
+};
+
+/**
  * Body_uploadDocument
  */
 export type BodyUploadDocument = {
@@ -158,6 +168,18 @@ export type Experience = {
      * List of achievement statements or responsibilities for this role
      */
     bullets: Array<string>;
+};
+
+/**
+ * ExtractDocumentRequest
+ */
+export type ExtractDocumentRequest = {
+    /**
+     * Filecontent
+     *
+     * File content in text format
+     */
+    fileContent: string;
 };
 
 /**
@@ -550,14 +572,9 @@ export type UploadDocumentResponses = {
 export type UploadDocumentResponse = UploadDocumentResponses[keyof UploadDocumentResponses];
 
 export type ParseDocumentData = {
-    body?: never;
+    body: BodyParseDocument;
     path?: never;
-    query: {
-        /**
-         * File Key
-         */
-        file_key: string;
-    };
+    query?: never;
     url: '/document/parse';
 };
 
@@ -582,14 +599,9 @@ export type ParseDocumentResponses = {
 export type ParseDocumentResponse = ParseDocumentResponses[keyof ParseDocumentResponses];
 
 export type ExtractDocumentData = {
-    body?: never;
+    body: ExtractDocumentRequest;
     path?: never;
-    query: {
-        /**
-         * File Key
-         */
-        file_key: string;
-    };
+    query?: never;
     url: '/document/extract';
 };
 
