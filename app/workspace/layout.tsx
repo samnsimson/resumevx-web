@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Header } from '@/components/ui/header';
 import { GridItem, HStack, SimpleGrid, Stack } from '@chakra-ui/react';
 import { WorkspaceFormProvider } from '@/lib/hooks/useWorkspaceForm';
+import { WorkSpaceSidebar } from '@/components/workspace-sidebar';
 
 const WorkspaceLayout: FC<LayoutProps<'/workspace'>> = async ({ children }) => {
 	return (
@@ -9,8 +10,10 @@ const WorkspaceLayout: FC<LayoutProps<'/workspace'>> = async ({ children }) => {
 			<Header />
 			<HStack flex={1} width={'full'} overflow={'hidden'}>
 				<SimpleGrid columns={24} gap={0} divideX={'1px'} divideColor={'divider'} height={'full'} width={'full'}>
-					<GridItem colSpan={1} height={'full'} overflow={'hidden'}></GridItem>
-					<GridItem colSpan={23} paddingX={4} height={'full'} overflow={'hidden'}>
+					<GridItem colSpan={1} height={'full'} overflow={'hidden'}>
+						<WorkSpaceSidebar />
+					</GridItem>
+					<GridItem colSpan={23} paddingX={4} height={'full'} overflow={'scroll'}>
 						<WorkspaceFormProvider>{children}</WorkspaceFormProvider>
 					</GridItem>
 				</SimpleGrid>

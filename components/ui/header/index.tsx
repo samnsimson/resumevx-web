@@ -3,6 +3,7 @@ import { Box, Heading, HStack, IconButton, Spacer, StackProps } from '@chakra-ui
 import { LogoutButton } from '../logout-button';
 import { ColorModeButton } from '../color-mode-button';
 import { LuUser } from 'react-icons/lu';
+import Link from 'next/link';
 
 interface HeaderProps extends StackProps {
 	[x: string]: unknown;
@@ -20,8 +21,10 @@ export const Header: FC<HeaderProps> = ({ ...props }) => {
 					<ColorModeButton height={'full'} rounded={'none'} variant={'ghost'} size={'md'} boxSize={'72px'} />
 				</Box>
 				<Box height={'full'}>
-					<IconButton height={'full'} rounded={'none'} variant={'ghost'} size={'md'} boxSize={'72px'}>
-						<LuUser />
+					<IconButton height={'full'} rounded={'none'} variant={'ghost'} size={'md'} boxSize={'72px'} asChild>
+						<Link href={'/workspace/profile'}>
+							<LuUser />
+						</Link>
 					</IconButton>
 				</Box>
 				<Box height={'full'}>

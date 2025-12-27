@@ -2,7 +2,7 @@
 
 import { type Client, formDataBodySerializer, type Options as Options2, type TDataShape } from './client';
 import { client } from './client.gen';
-import type { ExtractDocumentData, ExtractDocumentErrors, ExtractDocumentResponses, GetCurrentUserData, GetCurrentUserResponses, GetSessionData, GetSessionResponses, GetUserData, GetUserErrors, GetUserResponses, ParseDocumentData, ParseDocumentErrors, ParseDocumentResponses, RewriteDocumentData, RewriteDocumentErrors, RewriteDocumentResponses, SignInData, SignInErrors, SignInResponses, SignOutData, SignOutResponses, SignUpData, SignUpErrors, SignUpResponses, UploadDocumentData, UploadDocumentErrors, UploadDocumentResponses } from './types.gen';
+import type { CancelSubscriptionData, CancelSubscriptionErrors, CancelSubscriptionResponses, CreateCheckoutSessionData, CreateCheckoutSessionErrors, CreateCheckoutSessionResponses, CreatePortalSessionData, CreatePortalSessionErrors, CreatePortalSessionResponses, ExtractDocumentData, ExtractDocumentErrors, ExtractDocumentResponses, GetCurrentUserData, GetCurrentUserResponses, GetSessionData, GetSessionResponses, GetSubscriptionData, GetSubscriptionResponses, GetUserData, GetUserErrors, GetUserResponses, ParseDocumentData, ParseDocumentErrors, ParseDocumentResponses, RewriteDocumentData, RewriteDocumentErrors, RewriteDocumentResponses, SignInData, SignInErrors, SignInResponses, SignOutData, SignOutResponses, SignUpData, SignUpErrors, SignUpResponses, StripeWebhookData, StripeWebhookResponses, UpdateSubscriptionData, UpdateSubscriptionErrors, UpdateSubscriptionResponses, UploadDocumentData, UploadDocumentErrors, UploadDocumentResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -135,5 +135,77 @@ export class DocumentApi {
                 ...options.headers
             }
         });
+    }
+}
+
+export class PaymentsApi {
+    /**
+     * Create Checkout Session
+     */
+    public static createCheckoutSession<ThrowOnError extends boolean = false>(options: Options<CreateCheckoutSessionData, ThrowOnError>) {
+        return (options.client ?? client).post<CreateCheckoutSessionResponses, CreateCheckoutSessionErrors, ThrowOnError>({
+            url: '/payments/checkout',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+    
+    /**
+     * Create Portal Session
+     */
+    public static createPortalSession<ThrowOnError extends boolean = false>(options: Options<CreatePortalSessionData, ThrowOnError>) {
+        return (options.client ?? client).post<CreatePortalSessionResponses, CreatePortalSessionErrors, ThrowOnError>({
+            url: '/payments/portal',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+    
+    /**
+     * Get Subscription
+     */
+    public static getSubscription<ThrowOnError extends boolean = false>(options?: Options<GetSubscriptionData, ThrowOnError>) {
+        return (options?.client ?? client).get<GetSubscriptionResponses, unknown, ThrowOnError>({ url: '/payments/subscription', ...options });
+    }
+    
+    /**
+     * Update Subscription
+     */
+    public static updateSubscription<ThrowOnError extends boolean = false>(options: Options<UpdateSubscriptionData, ThrowOnError>) {
+        return (options.client ?? client).put<UpdateSubscriptionResponses, UpdateSubscriptionErrors, ThrowOnError>({
+            url: '/payments/subscription',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+    
+    /**
+     * Cancel Subscription
+     */
+    public static cancelSubscription<ThrowOnError extends boolean = false>(options: Options<CancelSubscriptionData, ThrowOnError>) {
+        return (options.client ?? client).post<CancelSubscriptionResponses, CancelSubscriptionErrors, ThrowOnError>({
+            url: '/payments/subscription/cancel',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+    
+    /**
+     * Stripe Webhook
+     */
+    public static stripeWebhook<ThrowOnError extends boolean = false>(options?: Options<StripeWebhookData, ThrowOnError>) {
+        return (options?.client ?? client).post<StripeWebhookResponses, unknown, ThrowOnError>({ url: '/payments/webhook', ...options });
     }
 }

@@ -6,3 +6,7 @@
 .document-class .react-pdf__message.react-pdf__message--no-data {
 	height: 100%;
 }
+
+.chakra-hover-card__arrowTip {
+	background: #3b82f6 !important;
+}

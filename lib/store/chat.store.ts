@@ -33,21 +33,14 @@ export const useChatStore = create<ChatStore>()(
 			}),
 			{
 				name: 'chat-store',
-				storage: createJSONStorage(() => localStorage),
+				storage: createJSONStorage(() => sessionStorage),
 				partialize: (state) => ({
 					messages: state.messages.map((msg) => ({ ...msg, timestamp: msg.timestamp.toISOString() })),
 				}),
 				merge: (persistedState, currentState) => {
-					const persisted = persistedState as {
-						messages?: Array<Omit<ChatMessage, 'timestamp'> & { timestamp: string }>;
-					};
-					if (persisted?.messages) {
-						return {
-							...currentState,
-							messages: persisted.messages.map((msg) => ({ ...msg, timestamp: new Date(msg.timestamp) })),
-						};
-					}
-					return currentState;
+					const persisted = persistedState as { messages?: Array<Omit<ChatMessage, 'timestamp'> & { timestamp: string }> };
+					if (!persisted?.messages) return currentState;
+					return { ...currentState, messages: persisted.messages.map((msg) => ({ ...msg, timestamp: new Date(msg.timestamp) })) };
 				},
 			},
 		),

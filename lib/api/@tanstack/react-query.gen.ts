@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { AuthApi, DocumentApi, type Options, UserApi } from '../sdk.gen';
-import type { ExtractDocumentData, ExtractDocumentError, ExtractDocumentResponse, GetCurrentUserData, GetCurrentUserResponse, GetSessionData, GetSessionResponse, GetUserData, GetUserError, GetUserResponse, ParseDocumentData, ParseDocumentError, ParseDocumentResponse, RewriteDocumentData, RewriteDocumentError, RewriteDocumentResponse, SignInData, SignInError, SignInResponse, SignOutData, SignUpData, SignUpError, SignUpResponse, UploadDocumentData, UploadDocumentError, UploadDocumentResponse } from '../types.gen';
+import { AuthApi, DocumentApi, type Options, PaymentsApi, UserApi } from '../sdk.gen';
+import type { CancelSubscriptionData, CancelSubscriptionError, CancelSubscriptionResponse, CreateCheckoutSessionData, CreateCheckoutSessionError, CreateCheckoutSessionResponse2, CreatePortalSessionData, CreatePortalSessionError, CreatePortalSessionResponse2, ExtractDocumentData, ExtractDocumentError, ExtractDocumentResponse, GetCurrentUserData, GetCurrentUserResponse, GetSessionData, GetSessionResponse, GetSubscriptionData, GetSubscriptionResponse, GetUserData, GetUserError, GetUserResponse, ParseDocumentData, ParseDocumentError, ParseDocumentResponse, RewriteDocumentData, RewriteDocumentError, RewriteDocumentResponse, SignInData, SignInError, SignInResponse, SignOutData, SignUpData, SignUpError, SignUpResponse, StripeWebhookData, UpdateSubscriptionData, UpdateSubscriptionError, UpdateSubscriptionResponse, UploadDocumentData, UploadDocumentError, UploadDocumentResponse } from '../types.gen';
 
 /**
  * Login
@@ -203,6 +203,109 @@ export const rewriteDocumentMutation = (options?: Partial<Options<RewriteDocumen
     const mutationOptions: UseMutationOptions<RewriteDocumentResponse, RewriteDocumentError, Options<RewriteDocumentData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await DocumentApi.rewriteDocument({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Create Checkout Session
+ */
+export const createCheckoutSessionMutation = (options?: Partial<Options<CreateCheckoutSessionData>>): UseMutationOptions<CreateCheckoutSessionResponse2, CreateCheckoutSessionError, Options<CreateCheckoutSessionData>> => {
+    const mutationOptions: UseMutationOptions<CreateCheckoutSessionResponse2, CreateCheckoutSessionError, Options<CreateCheckoutSessionData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await PaymentsApi.createCheckoutSession({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Create Portal Session
+ */
+export const createPortalSessionMutation = (options?: Partial<Options<CreatePortalSessionData>>): UseMutationOptions<CreatePortalSessionResponse2, CreatePortalSessionError, Options<CreatePortalSessionData>> => {
+    const mutationOptions: UseMutationOptions<CreatePortalSessionResponse2, CreatePortalSessionError, Options<CreatePortalSessionData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await PaymentsApi.createPortalSession({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const getSubscriptionQueryKey = (options?: Options<GetSubscriptionData>) => createQueryKey('getSubscription', options);
+
+/**
+ * Get Subscription
+ */
+export const getSubscriptionOptions = (options?: Options<GetSubscriptionData>) => queryOptions<GetSubscriptionResponse, DefaultError, GetSubscriptionResponse, ReturnType<typeof getSubscriptionQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await PaymentsApi.getSubscription({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getSubscriptionQueryKey(options)
+});
+
+/**
+ * Update Subscription
+ */
+export const updateSubscriptionMutation = (options?: Partial<Options<UpdateSubscriptionData>>): UseMutationOptions<UpdateSubscriptionResponse, UpdateSubscriptionError, Options<UpdateSubscriptionData>> => {
+    const mutationOptions: UseMutationOptions<UpdateSubscriptionResponse, UpdateSubscriptionError, Options<UpdateSubscriptionData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await PaymentsApi.updateSubscription({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Cancel Subscription
+ */
+export const cancelSubscriptionMutation = (options?: Partial<Options<CancelSubscriptionData>>): UseMutationOptions<CancelSubscriptionResponse, CancelSubscriptionError, Options<CancelSubscriptionData>> => {
+    const mutationOptions: UseMutationOptions<CancelSubscriptionResponse, CancelSubscriptionError, Options<CancelSubscriptionData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await PaymentsApi.cancelSubscription({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Stripe Webhook
+ */
+export const stripeWebhookMutation = (options?: Partial<Options<StripeWebhookData>>): UseMutationOptions<unknown, DefaultError, Options<StripeWebhookData>> => {
+    const mutationOptions: UseMutationOptions<unknown, DefaultError, Options<StripeWebhookData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await PaymentsApi.stripeWebhook({
                 ...options,
                 ...fnOptions,
                 throwOnError: true

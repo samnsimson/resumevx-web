@@ -61,6 +61,78 @@ export type BodyUploadDocument = {
 };
 
 /**
+ * CancelSubscriptionRequest
+ */
+export type CancelSubscriptionRequest = {
+    /**
+     * Cancelimmediately
+     *
+     * Whether to cancel immediately or at period end
+     */
+    cancelImmediately?: boolean;
+};
+
+/**
+ * CreateCheckoutSessionRequest
+ */
+export type CreateCheckoutSessionRequest = {
+    /**
+     * Priceid
+     *
+     * Stripe price ID for the subscription
+     */
+    priceId: string;
+    /**
+     * Successurl
+     *
+     * URL to redirect after successful payment
+     */
+    successUrl: string;
+    /**
+     * Cancelurl
+     *
+     * URL to redirect after canceled payment
+     */
+    cancelUrl: string;
+};
+
+/**
+ * CreateCheckoutSessionResponse
+ */
+export type CreateCheckoutSessionResponse = {
+    /**
+     * Url
+     *
+     * Checkout session URL
+     */
+    url: string;
+};
+
+/**
+ * CreatePortalSessionRequest
+ */
+export type CreatePortalSessionRequest = {
+    /**
+     * Returnurl
+     *
+     * URL to return to after managing subscription
+     */
+    returnUrl: string;
+};
+
+/**
+ * CreatePortalSessionResponse
+ */
+export type CreatePortalSessionResponse = {
+    /**
+     * Url
+     *
+     * Billing portal session URL
+     */
+    url: string;
+};
+
+/**
  * DocumentData
  */
 export type DocumentData = {
@@ -225,6 +297,11 @@ export type LoginResponseDto = {
 };
 
 /**
+ * Plan
+ */
+export type Plan = 'free' | 'basic' | 'premium' | 'enterprise';
+
+/**
  * RewriteDocumentRequest
  */
 export type RewriteDocumentRequest = {
@@ -309,6 +386,94 @@ export type SignupDto = {
 };
 
 /**
+ * SubscriptionResponse
+ */
+export type SubscriptionResponse = {
+    /**
+     * Id
+     *
+     * Subscription ID
+     */
+    id: string;
+    /**
+     * Userid
+     *
+     * User ID
+     */
+    userId: string;
+    /**
+     * Subscription plan
+     */
+    plan: Plan;
+    /**
+     * Stripesubscriptionid
+     *
+     * Stripe subscription ID
+     */
+    stripeSubscriptionId?: string | null;
+    /**
+     * Stripepriceid
+     *
+     * Stripe price ID
+     */
+    stripePriceId?: string | null;
+    /**
+     * Status
+     *
+     * Subscription status
+     */
+    status: string;
+    /**
+     * Currentperiodstart
+     *
+     * Current period start date
+     */
+    currentPeriodStart?: string | null;
+    /**
+     * Currentperiodend
+     *
+     * Current period end date
+     */
+    currentPeriodEnd?: string | null;
+    /**
+     * Cancelatperiodend
+     *
+     * Whether subscription will cancel at period end
+     */
+    cancelAtPeriodEnd: boolean;
+    /**
+     * Canceledat
+     *
+     * Cancellation date
+     */
+    canceledAt?: string | null;
+    /**
+     * Createdat
+     *
+     * Creation date
+     */
+    createdAt: string;
+    /**
+     * Updatedat
+     *
+     * Last update date
+     */
+    updatedAt: string;
+};
+
+/**
+ * UpdateSubscriptionRequest
+ */
+export type UpdateSubscriptionRequest = {
+    /**
+     * Priceid
+     *
+     * Stripe price ID for the new subscription plan
+     */
+    priceId: string;
+};
+
+/**
  * UploadDocumentResult
  */
 export type UploadDocumentResult = {
@@ -382,10 +547,6 @@ export type User = {
      * Emailverified
      */
     emailVerified?: boolean;
-    /**
-     * Stripecustomerid
-     */
-    stripeCustomerId?: string | null;
 };
 
 /**
@@ -647,3 +808,135 @@ export type RewriteDocumentResponses = {
 };
 
 export type RewriteDocumentResponse = RewriteDocumentResponses[keyof RewriteDocumentResponses];
+
+export type CreateCheckoutSessionData = {
+    body: CreateCheckoutSessionRequest;
+    path?: never;
+    query?: never;
+    url: '/payments/checkout';
+};
+
+export type CreateCheckoutSessionErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CreateCheckoutSessionError = CreateCheckoutSessionErrors[keyof CreateCheckoutSessionErrors];
+
+export type CreateCheckoutSessionResponses = {
+    /**
+     * Successful Response
+     */
+    200: CreateCheckoutSessionResponse;
+};
+
+export type CreateCheckoutSessionResponse2 = CreateCheckoutSessionResponses[keyof CreateCheckoutSessionResponses];
+
+export type CreatePortalSessionData = {
+    body: CreatePortalSessionRequest;
+    path?: never;
+    query?: never;
+    url: '/payments/portal';
+};
+
+export type CreatePortalSessionErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CreatePortalSessionError = CreatePortalSessionErrors[keyof CreatePortalSessionErrors];
+
+export type CreatePortalSessionResponses = {
+    /**
+     * Successful Response
+     */
+    200: CreatePortalSessionResponse;
+};
+
+export type CreatePortalSessionResponse2 = CreatePortalSessionResponses[keyof CreatePortalSessionResponses];
+
+export type GetSubscriptionData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/payments/subscription';
+};
+
+export type GetSubscriptionResponses = {
+    /**
+     * Response Getsubscription
+     *
+     * Successful Response
+     */
+    200: SubscriptionResponse | null;
+};
+
+export type GetSubscriptionResponse = GetSubscriptionResponses[keyof GetSubscriptionResponses];
+
+export type UpdateSubscriptionData = {
+    body: UpdateSubscriptionRequest;
+    path?: never;
+    query?: never;
+    url: '/payments/subscription';
+};
+
+export type UpdateSubscriptionErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type UpdateSubscriptionError = UpdateSubscriptionErrors[keyof UpdateSubscriptionErrors];
+
+export type UpdateSubscriptionResponses = {
+    /**
+     * Successful Response
+     */
+    200: SubscriptionResponse;
+};
+
+export type UpdateSubscriptionResponse = UpdateSubscriptionResponses[keyof UpdateSubscriptionResponses];
+
+export type CancelSubscriptionData = {
+    body: CancelSubscriptionRequest;
+    path?: never;
+    query?: never;
+    url: '/payments/subscription/cancel';
+};
+
+export type CancelSubscriptionErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CancelSubscriptionError = CancelSubscriptionErrors[keyof CancelSubscriptionErrors];
+
+export type CancelSubscriptionResponses = {
+    /**
+     * Successful Response
+     */
+    200: SubscriptionResponse;
+};
+
+export type CancelSubscriptionResponse = CancelSubscriptionResponses[keyof CancelSubscriptionResponses];
+
+export type StripeWebhookData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/payments/webhook';
+};
+
+export type StripeWebhookResponses = {
+    /**
+     * Successful Response
+     */
+    200: unknown;
+};
