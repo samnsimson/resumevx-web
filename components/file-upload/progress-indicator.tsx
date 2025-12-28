@@ -15,8 +15,8 @@ export const ProgressIndicator = () => {
 	return (
 		<Progress.Root width={'full'} value={null}>
 			<Progress.Label mb="2">{loadingStatusText[loadingState]}</Progress.Label>
-			<Progress.Track>
-				<Progress.Range />
+			<Progress.Track height={'3px'}>
+				<Progress.Range bg={'green.500'} />
 			</Progress.Track>
 		</Progress.Root>
 	);

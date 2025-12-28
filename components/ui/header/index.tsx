@@ -11,25 +11,19 @@ interface HeaderProps extends StackProps {
 
 export const Header: FC<HeaderProps> = ({ ...props }) => {
 	return (
-		<HStack minH={'72px'} justify={'space-between'} divideX={'1px'} {...props}>
+		<HStack minH={'72px'} justify={'space-between'} {...props}>
 			<Box paddingX={4}>
 				<Heading fontWeight={'bold'}>Resume vX</Heading>
 			</Box>
 			<Spacer />
-			<HStack height={'full'} divideX={'1px'} gap={0}>
-				<Box height={'full'}>
-					<ColorModeButton height={'full'} rounded={'none'} variant={'ghost'} size={'md'} boxSize={'72px'} />
-				</Box>
-				<Box height={'full'}>
-					<IconButton height={'full'} rounded={'none'} variant={'ghost'} size={'md'} boxSize={'72px'} asChild>
-						<Link href={'/workspace/profile'}>
-							<LuUser />
-						</Link>
-					</IconButton>
-				</Box>
-				<Box height={'full'}>
-					<LogoutButton height={'full'} rounded={'none'} variant={'ghost'} size={'md'} boxSize={'72px'} iconOnly />
-				</Box>
+			<HStack height={'full'} gap={4} paddingX={4}>
+				<ColorModeButton rounded={'full'} colorPalette={'blue'} variant={'ghost'} size={'lg'} />
+				<IconButton rounded={'full'} colorPalette={'blue'} variant={'ghost'} size={'lg'} asChild>
+					<Link href={'/workspace/profile'}>
+						<LuUser />
+					</Link>
+				</IconButton>
+				<LogoutButton rounded={'full'} colorPalette={'blue'} variant={'ghost'} size={'lg'} iconOnly />
 			</HStack>
 		</HStack>
 	);

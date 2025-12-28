@@ -1,5 +1,5 @@
 'use client';
-import { Box, Button, ButtonProps, HoverCard, HoverCardRootProps, Icon, Portal, Text } from '@chakra-ui/react';
+import { Button, ButtonProps, HoverCard, HoverCardRootProps, Icon, IconButton, Portal, Stack, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import { FC } from 'react';
 import { IconType } from 'react-icons';
@@ -13,26 +13,17 @@ interface ToolTipButtonProps extends Omit<ButtonProps, 'position'> {
 }
 
 export const ToolTipButton: FC<ToolTipButtonProps> = ({ icon, href, label, description, position, ...props }) => {
+	const ButtonComponent = label ? Button : IconButton;
 	return (
-		<Box>
+		<Stack width={'full'} alignItems={'center'} justifyContent={'center'}>
 			<HoverCard.Root size={'sm'} positioning={position} openDelay={0} closeDelay={0}>
 				<HoverCard.Trigger asChild>
-					<Button
-						variant={'ghost'}
-						color={'blue.600'}
-						border={0}
-						size={'lg'}
-						boxSize={'78px'}
-						rounded={'none'}
-						asChild
-						_hover={{ colorPalette: 'blue' }}
-						{...props}
-					>
+					<ButtonComponent variant={'ghost'} size={'lg'} colorPalette={'blue'} rounded={'full'} _hover={{ color: 'blue.600' }} asChild {...props}>
 						<Link href={href}>
 							<Icon as={icon} boxSize={'24px'} />
 							{label ?? null}
 						</Link>
-					</Button>
+					</ButtonComponent>
 				</HoverCard.Trigger>
 				<Portal>
 					<HoverCard.Positioner>
@@ -47,6 +38,6 @@ export const ToolTipButton: FC<ToolTipButtonProps> = ({ icon, href, label, descr
 					</HoverCard.Positioner>
 				</Portal>
 			</HoverCard.Root>
-		</Box>
+		</Stack>
 	);
 };

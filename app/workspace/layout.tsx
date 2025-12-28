@@ -6,14 +6,14 @@ import { WorkSpaceSidebar } from '@/components/workspace-sidebar';
 
 const WorkspaceLayout: FC<LayoutProps<'/workspace'>> = async ({ children }) => {
 	return (
-		<Stack height={'100vh'} width={'full'} divideY={'1px'} divideColor={'divider'} gap={0} bg={'bg.panel'}>
-			<Header />
+		<Stack height={'100vh'} width={'full'} gap={0} bg={'bg.panel'}>
+			<Header bg={'bg.panel'} />
 			<HStack flex={1} width={'full'} overflow={'hidden'}>
-				<SimpleGrid columns={24} gap={0} divideX={'1px'} divideColor={'divider'} height={'full'} width={'full'}>
-					<GridItem colSpan={1} height={'full'} overflow={'hidden'}>
+				<SimpleGrid columns={24} gap={0} height={'full'} width={'full'}>
+					<GridItem colSpan={1} height={'full'} overflow={'hidden'} bg={'bg.panel'}>
 						<WorkSpaceSidebar />
 					</GridItem>
-					<GridItem colSpan={23} paddingX={4} height={'full'} overflow={'scroll'}>
+					<GridItem colSpan={23} padding={6} height={'full'} overflow={'scroll'} roundedTopLeft={'4xl'} bgColor={'bg.muted'}>
 						<WorkspaceFormProvider>{children}</WorkspaceFormProvider>
 					</GridItem>
 				</SimpleGrid>

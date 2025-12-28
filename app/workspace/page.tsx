@@ -8,7 +8,7 @@ import { FC } from 'react';
 const WorkspacePage: FC<PageProps<'/workspace'>> = async () => {
 	const data = null;
 	return (
-		<SimpleGrid columns={12} gap={4} height={'full'} width={'full'} overflow={'hidden'} paddingBottom={4}>
+		<SimpleGrid columns={12} gap={4} height={'full'} width={'full'} overflow={'hidden'}>
 			<GridItem colSpan={3} height={'full'} overflow={'hidden'}>
 				<VStack height={'full'} width={'full'}>
 					<ResumeUpload activeDocumentPath={data} overflow={'auto'} />

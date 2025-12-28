@@ -1,10 +1,12 @@
 import { DangerZone } from '@/components/profile/danger-zone';
 import { SubscriptionCard } from '@/components/profile/subscription-card';
+import { AppCardHeadless } from '@/components/ui/app-card';
 import { PaymentsApi, UserApi } from '@/lib/api';
-import { Card, Container, Field, Heading, Input, Text, VStack } from '@chakra-ui/react';
+import { Button, Container, Field, GridItem, Heading, HStack, Input, SimpleGrid, Spacer, Text, VStack } from '@chakra-ui/react';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { FC } from 'react';
+import { LuLock, LuSave } from 'react-icons/lu';
 
 const ProfilePage: FC<PageProps<'/workspace/profile'>> = async () => {
 	const { data } = await UserApi.getCurrentUser({ headers: await headers() });
@@ -19,22 +21,42 @@ const ProfilePage: FC<PageProps<'/workspace/profile'>> = async () => {
 					<Heading size={'2xl'}>Profile</Heading>
 					<Text color={'GrayText'}>Manage your profile information and settings</Text>
 				</VStack>
-				<Card.Root width={'full'} bg={'bg.muted'}>
-					<Card.Body gap={4}>
-						<Field.Root>
-							<Field.Label color={'GrayText'}>Name</Field.Label>
-							<Input variant={'outline'} bg={'bg.panel'} size={'xl'} type="text" value={data.name} readOnly />
-						</Field.Root>
-						<Field.Root>
-							<Field.Label color={'GrayText'}>Username</Field.Label>
-							<Input variant={'outline'} bg={'bg.panel'} size={'xl'} type="text" value={data.username} readOnly />
-						</Field.Root>
+				<SimpleGrid width={'full'} columns={2} gap={4}>
+					<AppCardHeadless gap={4}>
+						<HStack gap={4}>
+							<Field.Root>
+								<Field.Label color={'GrayText'}>Name</Field.Label>
+								<Input variant={'subtle'} size={'xl'} type="text" value={data.name} />
+							</Field.Root>
+							<Field.Root>
+								<Field.Label color={'GrayText'}>Username</Field.Label>
+								<Input variant={'subtle'} size={'xl'} type="text" value={data.username} readOnly disabled />
+							</Field.Root>
+						</HStack>
 						<Field.Root>
 							<Field.Label color={'GrayText'}>Email</Field.Label>
-							<Input variant={'outline'} bg={'bg.panel'} size={'xl'} type="text" value={data.email} readOnly />
+							<Input variant={'subtle'} size={'xl'} type="text" value={data.email} readOnly disabled />
 						</Field.Root>
-					</Card.Body>
-				</Card.Root>
+						<Button variant={'solid'} colorPalette={'blue'} size={'lg'}>
+							<LuSave />
+							Save Profile
+						</Button>
+					</AppCardHeadless>
+					<AppCardHeadless gap={4}>
+						<Field.Root>
+							<Field.Label color={'GrayText'}>Old Password</Field.Label>
+							<Input variant={'subtle'} size={'xl'} type="password" readOnly />
+						</Field.Root>
+						<Field.Root>
+							<Field.Label color={'GrayText'}>New Password</Field.Label>
+							<Input variant={'subtle'} size={'xl'} type="password" readOnly />
+						</Field.Root>
+						<Button variant={'solid'} colorPalette={'blue'} size={'lg'}>
+							<LuLock />
+							Change Password
+						</Button>
+					</AppCardHeadless>
+				</SimpleGrid>
 				<SubscriptionCard subscriptionInfo={subscription} />
 				<DangerZone />
 			</VStack>

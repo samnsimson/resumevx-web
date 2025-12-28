@@ -1,8 +1,9 @@
 'use client';
 import { FC } from 'react';
-import { Card, CardRootProps, Heading, Icon, Text, VStack, HStack, Button, Show, List } from '@chakra-ui/react';
+import { CardRootProps, Heading, Icon, Text, VStack, HStack, Button, Show, List, Stack } from '@chakra-ui/react';
 import { LuCrown } from 'react-icons/lu';
 import { SubscriptionResponse } from '@/lib/api';
+import { AppCard, AppCardHeadless } from '../ui/app-card';
 
 interface SubscriptionCardProps extends CardRootProps {
 	subscriptionInfo?: SubscriptionResponse | null;
@@ -10,15 +11,11 @@ interface SubscriptionCardProps extends CardRootProps {
 
 export const SubscriptionCard: FC<SubscriptionCardProps> = ({ subscriptionInfo, ...props }) => {
 	return (
-		<Card.Root width={'full'} bg={'bg.muted'} {...props}>
-			<Card.Header>
-				<Heading size={'lg'}>Subscription</Heading>
-				<Text color={'GrayText'}>Manage your subscription and billing information</Text>
-			</Card.Header>
-			<Card.Body gap={4}>
+		<AppCard title="Subscription" description="Manage your subscription and billing information" {...props}>
+			<Stack gap={4}>
 				<Show when={subscriptionInfo}>
 					{(subscription) => (
-						<HStack bg={'bg.panel'} rounded={'lg'} padding={4} gap={6} border={'1px solid'} borderColor={'border'}>
+						<HStack bg={'bg.muted'} rounded={'lg'} padding={4} gap={6} border={'1px solid'} borderColor={'border'}>
 							<Icon as={LuCrown} size={'2xl'} color={'yellow.500'} />
 							<VStack align={'start'} flex={1} gap={0}>
 								<Text fontWeight={'bold'} textTransform={'capitalize'}>
@@ -33,20 +30,16 @@ export const SubscriptionCard: FC<SubscriptionCardProps> = ({ subscriptionInfo, 
 						</HStack>
 					)}
 				</Show>
-				<Card.Root>
-					<Card.Header>
-						<Heading>Pro Plan Benefits</Heading>
-					</Card.Header>
-					<Card.Body>
-						<List.Root as={'ul'} paddingLeft={4} gap={4}>
-							<List.Item>Unlimited resumes per month</List.Item>
-							<List.Item>Advanced AI optimization</List.Item>
-							<List.Item>Priority support</List.Item>
-							<List.Item>Early access to new features</List.Item>
-						</List.Root>
-					</Card.Body>
-				</Card.Root>
-			</Card.Body>
-		</Card.Root>
+				<AppCardHeadless bg={'bg.muted'} gap={4}>
+					<Heading size={'sm'}>Pro Plan Benefits</Heading>
+					<List.Root as={'ul'} paddingLeft={4} gap={2}>
+						<List.Item fontSize={'sm'}>Unlimited resumes per month</List.Item>
+						<List.Item fontSize={'sm'}>Advanced AI optimization</List.Item>
+						<List.Item fontSize={'sm'}>Priority support</List.Item>
+						<List.Item fontSize={'sm'}>Early access to new features</List.Item>
+					</List.Root>
+				</AppCardHeadless>
+			</Stack>
+		</AppCard>
 	);
 };

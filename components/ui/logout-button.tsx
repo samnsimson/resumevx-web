@@ -1,6 +1,6 @@
 'use client';
 import { FC, useState } from 'react';
-import { Button, ButtonProps, Show, Spinner } from '@chakra-ui/react';
+import { Button, ButtonProps, IconButton, Show, Spinner } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import { IconType } from 'react-icons';
 import { LuLogOut } from 'react-icons/lu';
@@ -38,10 +38,11 @@ export const LogoutButton: FC<LogoutButtonProps> = ({ label, icon: Icon, iconOnl
 		}
 	};
 
+	const ButtonComponent = iconOnly ? IconButton : Button;
 	return (
-		<Button loading={isLoading} disabled={isLoading} onClick={handleLogout} {...props}>
+		<ButtonComponent loading={isLoading} disabled={isLoading} onClick={handleLogout} {...props}>
 			{isLoading ? <Spinner /> : Icon ? <Icon /> : <LuLogOut />}
 			<Show when={!iconOnly}>{label ?? 'Logout'}</Show>
-		</Button>
+		</ButtonComponent>
 	);
 };

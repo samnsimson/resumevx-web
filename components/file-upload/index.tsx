@@ -1,14 +1,14 @@
 'use client';
 import { FC } from 'react';
-import { Box, FileUpload, FileUploadFileAcceptDetails, StackProps, VStack } from '@chakra-ui/react';
+import { FileUpload, FileUploadFileAcceptDetails, StackProps } from '@chakra-ui/react';
 import { LuUpload } from 'react-icons/lu';
-import { UploadList } from './upload-list';
-import { SectionTitle } from '../ui/section-title';
-import { ResumeDropZone } from './dropzone';
+import { UploadList } from '@/components/file-upload/upload-list';
+import { ResumeDropZone } from '@/components/file-upload/dropzone';
 import { useDocumentStore } from '@/lib/store/document.store';
 import { useMutation } from '@tanstack/react-query';
 import { extractDocumentMutation, parseDocumentMutation } from '@/lib/api/@tanstack/react-query.gen';
-import { toaster } from '../ui/toaster';
+import { toaster } from '@/components/ui/toaster';
+import { AppCard } from '@/components/ui/app-card';
 
 interface ResumeUploadProps extends StackProps {
 	activeDocumentPath: string | null;
@@ -43,15 +43,18 @@ export const ResumeUpload: FC<ResumeUploadProps> = ({ ...props }) => {
 	};
 
 	return (
-		<VStack width={'full'} align={'start'} {...props}>
-			<SectionTitle title="Upload your resume" description=" Upload your resume to be parsed for use" icon={LuUpload} />
-			<Box width={'full'} flex={'1'} minHeight={0} overflow={'auto'}>
-				<FileUpload.Root maxW="xl" alignItems="stretch" maxFiles={1} height={'full'} onFileAccept={handleFileAccept}>
-					<FileUpload.HiddenInput disabled={!!fileData} />
-					<ResumeDropZone />
-					<UploadList />
-				</FileUpload.Root>
-			</Box>
-		</VStack>
+		// <VStack width={'full'} align={'start'} {...props}>
+		// 	<SectionTitle title="Upload your resume" description=" Upload your resume to be parsed for use" icon={LuUpload} />
+		// 	<Box width={'full'} flex={'1'} minHeight={0} overflow={'auto'}>
+
+		// 	</Box>
+		// </VStack>
+		<AppCard title="Upload your resume" description=" Upload your resume to be parsed for use" icon={LuUpload}>
+			<FileUpload.Root maxW="xl" alignItems="stretch" maxFiles={1} height={'full'} onFileAccept={handleFileAccept}>
+				<FileUpload.HiddenInput disabled={!!fileData} />
+				<ResumeDropZone />
+				<UploadList />
+			</FileUpload.Root>
+		</AppCard>
 	);
 };
