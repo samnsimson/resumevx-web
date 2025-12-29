@@ -2,11 +2,11 @@
 import { FC } from 'react';
 import { CardRootProps, Heading, Icon, Text, VStack, HStack, Button, Show, List, Stack } from '@chakra-ui/react';
 import { LuCrown } from 'react-icons/lu';
-import { SubscriptionResponse } from '@/lib/api';
+import { Subscription } from '@/lib/api';
 import { AppCard, AppCardHeadless } from '../ui/app-card';
 
 interface SubscriptionCardProps extends CardRootProps {
-	subscriptionInfo?: SubscriptionResponse | null;
+	subscriptionInfo?: Subscription | null;
 }
 
 export const SubscriptionCard: FC<SubscriptionCardProps> = ({ subscriptionInfo, ...props }) => {

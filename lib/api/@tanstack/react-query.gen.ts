@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { AuthApi, DocumentApi, type Options, PaymentsApi, UserApi } from '../sdk.gen';
-import type { CancelSubscriptionData, CancelSubscriptionError, CancelSubscriptionResponse, CreateCheckoutSessionData, CreateCheckoutSessionError, CreateCheckoutSessionResponse2, CreatePortalSessionData, CreatePortalSessionError, CreatePortalSessionResponse2, ExtractDocumentData, ExtractDocumentError, ExtractDocumentResponse, GetCurrentUserData, GetCurrentUserResponse, GetSessionData, GetSessionResponse, GetSubscriptionData, GetSubscriptionResponse, GetUserData, GetUserError, GetUserResponse, ParseDocumentData, ParseDocumentError, ParseDocumentResponse, RewriteDocumentData, RewriteDocumentError, RewriteDocumentResponse, SignInData, SignInError, SignInResponse, SignOutData, SignUpData, SignUpError, SignUpResponse, StripeWebhookData, UpdateSubscriptionData, UpdateSubscriptionError, UpdateSubscriptionResponse, UploadDocumentData, UploadDocumentError, UploadDocumentResponse } from '../types.gen';
+import { AuthApi, DocumentApi, type Options, SubscriptionsApi, UserApi } from '../sdk.gen';
+import type { CancelSubscriptionData, CancelSubscriptionError, CancelSubscriptionResponse, CreateCheckoutSessionData, CreateCheckoutSessionError, CreateCheckoutSessionResponse, CreatePortalSessionData, CreatePortalSessionError, CreatePortalSessionResponse, DeleteAccountData, DeleteAccountResponse2, ExtractDocumentData, ExtractDocumentError, ExtractDocumentResponse, GetCurrentUserData, GetCurrentUserResponse, GetSessionData, GetSessionResponse, GetSubscriptionData, GetSubscriptionResponse, GetUserData, GetUserError, GetUserResponse, ParseDocumentData, ParseDocumentError, ParseDocumentResponse, RewriteDocumentData, RewriteDocumentError, RewriteDocumentResponse, SignInData, SignInError, SignInResponse, SignOutData, SignUpData, SignUpError, SignUpResponse, StripeWebhookData, UpdateSubscriptionData, UpdateSubscriptionError, UpdateSubscriptionResponse, UploadDocumentData, UploadDocumentError, UploadDocumentResponse } from '../types.gen';
 
 /**
  * Login
@@ -108,6 +108,23 @@ export const getSessionOptions = (options?: Options<GetSessionData>) => queryOpt
     },
     queryKey: getSessionQueryKey(options)
 });
+
+/**
+ * Delete Account
+ */
+export const deleteAccountMutation = (options?: Partial<Options<DeleteAccountData>>): UseMutationOptions<DeleteAccountResponse2, DefaultError, Options<DeleteAccountData>> => {
+    const mutationOptions: UseMutationOptions<DeleteAccountResponse2, DefaultError, Options<DeleteAccountData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await AuthApi.deleteAccount({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
 
 export const getCurrentUserQueryKey = (options?: Options<GetCurrentUserData>) => createQueryKey('getCurrentUser', options);
 
@@ -213,48 +230,14 @@ export const rewriteDocumentMutation = (options?: Partial<Options<RewriteDocumen
     return mutationOptions;
 };
 
-/**
- * Create Checkout Session
- */
-export const createCheckoutSessionMutation = (options?: Partial<Options<CreateCheckoutSessionData>>): UseMutationOptions<CreateCheckoutSessionResponse2, CreateCheckoutSessionError, Options<CreateCheckoutSessionData>> => {
-    const mutationOptions: UseMutationOptions<CreateCheckoutSessionResponse2, CreateCheckoutSessionError, Options<CreateCheckoutSessionData>> = {
-        mutationFn: async (fnOptions) => {
-            const { data } = await PaymentsApi.createCheckoutSession({
-                ...options,
-                ...fnOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-/**
- * Create Portal Session
- */
-export const createPortalSessionMutation = (options?: Partial<Options<CreatePortalSessionData>>): UseMutationOptions<CreatePortalSessionResponse2, CreatePortalSessionError, Options<CreatePortalSessionData>> => {
-    const mutationOptions: UseMutationOptions<CreatePortalSessionResponse2, CreatePortalSessionError, Options<CreatePortalSessionData>> = {
-        mutationFn: async (fnOptions) => {
-            const { data } = await PaymentsApi.createPortalSession({
-                ...options,
-                ...fnOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
 export const getSubscriptionQueryKey = (options?: Options<GetSubscriptionData>) => createQueryKey('getSubscription', options);
 
 /**
- * Get Subscription
+ * Get By User Id
  */
 export const getSubscriptionOptions = (options?: Options<GetSubscriptionData>) => queryOptions<GetSubscriptionResponse, DefaultError, GetSubscriptionResponse, ReturnType<typeof getSubscriptionQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await PaymentsApi.getSubscription({
+        const { data } = await SubscriptionsApi.getSubscription({
             ...options,
             ...queryKey[0],
             signal,
@@ -271,7 +254,7 @@ export const getSubscriptionOptions = (options?: Options<GetSubscriptionData>) =
 export const updateSubscriptionMutation = (options?: Partial<Options<UpdateSubscriptionData>>): UseMutationOptions<UpdateSubscriptionResponse, UpdateSubscriptionError, Options<UpdateSubscriptionData>> => {
     const mutationOptions: UseMutationOptions<UpdateSubscriptionResponse, UpdateSubscriptionError, Options<UpdateSubscriptionData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await PaymentsApi.updateSubscription({
+            const { data } = await SubscriptionsApi.updateSubscription({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -288,7 +271,41 @@ export const updateSubscriptionMutation = (options?: Partial<Options<UpdateSubsc
 export const cancelSubscriptionMutation = (options?: Partial<Options<CancelSubscriptionData>>): UseMutationOptions<CancelSubscriptionResponse, CancelSubscriptionError, Options<CancelSubscriptionData>> => {
     const mutationOptions: UseMutationOptions<CancelSubscriptionResponse, CancelSubscriptionError, Options<CancelSubscriptionData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await PaymentsApi.cancelSubscription({
+            const { data } = await SubscriptionsApi.cancelSubscription({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Create Checkout Session
+ */
+export const createCheckoutSessionMutation = (options?: Partial<Options<CreateCheckoutSessionData>>): UseMutationOptions<CreateCheckoutSessionResponse, CreateCheckoutSessionError, Options<CreateCheckoutSessionData>> => {
+    const mutationOptions: UseMutationOptions<CreateCheckoutSessionResponse, CreateCheckoutSessionError, Options<CreateCheckoutSessionData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await SubscriptionsApi.createCheckoutSession({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Create Portal Session
+ */
+export const createPortalSessionMutation = (options?: Partial<Options<CreatePortalSessionData>>): UseMutationOptions<CreatePortalSessionResponse, CreatePortalSessionError, Options<CreatePortalSessionData>> => {
+    const mutationOptions: UseMutationOptions<CreatePortalSessionResponse, CreatePortalSessionError, Options<CreatePortalSessionData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await SubscriptionsApi.createPortalSession({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -305,7 +322,7 @@ export const cancelSubscriptionMutation = (options?: Partial<Options<CancelSubsc
 export const stripeWebhookMutation = (options?: Partial<Options<StripeWebhookData>>): UseMutationOptions<unknown, DefaultError, Options<StripeWebhookData>> => {
     const mutationOptions: UseMutationOptions<unknown, DefaultError, Options<StripeWebhookData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await PaymentsApi.stripeWebhook({
+            const { data } = await SubscriptionsApi.stripeWebhook({
                 ...options,
                 ...fnOptions,
                 throwOnError: true

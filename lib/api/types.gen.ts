@@ -73,9 +73,21 @@ export type CancelSubscriptionRequest = {
 };
 
 /**
- * CreateCheckoutSessionRequest
+ * CheckoutSession
  */
-export type CreateCheckoutSessionRequest = {
+export type CheckoutSession = {
+    /**
+     * Url
+     *
+     * Checkout session URL
+     */
+    url: string;
+};
+
+/**
+ * CreateCheckoutSessionDto
+ */
+export type CreateCheckoutSessionDto = {
     /**
      * Priceid
      *
@@ -97,21 +109,9 @@ export type CreateCheckoutSessionRequest = {
 };
 
 /**
- * CreateCheckoutSessionResponse
+ * CreatePortalSessionDto
  */
-export type CreateCheckoutSessionResponse = {
-    /**
-     * Url
-     *
-     * Checkout session URL
-     */
-    url: string;
-};
-
-/**
- * CreatePortalSessionRequest
- */
-export type CreatePortalSessionRequest = {
+export type CreatePortalSessionDto = {
     /**
      * Returnurl
      *
@@ -121,15 +121,21 @@ export type CreatePortalSessionRequest = {
 };
 
 /**
- * CreatePortalSessionResponse
+ * DeleteAccountResponse
  */
-export type CreatePortalSessionResponse = {
+export type DeleteAccountResponse = {
     /**
-     * Url
+     * Status
      *
-     * Billing portal session URL
+     * Status
      */
-    url: string;
+    status: 'success' | 'failed';
+    /**
+     * Message
+     *
+     * Message
+     */
+    message?: string | null;
 };
 
 /**
@@ -302,6 +308,18 @@ export type LoginResponseDto = {
 export type Plan = 'free' | 'basic' | 'premium' | 'enterprise';
 
 /**
+ * PortalSession
+ */
+export type PortalSession = {
+    /**
+     * Url
+     *
+     * Billing portal session URL
+     */
+    url: string;
+};
+
+/**
  * RewriteDocumentRequest
  */
 export type RewriteDocumentRequest = {
@@ -386,79 +404,60 @@ export type SignupDto = {
 };
 
 /**
- * SubscriptionResponse
+ * Subscription
  */
-export type SubscriptionResponse = {
+export type Subscription = {
     /**
      * Id
-     *
-     * Subscription ID
      */
-    id: string;
+    id?: string;
+    /**
+     * Createdat
+     */
+    createdAt?: string;
+    /**
+     * Updatedat
+     */
+    updatedAt?: string;
     /**
      * Userid
-     *
-     * User ID
      */
     userId: string;
+    plan?: Plan;
     /**
-     * Subscription plan
+     * Stripecustomerid
      */
-    plan: Plan;
+    stripeCustomerId: string;
     /**
      * Stripesubscriptionid
-     *
-     * Stripe subscription ID
      */
     stripeSubscriptionId?: string | null;
     /**
      * Stripepriceid
-     *
-     * Stripe price ID
      */
     stripePriceId?: string | null;
     /**
      * Status
      *
-     * Subscription status
+     * Subscription status: active, canceled, past_due, etc.
      */
-    status: string;
+    status?: string;
     /**
      * Currentperiodstart
-     *
-     * Current period start date
      */
     currentPeriodStart?: string | null;
     /**
      * Currentperiodend
-     *
-     * Current period end date
      */
     currentPeriodEnd?: string | null;
     /**
      * Cancelatperiodend
-     *
-     * Whether subscription will cancel at period end
      */
-    cancelAtPeriodEnd: boolean;
+    cancelAtPeriodEnd?: boolean;
     /**
      * Canceledat
-     *
-     * Cancellation date
      */
     canceledAt?: string | null;
-    /**
-     * Createdat
-     *
-     * Creation date
-     */
-    createdAt: string;
-    /**
-     * Updatedat
-     *
-     * Last update date
-     */
-    updatedAt: string;
 };
 
 /**
@@ -661,6 +660,22 @@ export type GetSessionResponses = {
 
 export type GetSessionResponse = GetSessionResponses[keyof GetSessionResponses];
 
+export type DeleteAccountData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/auth/account';
+};
+
+export type DeleteAccountResponses = {
+    /**
+     * Successful Response
+     */
+    200: DeleteAccountResponse;
+};
+
+export type DeleteAccountResponse2 = DeleteAccountResponses[keyof DeleteAccountResponses];
+
 export type GetCurrentUserData = {
     body?: never;
     path?: never;
@@ -809,61 +824,11 @@ export type RewriteDocumentResponses = {
 
 export type RewriteDocumentResponse = RewriteDocumentResponses[keyof RewriteDocumentResponses];
 
-export type CreateCheckoutSessionData = {
-    body: CreateCheckoutSessionRequest;
-    path?: never;
-    query?: never;
-    url: '/payments/checkout';
-};
-
-export type CreateCheckoutSessionErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type CreateCheckoutSessionError = CreateCheckoutSessionErrors[keyof CreateCheckoutSessionErrors];
-
-export type CreateCheckoutSessionResponses = {
-    /**
-     * Successful Response
-     */
-    200: CreateCheckoutSessionResponse;
-};
-
-export type CreateCheckoutSessionResponse2 = CreateCheckoutSessionResponses[keyof CreateCheckoutSessionResponses];
-
-export type CreatePortalSessionData = {
-    body: CreatePortalSessionRequest;
-    path?: never;
-    query?: never;
-    url: '/payments/portal';
-};
-
-export type CreatePortalSessionErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type CreatePortalSessionError = CreatePortalSessionErrors[keyof CreatePortalSessionErrors];
-
-export type CreatePortalSessionResponses = {
-    /**
-     * Successful Response
-     */
-    200: CreatePortalSessionResponse;
-};
-
-export type CreatePortalSessionResponse2 = CreatePortalSessionResponses[keyof CreatePortalSessionResponses];
-
 export type GetSubscriptionData = {
     body?: never;
     path?: never;
     query?: never;
-    url: '/payments/subscription';
+    url: '/subscriptions/subscription';
 };
 
 export type GetSubscriptionResponses = {
@@ -872,7 +837,7 @@ export type GetSubscriptionResponses = {
      *
      * Successful Response
      */
-    200: SubscriptionResponse | null;
+    200: Subscription | null;
 };
 
 export type GetSubscriptionResponse = GetSubscriptionResponses[keyof GetSubscriptionResponses];
@@ -881,7 +846,7 @@ export type UpdateSubscriptionData = {
     body: UpdateSubscriptionRequest;
     path?: never;
     query?: never;
-    url: '/payments/subscription';
+    url: '/subscriptions/subscription';
 };
 
 export type UpdateSubscriptionErrors = {
@@ -897,7 +862,7 @@ export type UpdateSubscriptionResponses = {
     /**
      * Successful Response
      */
-    200: SubscriptionResponse;
+    200: Subscription;
 };
 
 export type UpdateSubscriptionResponse = UpdateSubscriptionResponses[keyof UpdateSubscriptionResponses];
@@ -906,7 +871,7 @@ export type CancelSubscriptionData = {
     body: CancelSubscriptionRequest;
     path?: never;
     query?: never;
-    url: '/payments/subscription/cancel';
+    url: '/subscriptions/subscription/cancel';
 };
 
 export type CancelSubscriptionErrors = {
@@ -922,16 +887,66 @@ export type CancelSubscriptionResponses = {
     /**
      * Successful Response
      */
-    200: SubscriptionResponse;
+    200: Subscription;
 };
 
 export type CancelSubscriptionResponse = CancelSubscriptionResponses[keyof CancelSubscriptionResponses];
+
+export type CreateCheckoutSessionData = {
+    body: CreateCheckoutSessionDto;
+    path?: never;
+    query?: never;
+    url: '/subscriptions/checkout';
+};
+
+export type CreateCheckoutSessionErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CreateCheckoutSessionError = CreateCheckoutSessionErrors[keyof CreateCheckoutSessionErrors];
+
+export type CreateCheckoutSessionResponses = {
+    /**
+     * Successful Response
+     */
+    200: CheckoutSession;
+};
+
+export type CreateCheckoutSessionResponse = CreateCheckoutSessionResponses[keyof CreateCheckoutSessionResponses];
+
+export type CreatePortalSessionData = {
+    body: CreatePortalSessionDto;
+    path?: never;
+    query?: never;
+    url: '/subscriptions/portal';
+};
+
+export type CreatePortalSessionErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CreatePortalSessionError = CreatePortalSessionErrors[keyof CreatePortalSessionErrors];
+
+export type CreatePortalSessionResponses = {
+    /**
+     * Successful Response
+     */
+    200: PortalSession;
+};
+
+export type CreatePortalSessionResponse = CreatePortalSessionResponses[keyof CreatePortalSessionResponses];
 
 export type StripeWebhookData = {
     body?: never;
     path?: never;
     query?: never;
-    url: '/payments/webhook';
+    url: '/subscriptions/webhook';
 };
 
 export type StripeWebhookResponses = {

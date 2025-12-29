@@ -2,7 +2,7 @@
 
 import { type Client, formDataBodySerializer, type Options as Options2, type TDataShape } from './client';
 import { client } from './client.gen';
-import type { CancelSubscriptionData, CancelSubscriptionErrors, CancelSubscriptionResponses, CreateCheckoutSessionData, CreateCheckoutSessionErrors, CreateCheckoutSessionResponses, CreatePortalSessionData, CreatePortalSessionErrors, CreatePortalSessionResponses, ExtractDocumentData, ExtractDocumentErrors, ExtractDocumentResponses, GetCurrentUserData, GetCurrentUserResponses, GetSessionData, GetSessionResponses, GetSubscriptionData, GetSubscriptionResponses, GetUserData, GetUserErrors, GetUserResponses, ParseDocumentData, ParseDocumentErrors, ParseDocumentResponses, RewriteDocumentData, RewriteDocumentErrors, RewriteDocumentResponses, SignInData, SignInErrors, SignInResponses, SignOutData, SignOutResponses, SignUpData, SignUpErrors, SignUpResponses, StripeWebhookData, StripeWebhookResponses, UpdateSubscriptionData, UpdateSubscriptionErrors, UpdateSubscriptionResponses, UploadDocumentData, UploadDocumentErrors, UploadDocumentResponses } from './types.gen';
+import type { CancelSubscriptionData, CancelSubscriptionErrors, CancelSubscriptionResponses, CreateCheckoutSessionData, CreateCheckoutSessionErrors, CreateCheckoutSessionResponses, CreatePortalSessionData, CreatePortalSessionErrors, CreatePortalSessionResponses, DeleteAccountData, DeleteAccountResponses, ExtractDocumentData, ExtractDocumentErrors, ExtractDocumentResponses, GetCurrentUserData, GetCurrentUserResponses, GetSessionData, GetSessionResponses, GetSubscriptionData, GetSubscriptionResponses, GetUserData, GetUserErrors, GetUserResponses, ParseDocumentData, ParseDocumentErrors, ParseDocumentResponses, RewriteDocumentData, RewriteDocumentErrors, RewriteDocumentResponses, SignInData, SignInErrors, SignInResponses, SignOutData, SignOutResponses, SignUpData, SignUpErrors, SignUpResponses, StripeWebhookData, StripeWebhookResponses, UpdateSubscriptionData, UpdateSubscriptionErrors, UpdateSubscriptionResponses, UploadDocumentData, UploadDocumentErrors, UploadDocumentResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -59,6 +59,13 @@ export class AuthApi {
      */
     public static getSession<ThrowOnError extends boolean = false>(options?: Options<GetSessionData, ThrowOnError>) {
         return (options?.client ?? client).get<GetSessionResponses, unknown, ThrowOnError>({ url: '/auth/get-session', ...options });
+    }
+    
+    /**
+     * Delete Account
+     */
+    public static deleteAccount<ThrowOnError extends boolean = false>(options?: Options<DeleteAccountData, ThrowOnError>) {
+        return (options?.client ?? client).delete<DeleteAccountResponses, unknown, ThrowOnError>({ url: '/auth/account', ...options });
     }
 }
 
@@ -138,40 +145,12 @@ export class DocumentApi {
     }
 }
 
-export class PaymentsApi {
+export class SubscriptionsApi {
     /**
-     * Create Checkout Session
-     */
-    public static createCheckoutSession<ThrowOnError extends boolean = false>(options: Options<CreateCheckoutSessionData, ThrowOnError>) {
-        return (options.client ?? client).post<CreateCheckoutSessionResponses, CreateCheckoutSessionErrors, ThrowOnError>({
-            url: '/payments/checkout',
-            ...options,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options.headers
-            }
-        });
-    }
-    
-    /**
-     * Create Portal Session
-     */
-    public static createPortalSession<ThrowOnError extends boolean = false>(options: Options<CreatePortalSessionData, ThrowOnError>) {
-        return (options.client ?? client).post<CreatePortalSessionResponses, CreatePortalSessionErrors, ThrowOnError>({
-            url: '/payments/portal',
-            ...options,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options.headers
-            }
-        });
-    }
-    
-    /**
-     * Get Subscription
+     * Get By User Id
      */
     public static getSubscription<ThrowOnError extends boolean = false>(options?: Options<GetSubscriptionData, ThrowOnError>) {
-        return (options?.client ?? client).get<GetSubscriptionResponses, unknown, ThrowOnError>({ url: '/payments/subscription', ...options });
+        return (options?.client ?? client).get<GetSubscriptionResponses, unknown, ThrowOnError>({ url: '/subscriptions/subscription', ...options });
     }
     
     /**
@@ -179,7 +158,7 @@ export class PaymentsApi {
      */
     public static updateSubscription<ThrowOnError extends boolean = false>(options: Options<UpdateSubscriptionData, ThrowOnError>) {
         return (options.client ?? client).put<UpdateSubscriptionResponses, UpdateSubscriptionErrors, ThrowOnError>({
-            url: '/payments/subscription',
+            url: '/subscriptions/subscription',
             ...options,
             headers: {
                 'Content-Type': 'application/json',
@@ -193,7 +172,35 @@ export class PaymentsApi {
      */
     public static cancelSubscription<ThrowOnError extends boolean = false>(options: Options<CancelSubscriptionData, ThrowOnError>) {
         return (options.client ?? client).post<CancelSubscriptionResponses, CancelSubscriptionErrors, ThrowOnError>({
-            url: '/payments/subscription/cancel',
+            url: '/subscriptions/subscription/cancel',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+    
+    /**
+     * Create Checkout Session
+     */
+    public static createCheckoutSession<ThrowOnError extends boolean = false>(options: Options<CreateCheckoutSessionData, ThrowOnError>) {
+        return (options.client ?? client).post<CreateCheckoutSessionResponses, CreateCheckoutSessionErrors, ThrowOnError>({
+            url: '/subscriptions/checkout',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+    
+    /**
+     * Create Portal Session
+     */
+    public static createPortalSession<ThrowOnError extends boolean = false>(options: Options<CreatePortalSessionData, ThrowOnError>) {
+        return (options.client ?? client).post<CreatePortalSessionResponses, CreatePortalSessionErrors, ThrowOnError>({
+            url: '/subscriptions/portal',
             ...options,
             headers: {
                 'Content-Type': 'application/json',
@@ -206,6 +213,6 @@ export class PaymentsApi {
      * Stripe Webhook
      */
     public static stripeWebhook<ThrowOnError extends boolean = false>(options?: Options<StripeWebhookData, ThrowOnError>) {
-        return (options?.client ?? client).post<StripeWebhookResponses, unknown, ThrowOnError>({ url: '/payments/webhook', ...options });
+        return (options?.client ?? client).post<StripeWebhookResponses, unknown, ThrowOnError>({ url: '/subscriptions/webhook', ...options });
     }
 }

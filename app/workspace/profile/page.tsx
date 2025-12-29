@@ -1,7 +1,7 @@
 import { DangerZone } from '@/components/profile/danger-zone';
 import { SubscriptionCard } from '@/components/profile/subscription-card';
 import { AppCardHeadless } from '@/components/ui/app-card';
-import { PaymentsApi, UserApi } from '@/lib/api';
+import { SubscriptionsApi, UserApi } from '@/lib/api';
 import { Button, Container, Field, Heading, HStack, Input, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -12,7 +12,7 @@ const ProfilePage: FC<PageProps<'/workspace/profile'>> = async () => {
 	const { data } = await UserApi.getCurrentUser({ headers: await headers() });
 	if (!data) return redirect('/auth/login');
 
-	const { data: subscription } = await PaymentsApi.getSubscription({ headers: await headers() });
+	const { data: subscription } = await SubscriptionsApi.getSubscription({ headers: await headers() });
 
 	return (
 		<Container paddingY={4} maxWidth={'5xl'}>
