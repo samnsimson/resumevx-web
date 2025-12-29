@@ -31,7 +31,6 @@ export const useDocumentStore = create<PdfStore>()(
 				isLoading: false,
 				resumeData: null,
 				loadingState: 'none',
-				parsedData: null,
 				setFileData: (file: File) => set({ fileData: { file } }),
 				setIsLoading: (isLoading: boolean) => set({ isLoading }),
 				setLoadingState: (loadingState: LoadingState) => set({ loadingState }),

@@ -19,7 +19,7 @@ interface ChatInputProps extends StackProps {
 export const ChatInput: FC<ChatInputProps> = ({ ...props }) => {
 	const { form } = useWorkspaceForm();
 	const { addMessage, setSubmitting, isSubmitting } = useChatStore();
-	const { parsedData, setResumeData } = useDocumentStore();
+	const { resumeData, setResumeData } = useDocumentStore();
 	const successMessage = 'Resume has been updated successfully! The changes have been applied to your resume.';
 	const errorMessage = 'An error occurred while rewriting the document';
 	const { mutate: rewriteDocument } = useMutation({
@@ -40,11 +40,11 @@ export const ChatInput: FC<ChatInputProps> = ({ ...props }) => {
 	}
 
 	async function onSubmit({ input, jobDescription }: WorkspaceSchema) {
-		if (!parsedData) return toaster.error({ title: 'No resume found', description: 'Please upload a resume to continue', closable: true });
+		if (!resumeData) return toaster.error({ title: 'No resume found', description: 'Please upload a resume to continue', closable: true });
 		addMessage({ role: 'user', content: input });
 		setSubmitting(true);
 		form?.reset({ ...form.getValues(), input: '' });
-		rewriteDocument({ body: { inputMessage: input, jobRequirement: jobDescription, resumeContent: parsedData } });
+		rewriteDocument({ body: { inputMessage: input, jobRequirement: jobDescription, resumeContent: JSON.stringify(resumeData) } });
 	}
 
 	if (!form) return null;

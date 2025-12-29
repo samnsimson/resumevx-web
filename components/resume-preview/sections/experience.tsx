@@ -14,8 +14,8 @@ export const Experience: FC<ExperienceProps> = ({ resume, ...props }) => {
 			<VStack width={'full'} gap={3}>
 				<For each={resume.experience}>
 					{(experience, index) => (
-						<VStack key={index} width={'full'}>
-							<HStack justify={'space-between'} width={'full'}>
+						<VStack key={index} width={'full'} align={'start'}>
+							<HStack justify={'space-between'} width={'full'} align={'start'}>
 								<Box>
 									<Text fontSize={'sm'} fontWeight={'bold'}>
 										{experience.role}

@@ -2,7 +2,7 @@ import { DangerZone } from '@/components/profile/danger-zone';
 import { SubscriptionCard } from '@/components/profile/subscription-card';
 import { AppCardHeadless } from '@/components/ui/app-card';
 import { PaymentsApi, UserApi } from '@/lib/api';
-import { Button, Container, Field, GridItem, Heading, HStack, Input, SimpleGrid, Spacer, Text, VStack } from '@chakra-ui/react';
+import { Button, Container, Field, Heading, HStack, Input, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { FC } from 'react';

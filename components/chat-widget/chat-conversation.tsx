@@ -71,7 +71,7 @@ export const ChatConversation: FC<ChatConversationProps> = ({ ...props }) => {
 							</Box>
 							<Box maxWidth={'80%'} padding={3} rounded={'lg'} bgColor={'bg.emphasized'} color={'fg.default'}>
 								<Text fontSize={'sm'} color={'fg.muted'}>
-									Thinking...
+									Rewriting your resume. This may take a few seconds...
 								</Text>
 							</Box>
 						</HStack>
