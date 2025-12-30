@@ -11,7 +11,7 @@ interface SectionTitleProps extends StackProps {
 
 export const SectionTitle: FC<SectionTitleProps> = ({ title, description, icon, ...props }) => {
 	return (
-		<HStack padding={3} gap={6} flexShrink={0} bgColor={'transparent'} width={'full'} {...props}>
+		<HStack paddingY={3} gap={6} flexShrink={0} bgColor={'transparent'} {...props}>
 			{icon ? <Icon as={icon} size={'lg'} color={'LinkText'} /> : null}
 			<Box width={'full'}>
 				<Heading size={'sm'} color={'LinkText'}>

@@ -1,15 +1,37 @@
 'use client';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { CardRootProps, Heading, Icon, Text, VStack, HStack, Button, Show, List, Stack } from '@chakra-ui/react';
 import { LuCrown } from 'react-icons/lu';
 import { Subscription } from '@/lib/api';
 import { AppCard, AppCardHeadless } from '../ui/app-card';
+import { useMutation } from '@tanstack/react-query';
+import { createCheckoutSessionMutation } from '@/lib/api/@tanstack/react-query.gen';
+import { useRouter } from 'next/navigation';
+import { toaster } from '../ui/toaster';
 
 interface SubscriptionCardProps extends CardRootProps {
 	subscriptionInfo?: Subscription | null;
 }
 
 export const SubscriptionCard: FC<SubscriptionCardProps> = ({ subscriptionInfo, ...props }) => {
+	const router = useRouter();
+	const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false);
+	const { mutateAsync: createCheckoutSession } = useMutation({ ...createCheckoutSessionMutation() });
+
+	async function onUpgradeSubscription() {
+		try {
+			setIsCreatingCheckoutSession(true);
+			const priceId = 'price_1SVjD4RxuN7gvrMkdnA8CQCR';
+			const successUrl = `${window.location.origin}/workspace/profile`;
+			const cancelUrl = `${window.location.origin}/workspace/profile`;
+			const session = await createCheckoutSession({ body: { priceId, successUrl, cancelUrl } });
+			router.push(session.url);
+		} catch (error: any) {
+			toaster.error({ title: 'Failed to upgrade subscription', description: error.message ?? 'Failed to upgrade subscription', closable: true });
+		} finally {
+			setIsCreatingCheckoutSession(false);
+		}
+	}
 	return (
 		<AppCard title="Subscription" description="Manage your subscription and billing information" {...props}>
 			<Stack gap={4}>
@@ -23,7 +45,14 @@ export const SubscriptionCard: FC<SubscriptionCardProps> = ({ subscriptionInfo, 
 								</Text>
 								<Text color={'GrayText'}>{subscription.status}</Text>
 							</VStack>
-							<Button variant={'solid'} colorPalette={'blue'} size={'sm'}>
+							<Button
+								variant={'solid'}
+								colorPalette={'blue'}
+								size={'sm'}
+								loading={isCreatingCheckoutSession}
+								disabled={isCreatingCheckoutSession}
+								onClick={onUpgradeSubscription}
+							>
 								<LuCrown />
 								Upgrade Subscription
 							</Button>

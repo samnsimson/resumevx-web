@@ -1,6 +1,6 @@
 'use client';
-import { FC } from 'react';
-import { Card, CardBodyProps, CardRootProps } from '@chakra-ui/react';
+import { FC, ReactNode } from 'react';
+import { Card, CardBodyProps, CardRootProps, HStack, Show } from '@chakra-ui/react';
 import { SectionTitle } from './section-title';
 import { IconType } from 'react-icons';
 
@@ -8,19 +8,24 @@ interface AppCardProps extends CardRootProps {
 	title: string;
 	description: string;
 	icon?: IconType;
+	body?: CardBodyProps;
+	actions?: ReactNode;
 }
 
 interface AppCardHeadlessProps extends CardBodyProps {
 	[x: string]: unknown;
 }
 
-export const AppCard: FC<AppCardProps> = ({ title, description, icon, children, ...props }) => {
+export const AppCard: FC<AppCardProps> = ({ title, description, icon, children, body, actions, ...props }) => {
 	return (
 		<Card.Root width={'full'} rounded={'xl'} {...props}>
-			<Card.Header padding={0}>
-				<SectionTitle title={title} description={description} icon={icon} />
+			<Card.Header paddingY={0} paddingX={4}>
+				<HStack justify={'space-between'}>
+					<SectionTitle title={title} description={description} icon={icon} />
+					<Show when={actions}>{(actions) => actions}</Show>
+				</HStack>
 			</Card.Header>
-			<Card.Body padding={4} overflow={'auto'}>
+			<Card.Body padding={4} overflow={'auto'} {...body}>
 				{children}
 			</Card.Body>
 		</Card.Root>
