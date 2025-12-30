@@ -1,8 +1,7 @@
 'use client';
-import { Stack } from '@chakra-ui/react';
+import { Button, Icon, Link, Stack } from '@chakra-ui/react';
 import { FC, HTMLAttributes } from 'react';
 import { HiOutlineCodeBracket, HiOutlineDocument, HiOutlineHome } from 'react-icons/hi2';
-import { ToolTipButton } from './tooltip-button';
 
 interface WorkSpaceSidebarProps extends HTMLAttributes<HTMLDivElement> {
 	[x: string]: any;
@@ -10,10 +9,25 @@ interface WorkSpaceSidebarProps extends HTMLAttributes<HTMLDivElement> {
 
 export const WorkSpaceSidebar: FC<WorkSpaceSidebarProps> = ({ ...props }) => {
 	return (
-		<Stack height={'full'} width={'full'} {...props} gap={4}>
-			<ToolTipButton icon={HiOutlineHome} href={'/workspace'} description={'Home page'} position={{ placement: 'right' }} />
-			<ToolTipButton icon={HiOutlineCodeBracket} href={'/workspace/templates'} description={'Resume Templates'} position={{ placement: 'right' }} />
-			<ToolTipButton icon={HiOutlineDocument} href={'/workspace/resumes'} description={'My Resumes'} position={{ placement: 'right' }} />
+		<Stack height={'full'} width={'full'} gap={4} padding={4} {...props}>
+			<Button size={'xl'} width={'fit-content'} variant={'ghost'} colorPalette={'blue'} rounded={'full'} _hover={{ textDecoration: 'none' }} asChild>
+				<Link href={'/workspace'}>
+					<Icon as={HiOutlineHome} boxSize={'24px'} />
+					Home
+				</Link>
+			</Button>
+			<Button size={'xl'} width={'fit-content'} variant={'ghost'} colorPalette={'blue'} rounded={'full'} _hover={{ textDecoration: 'none' }} asChild>
+				<Link href={'/workspace/templates'}>
+					<Icon as={HiOutlineCodeBracket} boxSize={'24px'} />
+					Resume Templates
+				</Link>
+			</Button>
+			<Button size={'xl'} width={'fit-content'} variant={'ghost'} colorPalette={'blue'} rounded={'full'} _hover={{ textDecoration: 'none' }} asChild>
+				<Link href={'/workspace/resumes'}>
+					<Icon as={HiOutlineDocument} boxSize={'24px'} />
+					My Resumes
+				</Link>
+			</Button>
 		</Stack>
 	);
 };

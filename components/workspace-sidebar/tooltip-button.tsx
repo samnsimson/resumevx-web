@@ -15,7 +15,7 @@ interface ToolTipButtonProps extends Omit<ButtonProps, 'position'> {
 export const ToolTipButton: FC<ToolTipButtonProps> = ({ icon, href, label, description, position, ...props }) => {
 	const ButtonComponent = label ? Button : IconButton;
 	return (
-		<Stack width={'full'} alignItems={'center'} justifyContent={'center'}>
+		<Stack width={'full'} alignItems={'start'} justifyContent={'start'}>
 			<HoverCard.Root size={'sm'} positioning={position} openDelay={0} closeDelay={0}>
 				<HoverCard.Trigger asChild>
 					<ButtonComponent variant={'ghost'} size={'lg'} colorPalette={'blue'} rounded={'full'} _hover={{ color: 'blue.600' }} asChild {...props}>

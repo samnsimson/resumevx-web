@@ -1,6 +1,5 @@
 'use client';
-import { useDocumentStore } from '@/lib/store/document.store';
-import { FileUpload, Icon, Box, FileUploadDropzoneProps } from '@chakra-ui/react';
+import { FileUpload, Icon, Box, FileUploadDropzoneProps, useFileUploadContext } from '@chakra-ui/react';
 import { FC } from 'react';
 import { LuCheckCheck, LuUpload } from 'react-icons/lu';
 
@@ -9,15 +8,17 @@ interface ResumeDropZoneProps extends FileUploadDropzoneProps {
 }
 
 export const ResumeDropZone: FC<ResumeDropZoneProps> = ({ ...props }) => {
-	const { fileData } = useDocumentStore((state) => state);
+	const fileUpload = useFileUploadContext();
+	const files = fileUpload.acceptedFiles;
+	const hasFiles = files.length > 0;
 	return (
-		<FileUpload.Dropzone background={fileData ? 'bg.panel' : 'bg.muted'} rounded={'lg'} {...props}>
+		<FileUpload.Dropzone background={hasFiles ? 'bg.panel' : 'bg.muted'} rounded={'lg'} boxSize={'full'} {...props}>
 			<Icon size="md" color="fg.muted">
-				{fileData ? <LuCheckCheck color="green" /> : <LuUpload />}
+				{hasFiles ? <LuCheckCheck color="green" /> : <LuUpload />}
 			</Icon>
 			<FileUpload.DropzoneContent>
-				<Box>{fileData ? 'Resume uploaded' : 'Drag and drop files here'}</Box>
-				<Box color="fg.muted">{fileData ? 'Remove it to upload a new one' : '.png, .jpg up to 5MB'}</Box>
+				<Box>{hasFiles ? 'Resume uploaded' : 'Drag and drop files here'}</Box>
+				<Box color="fg.muted">{hasFiles ? 'Remove it to upload a new one' : 'Only PDF files are supported'}</Box>
 			</FileUpload.DropzoneContent>
 		</FileUpload.Dropzone>
 	);
