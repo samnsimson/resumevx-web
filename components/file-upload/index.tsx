@@ -11,10 +11,10 @@ import { toaster } from '@/components/ui/toaster';
 import { AppCard } from '@/components/ui/app-card';
 
 interface ResumeUploadProps extends StackProps {
-	activeDocumentPath: string | null;
+	[x: string]: any;
 }
 
-export const ResumeUpload: FC<ResumeUploadProps> = ({ ...props }) => {
+export const ResumeUpload: FC<ResumeUploadProps> = () => {
 	const { fileData, setFileData, setIsLoading, setLoadingState, setResumeData } = useDocumentStore((state) => state);
 	const { mutateAsync: parseDocument } = useMutation({ ...parseDocumentMutation() });
 	const { mutateAsync: extractDocument } = useMutation({ ...extractDocumentMutation() });
@@ -43,12 +43,6 @@ export const ResumeUpload: FC<ResumeUploadProps> = ({ ...props }) => {
 	};
 
 	return (
-		// <VStack width={'full'} align={'start'} {...props}>
-		// 	<SectionTitle title="Upload your resume" description=" Upload your resume to be parsed for use" icon={LuUpload} />
-		// 	<Box width={'full'} flex={'1'} minHeight={0} overflow={'auto'}>
-
-		// 	</Box>
-		// </VStack>
 		<AppCard title="Upload your resume" description=" Upload your resume to be parsed for use" icon={LuUpload}>
 			<FileUpload.Root maxW="xl" alignItems="stretch" maxFiles={1} height={'full'} onFileAccept={handleFileAccept}>
 				<FileUpload.HiddenInput disabled={!!fileData} />

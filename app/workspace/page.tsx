@@ -6,12 +6,11 @@ import { SimpleGrid, GridItem, VStack } from '@chakra-ui/react';
 import { FC } from 'react';
 
 const WorkspacePage: FC<PageProps<'/workspace'>> = async () => {
-	const data = null;
 	return (
 		<SimpleGrid columns={12} gap={4} height={'full'} width={'full'} overflow={'hidden'}>
 			<GridItem colSpan={3} height={'full'} overflow={'hidden'}>
 				<VStack height={'full'} width={'full'}>
-					<ResumeUpload activeDocumentPath={data} overflow={'auto'} />
+					<ResumeUpload />
 					<JobDescription flex={1} overflow={'auto'} />
 				</VStack>
 			</GridItem>
@@ -19,7 +18,7 @@ const WorkspacePage: FC<PageProps<'/workspace'>> = async () => {
 				<ChatWidget />
 			</GridItem>
 			<GridItem colSpan={5} height={'full'} overflow={'hidden'}>
-				<ResumePreview activeDocumentPath={data} width={'full'} height={'full'} />
+				<ResumePreview width={'full'} height={'full'} />
 			</GridItem>
 		</SimpleGrid>
 	);
