@@ -18,8 +18,8 @@ export const DownloadPdfButton: FC<DownloadPdfButtonProps> = ({ ...props }) => {
 
 	return (
 		<BlobProvider document={createElement(PdfRenderer, { data: resumeData })}>
-			{({ url }) => (
-				<IconButton colorPalette="blue" variant="ghost" size="sm" rounded="full" asChild {...props}>
+			{({ url, loading }) => (
+				<IconButton colorPalette="blue" variant="ghost" size="sm" rounded="full" loading={loading} disabled={loading} asChild {...props}>
 					<Link href={url ?? ''} target="_blank" download={'resume.pdf'}>
 						<Icon as={LuDownload} />
 					</Link>
