@@ -43,7 +43,16 @@ export const PdfRenderer: FC<PdfRendererProps> = ({ data, ...props }) => {
 				</View>
 				<View style={styles.sectionSummary}>
 					<SectionTitle>PROFESSIONAL SUMMARY</SectionTitle>
-					<Text style={styles.sectionSummaryText}>{cleanText(data.basics.summary)}</Text>
+					<View style={styles.sectionListContainer}>
+						{data.basics.summary.map((summary, index) => (
+							<View key={index} style={styles.sectionListItemContainer}>
+								<Text style={styles.sectionListItemBullet}>•</Text>
+								<Text key={index} style={styles.sectionListItemText}>
+									{cleanText(summary)}
+								</Text>
+							</View>
+						))}
+					</View>
 				</View>
 				<View style={styles.sectionSkills}>
 					<SectionTitle>PROFESSIONAL SKILLS</SectionTitle>
@@ -65,11 +74,11 @@ export const PdfRenderer: FC<PdfRendererProps> = ({ data, ...props }) => {
 									<Text style={styles.sectionExperienceItemHeaderDate}>{cleanText(experience.endDate)}</Text>
 								</View>
 							</View>
-							<View style={styles.sectionExperienceItemBullets}>
+							<View style={styles.sectionListContainer}>
 								{experience.bullets.map((bullet, index) => (
-									<View key={index} style={styles.sectionExperienceItemBulletContainer}>
-										<Text style={styles.sectionExperienceItemBulletBullet}>•</Text>
-										<Text key={index} style={styles.sectionExperienceItemBullet}>
+									<View key={index} style={styles.sectionListItemContainer}>
+										<Text style={styles.sectionListItemBullet}>•</Text>
+										<Text key={index} style={styles.sectionListItemText}>
 											{cleanText(bullet)}
 										</Text>
 									</View>
@@ -99,7 +108,8 @@ const styles = StyleSheet.create({
 	sectionBasicTitle: { fontSize: 16, fontWeight: 'bold', color: '#3b82f6', textTransform: 'uppercase' },
 	sectionBasicInfo: { display: 'flex', flexDirection: 'row', gap: 4, alignItems: 'center', justifyContent: 'center' },
 	sectionBasicInfoText: { fontSize: 12, color: '#333333' },
-	sectionSummary: { width: '100%', gap: 4 },
+	sectionSummary: { display: 'flex', flexDirection: 'column', width: '100%', gap: 4 },
+	sectionSummaryItem: { display: 'flex', flexDirection: 'row', gap: 4, justifyContent: 'flex-start' },
 	sectionTitleContainer: {
 		display: 'flex',
 		flexDirection: 'row',
@@ -123,10 +133,10 @@ const styles = StyleSheet.create({
 	sectionExperienceItem: { display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 10 },
 	sectionExperienceItemTitle: { fontSize: 12, fontWeight: 'bold', color: '#333333' },
 	sectionExperienceItemText: { fontSize: 11, color: '#333333' },
-	sectionExperienceItemBullets: { display: 'flex', flexDirection: 'column', gap: 2 },
-	sectionExperienceItemBullet: { fontSize: 11, color: '#333333', lineHeight: 1.5, textAlign: 'justify', flex: 1 },
-	sectionExperienceItemBulletContainer: { display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', gap: 4 },
-	sectionExperienceItemBulletBullet: { fontSize: 11, color: '#333333', width: '10px' },
+	sectionListContainer: { display: 'flex', flexDirection: 'column', gap: 2 },
+	sectionListItemText: { fontSize: 11, color: '#333333', lineHeight: 1.5, textAlign: 'justify', flex: 1 },
+	sectionListItemContainer: { display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', gap: 4 },
+	sectionListItemBullet: { fontSize: 11, color: '#333333', width: '10px' },
 	sectionExperienceItemHeader: { display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
 	sectionExperienceItemHeaderTitle: { display: 'flex', flexDirection: 'column', gap: 2, marginBottom: 4 },
 	sectionExperienceItemHeaderDates: { display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'flex-end' },

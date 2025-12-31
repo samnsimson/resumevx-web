@@ -3,20 +3,19 @@ import { createElement, FC } from 'react';
 import dynamic from 'next/dynamic';
 import { Show, Stack, StackProps } from '@chakra-ui/react';
 import { LuZap } from 'react-icons/lu';
-import { useDocumentStore } from '@/lib/store/document.store';
 import { NoDataPlaceholder } from './no-data-palceholder';
 import { PdfRenderer } from '@/components/resume-preview/pdf-renderer';
 import { AppCard } from '@/components/ui/app-card';
 import { DownloadPdfButton } from './download-pdf-button';
 import { BlobProvider } from '@react-pdf/renderer';
+import { SessionState } from '@/lib/api/types.gen';
 
 const PdfViewer = dynamic(() => import('./pdf-viewer').then((mod) => ({ default: mod.PdfViewer })), { ssr: false });
 interface ResumePreviewProps extends StackProps {
-	[x: string]: any;
+	sessionState: SessionState;
 }
 
-export const ResumePreview: FC<ResumePreviewProps> = ({ ...props }) => {
-	const { resumeData } = useDocumentStore((state) => state);
+export const ResumePreview: FC<ResumePreviewProps> = ({ sessionState, ...props }) => {
 	return (
 		<AppCard
 			title="Preview"
@@ -28,10 +27,10 @@ export const ResumePreview: FC<ResumePreviewProps> = ({ ...props }) => {
 			{...props}
 		>
 			<Stack flex={1} minHeight={0} height={'full'} rounded={'lg'} overflowY={'auto'} overflowX={'hidden'}>
-				<Show when={!resumeData}>
+				<Show when={!sessionState.documentData}>
 					<NoDataPlaceholder />
 				</Show>
-				<Show when={resumeData}>
+				<Show when={sessionState.documentData}>
 					{(resume) => (
 						<BlobProvider document={createElement(PdfRenderer, { data: resume })}>{({ url }) => <PdfViewer url={url ?? ''} />}</BlobProvider>
 					)}

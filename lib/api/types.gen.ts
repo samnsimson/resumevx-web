@@ -35,9 +35,9 @@ export type Basics = {
     /**
      * Summary
      *
-     * Professional summary or objective statement
+     * Professional summary or objective statement in bullet points
      */
-    summary: string;
+    summary: Array<string>;
 };
 
 /**
@@ -1033,7 +1033,7 @@ export type GetSessionStateData = {
     body?: never;
     path?: never;
     query?: never;
-    url: '/session-state/';
+    url: '/session-state';
 };
 
 export type GetSessionStateResponses = {
@@ -1051,7 +1051,7 @@ export type SaveSessionStateData = {
     body: SaveSessionStateDto;
     path?: never;
     query?: never;
-    url: '/session-state/';
+    url: '/session-state';
 };
 
 export type SaveSessionStateErrors = {

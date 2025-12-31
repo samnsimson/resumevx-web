@@ -222,7 +222,7 @@ export class SessionStateApi {
      * Get Session State
      */
     public static getSessionState<ThrowOnError extends boolean = false>(options?: Options<GetSessionStateData, ThrowOnError>) {
-        return (options?.client ?? client).get<GetSessionStateResponses, unknown, ThrowOnError>({ url: '/session-state/', ...options });
+        return (options?.client ?? client).get<GetSessionStateResponses, unknown, ThrowOnError>({ url: '/session-state', ...options });
     }
     
     /**
@@ -230,7 +230,7 @@ export class SessionStateApi {
      */
     public static saveSessionState<ThrowOnError extends boolean = false>(options: Options<SaveSessionStateData, ThrowOnError>) {
         return (options.client ?? client).post<SaveSessionStateResponses, SaveSessionStateErrors, ThrowOnError>({
-            url: '/session-state/',
+            url: '/session-state',
             ...options,
             headers: {
                 'Content-Type': 'application/json',

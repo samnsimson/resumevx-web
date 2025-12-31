@@ -10,9 +10,5 @@ export const renderPdf = async (data: DocumentData) => {
 
 export const cleanText = (text: string | null | undefined) => {
 	if (!text) return null;
-	return text
-		.replace(/<[^>]*>?/g, '')
-		.replace(/^[^\w\s]+|[^\w\s]+$/g, '')
-		.replace(/^\s+|\s+$/g, '')
-		.trim();
+	return text.replace(/<[^>]*>?/g, '').trim();
 };

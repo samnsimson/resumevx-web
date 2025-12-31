@@ -26,7 +26,7 @@ export default async function AssistantPage({}: PageProps<'/workspace/assistant'
 						<ChatWidget height={'full'} sessionState={sessionState} />
 					</GridItem>
 					<GridItem colSpan={1} height={'full'} minHeight={0} overflow={'hidden'}>
-						<ResumePreview height={'full'} />
+						<ResumePreview height={'full'} sessionState={sessionState} />
 					</GridItem>
 				</SimpleGrid>
 			</Stack>

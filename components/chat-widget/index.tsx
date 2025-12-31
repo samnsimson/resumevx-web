@@ -11,12 +11,12 @@ interface ChatWidgetProps extends StackProps {
 	sessionState: SessionState;
 }
 
-export const ChatWidget: FC<ChatWidgetProps> = ({ ...props }) => {
+export const ChatWidget: FC<ChatWidgetProps> = ({ sessionState, ...props }) => {
 	return (
 		<AppCard title="AI Assist" description="Chat with AI to refine your results" icon={LuSparkle} height={'full'} body={{ overflow: 'hidden' }} {...props}>
 			<Stack gap={4} width={'full'} height={'full'} minHeight={0}>
-				<ChatConversation flex={1} minHeight={0} />
-				<ChatInput flexShrink={0} />
+				<ChatConversation flex={1} minHeight={0} sessionState={sessionState} />
+				<ChatInput flexShrink={0} sessionState={sessionState} />
 			</Stack>
 		</AppCard>
 	);

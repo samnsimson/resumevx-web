@@ -12,7 +12,8 @@ interface PdfViewerProps {
 export const PdfViewer: FC<PdfViewerProps> = ({ url }) => {
 	const [numPages, setNumPages] = useState<number>(0);
 
-	function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
+	function onDocumentLoadSuccess({ numPages, ...props }: any): void {
+		console.log('🚀 ~ onDocumentLoadSuccess ~ props:', props);
 		setNumPages(numPages);
 	}
 
