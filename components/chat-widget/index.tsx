@@ -12,10 +12,10 @@ interface ChatWidgetProps extends StackProps {
 
 export const ChatWidget: FC<ChatWidgetProps> = ({ ...props }) => {
 	return (
-		<AppCard title="AI Assist" description="Chat with AI to refine your results" icon={LuSparkle} height={'full'} flex={1} {...props}>
+		<AppCard title="AI Assist" description="Chat with AI to refine your results" icon={LuSparkle} height={'full'} body={{ overflow: 'hidden' }} {...props}>
 			<Stack gap={4} width={'full'} height={'full'} minHeight={0}>
-				<ChatConversation />
-				<ChatInput />
+				<ChatConversation flex={1} minHeight={0} />
+				<ChatInput flexShrink={0} />
 			</Stack>
 		</AppCard>
 	);

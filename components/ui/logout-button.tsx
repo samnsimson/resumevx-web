@@ -17,7 +17,7 @@ interface LogoutButtonProps extends ButtonProps {
 
 export const LogoutButton: FC<LogoutButtonProps> = ({ label, icon: Icon, iconOnly, ...props }) => {
 	const router = useRouter();
-	const { clearFileData, clearResumeData } = useDocumentStore((state) => state);
+	const { clearFormData, clearResumeData } = useDocumentStore((state) => state);
 	const { clearMessages } = useChatStore((state) => state);
 	const [isLoading, setIsLoading] = useState(false);
 	const { refetch: logout } = useQuery({ ...signOutOptions(), enabled: false });
@@ -27,7 +27,7 @@ export const LogoutButton: FC<LogoutButtonProps> = ({ label, icon: Icon, iconOnl
 			setIsLoading(true);
 			const { error } = await logout();
 			if (error) throw new Error(error.message);
-			clearFileData();
+			clearFormData();
 			clearResumeData();
 			clearMessages();
 			router.replace('/auth/login');

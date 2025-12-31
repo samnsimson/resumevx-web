@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { AuthApi, DocumentApi, type Options, SubscriptionsApi, UserApi } from '../sdk.gen';
-import type { CancelSubscriptionData, CancelSubscriptionError, CancelSubscriptionResponse, CreateCheckoutSessionData, CreateCheckoutSessionError, CreateCheckoutSessionResponse, CreatePortalSessionData, CreatePortalSessionError, CreatePortalSessionResponse, DeleteAccountData, DeleteAccountResponse2, ExtractDocumentData, ExtractDocumentError, ExtractDocumentResponse, GetCurrentUserData, GetCurrentUserResponse, GetSessionData, GetSessionResponse, GetSubscriptionData, GetSubscriptionResponse, GetUserData, GetUserError, GetUserResponse, ParseDocumentData, ParseDocumentError, ParseDocumentResponse, RewriteDocumentData, RewriteDocumentError, RewriteDocumentResponse, SignInData, SignInError, SignInResponse, SignOutData, SignUpData, SignUpError, SignUpResponse, StripeWebhookData, UpdateSubscriptionData, UpdateSubscriptionError, UpdateSubscriptionResponse, UploadDocumentData, UploadDocumentError, UploadDocumentResponse } from '../types.gen';
+import { AuthApi, DocumentApi, type Options, SessionStateApi, SubscriptionsApi, UserApi } from '../sdk.gen';
+import type { CancelSubscriptionData, CancelSubscriptionError, CancelSubscriptionResponse, CreateCheckoutSessionData, CreateCheckoutSessionError, CreateCheckoutSessionResponse, CreatePortalSessionData, CreatePortalSessionError, CreatePortalSessionResponse, DeleteAccountData, DeleteAccountResponse2, ExtractDocumentData, ExtractDocumentError, ExtractDocumentResponse, GetCurrentUserData, GetCurrentUserResponse, GetSessionData, GetSessionResponse, GetSessionStateData, GetSessionStateResponse, GetSubscriptionData, GetSubscriptionResponse, GetUserData, GetUserError, GetUserResponse, ParseDocumentData, ParseDocumentError, ParseDocumentResponse, RewriteDocumentData, RewriteDocumentError, RewriteDocumentResponse, SignInData, SignInError, SignInResponse, SignOutData, SignUpData, SignUpError, SignUpResponse, StripeWebhookData, UpdateSubscriptionData, UpdateSubscriptionError, UpdateSubscriptionResponse, UploadDocumentData, UploadDocumentError, UploadDocumentResponse } from '../types.gen';
 
 /**
  * Login
@@ -332,3 +332,21 @@ export const stripeWebhookMutation = (options?: Partial<Options<StripeWebhookDat
     };
     return mutationOptions;
 };
+
+export const getSessionStateQueryKey = (options?: Options<GetSessionStateData>) => createQueryKey('getSessionState', options);
+
+/**
+ * Get Session State
+ */
+export const getSessionStateOptions = (options?: Options<GetSessionStateData>) => queryOptions<GetSessionStateResponse, DefaultError, GetSessionStateResponse, ReturnType<typeof getSessionStateQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await SessionStateApi.getSessionState({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getSessionStateQueryKey(options)
+});

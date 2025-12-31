@@ -13,14 +13,14 @@ interface ResumeUploadProps extends CardRootProps {
 }
 
 export const ResumeUpload: FC<ResumeUploadProps> = ({ ...props }) => {
-	const { isLoading, setFileData, setIsLoading, setLoadingState } = useDocumentStore((state) => state);
+	const { isLoading, setFormData, setIsLoading, setLoadingState } = useDocumentStore((state) => state);
 
 	const handleFileAccept = async (details: FileUploadFileAcceptDetails) => {
 		try {
 			setIsLoading(true);
 			setLoadingState('uploading');
 			const file = details.files[0] as unknown as File;
-			if (file) setFileData(file);
+			if (file) setFormData({ file });
 		} catch (error) {
 			console.error(error);
 			toaster.error({ title: 'Error', description: 'Failed to upload resume', closable: true });

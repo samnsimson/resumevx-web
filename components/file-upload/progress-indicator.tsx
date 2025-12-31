@@ -1,5 +1,5 @@
 'use client';
-import { Progress } from '@chakra-ui/react';
+import { Heading, Progress, Stack, Text } from '@chakra-ui/react';
 import { useDocumentStore } from '@/lib/store/document.store';
 
 export const ProgressIndicator = () => {
@@ -13,11 +13,18 @@ export const ProgressIndicator = () => {
 	};
 
 	return (
-		<Progress.Root width={'full'} value={null}>
-			<Progress.Label mb="2">{loadingStatusText[loadingState]}</Progress.Label>
-			<Progress.Track height={'3px'}>
-				<Progress.Range bg={'green.500'} />
-			</Progress.Track>
+		<Progress.Root value={null} height={'100px'}>
+			<Stack align={'center'} justify={'center'} height={'full'} gap={0}>
+				<Heading size={'md'} fontWeight={'bold'}>
+					{loadingStatusText[loadingState]}
+				</Heading>
+				<Text fontSize={'sm'} color={'gray.500'}>
+					Please wait. This may take a few seconds...
+				</Text>
+				<Progress.Track width={'full'} height={'3px'} mt={6}>
+					<Progress.Range bg={'green.500'} />
+				</Progress.Track>
+			</Stack>
 		</Progress.Root>
 	);
 };

@@ -374,6 +374,41 @@ export type Session = {
 };
 
 /**
+ * SessionState
+ */
+export type SessionState = {
+    /**
+     * Id
+     */
+    id?: string;
+    /**
+     * Createdat
+     */
+    createdAt?: string;
+    /**
+     * Updatedat
+     */
+    updatedAt?: string;
+    /**
+     * Sessionid
+     */
+    sessionId: string;
+    /**
+     * Documentname
+     */
+    documentName?: string | null;
+    /**
+     * Documenturl
+     */
+    documentUrl?: string | null;
+    /**
+     * Documentparsed
+     */
+    documentParsed?: string | null;
+    documentData?: DocumentData | null;
+};
+
+/**
  * SignupDto
  */
 export type SignupDto = {
@@ -955,3 +990,21 @@ export type StripeWebhookResponses = {
      */
     200: unknown;
 };
+
+export type GetSessionStateData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/session-state/';
+};
+
+export type GetSessionStateResponses = {
+    /**
+     * Response Getsessionstate
+     *
+     * Successful Response
+     */
+    200: SessionState | null;
+};
+
+export type GetSessionStateResponse = GetSessionStateResponses[keyof GetSessionStateResponses];

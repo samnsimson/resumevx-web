@@ -6,20 +6,22 @@ import { createEncryptedStorage } from './utils';
 
 type LoadingState = 'uploading' | 'parsing' | 'extracting' | 'none';
 
-interface FileData {
+interface FormData {
 	file: File | null;
+	jobDescription: string;
+	input: string;
 }
 
 export interface PdfStore {
-	fileData: FileData | null;
+	formData: FormData;
 	isLoading: boolean;
 	resumeData: DocumentData | null;
 	loadingState: LoadingState;
-	setFileData: (file: File) => void;
+	setFormData: (formData: Partial<FormData>) => void;
 	setIsLoading: (isLoading: boolean) => void;
 	setLoadingState: (loadingState: LoadingState) => void;
 	setResumeData: (resumeData: DocumentData) => void;
-	clearFileData: () => void;
+	clearFormData: () => void;
 	clearResumeData: () => void;
 }
 
@@ -27,15 +29,15 @@ export const useDocumentStore = create<PdfStore>()(
 	devtools(
 		persist(
 			(set) => ({
-				fileData: null,
 				isLoading: false,
 				resumeData: null,
 				loadingState: 'none',
-				setFileData: (file: File) => set({ fileData: { file } }),
+				formData: { file: null, jobDescription: '', input: '' },
 				setIsLoading: (isLoading: boolean) => set({ isLoading }),
-				setLoadingState: (loadingState: LoadingState) => set({ loadingState }),
+				setFormData: (formData: Partial<FormData>) => set((state) => ({ formData: { ...state.formData, ...formData } as FormData })),
+				setLoadingState: (loadingState: LoadingState) => set({ loadingState: loadingState, isLoading: loadingState !== 'none' }),
 				setResumeData: (resumeData: DocumentData) => set({ resumeData }),
-				clearFileData: () => set({ fileData: null }),
+				clearFormData: () => set({ formData: { file: null, jobDescription: '', input: '' } }),
 				clearResumeData: () => set({ resumeData: null }),
 			}),
 			{

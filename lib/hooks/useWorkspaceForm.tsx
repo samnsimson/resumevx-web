@@ -4,20 +4,22 @@ import { useForm, UseFormReturn } from 'react-hook-form';
 import { WorkspaceSchema } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { workspaceSchema } from '@/lib/schema/workspace.schema';
+import { useDocumentStore } from '../store/document.store';
 
 interface WorkspaceFormContext {
-	form: UseFormReturn<WorkspaceSchema> | null;
+	form?: UseFormReturn<WorkspaceSchema>;
 }
 
-const workspaceFormContext = createContext<WorkspaceFormContext>({
-	form: null,
-});
+const workspaceFormContext = createContext<WorkspaceFormContext>({});
 
 export const WorkspaceFormProvider: FC<PropsWithChildren> = ({ children }) => {
-	const form = useForm<WorkspaceSchema>({
-		mode: 'onChange',
-		resolver: zodResolver(workspaceSchema),
-		defaultValues: { jobDescription: '', input: '' },
+	const { formData, setFormData } = useDocumentStore((state) => state);
+	const defaultValues = { jobDescription: formData.jobDescription, input: formData.input };
+	const form = useForm<WorkspaceSchema>({ mode: 'onChange', resolver: zodResolver(workspaceSchema), defaultValues });
+
+	form.subscribe({
+		name: ['jobDescription', 'input'],
+		callback: ({ values }) => setFormData({ jobDescription: values.jobDescription, input: values.input }),
 	});
 
 	return <workspaceFormContext.Provider value={{ form }}>{children}</workspaceFormContext.Provider>;

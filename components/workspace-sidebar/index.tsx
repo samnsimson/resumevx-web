@@ -11,7 +11,7 @@ export const WorkSpaceSidebar: FC<WorkSpaceSidebarProps> = ({ ...props }) => {
 	return (
 		<Stack height={'full'} width={'full'} gap={4} padding={4} {...props}>
 			<Button size={'xl'} width={'fit-content'} variant={'ghost'} colorPalette={'blue'} rounded={'full'} _hover={{ textDecoration: 'none' }} asChild>
-				<Link href={'/workspace'}>
+				<Link href={'/workspace/new'}>
 					<Icon as={HiOutlineHome} boxSize={'24px'} />
 					Home
 				</Link>

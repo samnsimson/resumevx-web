@@ -23,12 +23,11 @@ export const ResumePreview: FC<ResumePreviewProps> = ({ ...props }) => {
 			description="Preview of your result"
 			icon={LuZap}
 			height={'full'}
-			flex={1}
 			actions={<DownloadPdfButton />}
 			body={{ overflow: 'hidden', bg: 'bg.subtle' }}
 			{...props}
 		>
-			<Stack flex={1} minHeight={0} rounded={'lg'} overflow={'scroll'}>
+			<Stack flex={1} minHeight={0} height={'full'} rounded={'lg'} overflowY={'auto'} overflowX={'hidden'}>
 				<Show when={!resumeData}>
 					<NoDataPlaceholder />
 				</Show>

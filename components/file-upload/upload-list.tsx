@@ -2,23 +2,21 @@
 import { FC } from 'react';
 import { LuFile, LuX } from 'react-icons/lu';
 import { useFileUploadContext, FileUpload, For, FileUploadItemProps, Text, HStack, Icon, IconButton } from '@chakra-ui/react';
-import { ProgressIndicator } from '@/components/file-upload/progress-indicator';
 import { useDocumentStore } from '@/lib/store/document.store';
 
 interface UploadListProps extends Omit<FileUploadItemProps, 'file'> {
 	isLoading?: boolean;
 }
 
-export const UploadList: FC<UploadListProps> = ({ isLoading, ...props }) => {
+export const UploadList: FC<UploadListProps> = ({ ...props }) => {
 	const fileUpload = useFileUploadContext();
-	const { clearFileData } = useDocumentStore((state) => state);
+	const { clearFormData } = useDocumentStore((state) => state);
 	const files = fileUpload.acceptedFiles;
 	if (files.length === 0) return null;
-	if (isLoading) return <ProgressIndicator />;
 
 	const removeFile = (file: File) => {
 		fileUpload.deleteFile(file);
-		clearFileData();
+		clearFormData();
 	};
 
 	return (

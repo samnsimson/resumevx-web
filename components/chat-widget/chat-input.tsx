@@ -1,7 +1,7 @@
 'use client';
-import { Button, Field, HStack, StackProps, Textarea, VStack } from '@chakra-ui/react';
+import { Button, Field, HStack, Input, InputGroup, Kbd, StackProps, Textarea, VStack } from '@chakra-ui/react';
 import { FC } from 'react';
-import { LuZap } from 'react-icons/lu';
+import { LuMessageCircle, LuZap } from 'react-icons/lu';
 import { useWorkspaceForm } from '@/lib/hooks/useWorkspaceForm';
 import { WorkspaceSchema } from '@/lib/types';
 import { Controller } from 'react-hook-form';
@@ -58,17 +58,16 @@ export const ChatInput: FC<ChatInputProps> = ({ ...props }) => {
 						name="input"
 						render={({ field }) => (
 							<Field.Root required invalid={!!form.formState.errors.input}>
-								<Textarea
-									autoresize
-									maxHeight={'xs'}
-									flex={1}
-									rows={6}
-									variant={'subtle'}
-									border={'1px solid'}
-									borderColor={'border.emphasized'}
-									placeholder="Say something..."
-									{...field}
-								/>
+								<InputGroup flex="1" startElement={<LuMessageCircle />}>
+									<Input
+										variant={'subtle'}
+										size={'xl'}
+										placeholder="Say something..."
+										border={'1px solid'}
+										borderColor={'border.emphasized'}
+										{...field}
+									/>
+								</InputGroup>
 								<Field.ErrorText>{form.formState.errors.input?.message}</Field.ErrorText>
 							</Field.Root>
 						)}
