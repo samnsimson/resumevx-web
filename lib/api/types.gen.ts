@@ -344,6 +344,40 @@ export type RewriteDocumentRequest = {
 };
 
 /**
+ * SaveSessionStateDto
+ */
+export type SaveSessionStateDto = {
+    /**
+     * Documentname
+     *
+     * Document name
+     */
+    documentName?: string | null;
+    /**
+     * Documenturl
+     *
+     * Document URL
+     */
+    documentUrl?: string | null;
+    /**
+     * Documentparsed
+     *
+     * Document parsed
+     */
+    documentParsed?: string | null;
+    /**
+     * Document data
+     */
+    documentData?: DocumentData | null;
+    /**
+     * Jobdescription
+     *
+     * Job description
+     */
+    jobDescription?: string | null;
+};
+
+/**
  * Session
  */
 export type Session = {
@@ -406,6 +440,10 @@ export type SessionState = {
      */
     documentParsed?: string | null;
     documentData?: DocumentData | null;
+    /**
+     * Jobdescription
+     */
+    jobDescription?: string | null;
 };
 
 /**
@@ -1008,3 +1046,28 @@ export type GetSessionStateResponses = {
 };
 
 export type GetSessionStateResponse = GetSessionStateResponses[keyof GetSessionStateResponses];
+
+export type SaveSessionStateData = {
+    body: SaveSessionStateDto;
+    path?: never;
+    query?: never;
+    url: '/session-state/';
+};
+
+export type SaveSessionStateErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type SaveSessionStateError = SaveSessionStateErrors[keyof SaveSessionStateErrors];
+
+export type SaveSessionStateResponses = {
+    /**
+     * Successful Response
+     */
+    200: SessionState;
+};
+
+export type SaveSessionStateResponse = SaveSessionStateResponses[keyof SaveSessionStateResponses];

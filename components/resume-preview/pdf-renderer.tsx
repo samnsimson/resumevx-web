@@ -2,6 +2,7 @@
 import { FC, PropsWithChildren } from 'react';
 import { DocumentData } from '@/lib/api';
 import { Page, Text, View, Document, StyleSheet, DocumentProps, TextProps, Font } from '@react-pdf/renderer';
+import { cleanText } from '@/lib/utils/pdf.utils';
 
 interface PdfRendererProps extends DocumentProps {
 	data: DocumentData;
@@ -33,20 +34,20 @@ export const PdfRenderer: FC<PdfRendererProps> = ({ data, ...props }) => {
 		>
 			<Page size="A4" orientation="portrait" style={styles.page}>
 				<View style={styles.sectionBasic}>
-					<Text style={styles.sectionBasicTitle}>{data.basics.name}</Text>
+					<Text style={styles.sectionBasicTitle}>{cleanText(data.basics.name)}</Text>
 					<View style={styles.sectionBasicInfo}>
-						<Text style={styles.sectionBasicInfoText}>{data.basics.email}</Text>
-						<Text style={styles.sectionBasicInfoText}>{data.basics.phone}</Text>
-						<Text style={styles.sectionBasicInfoText}>{data.basics.location}</Text>
+						<Text style={styles.sectionBasicInfoText}>{cleanText(data.basics.email)}</Text>
+						<Text style={styles.sectionBasicInfoText}>{cleanText(data.basics.phone)}</Text>
+						<Text style={styles.sectionBasicInfoText}>{cleanText(data.basics.location)}</Text>
 					</View>
 				</View>
 				<View style={styles.sectionSummary}>
 					<SectionTitle>PROFESSIONAL SUMMARY</SectionTitle>
-					<Text style={styles.sectionSummaryText}>{data.basics.summary}</Text>
+					<Text style={styles.sectionSummaryText}>{cleanText(data.basics.summary)}</Text>
 				</View>
 				<View style={styles.sectionSkills}>
 					<SectionTitle>PROFESSIONAL SKILLS</SectionTitle>
-					<Text style={styles.sectionSkillsText}>{data.skills.join(' - ')}</Text>
+					<Text style={styles.sectionSkillsText}>{cleanText(data.skills.join(' - '))}</Text>
 				</View>
 				<View style={styles.sectionExperience}>
 					<SectionTitle>WORK EXPERIENCE</SectionTitle>
@@ -54,14 +55,14 @@ export const PdfRenderer: FC<PdfRendererProps> = ({ data, ...props }) => {
 						<View key={index} style={styles.sectionExperienceItem}>
 							<View style={styles.sectionExperienceItemHeader}>
 								<View style={styles.sectionExperienceItemHeaderTitle}>
-									<Text style={styles.sectionExperienceItemTitle}>{experience.role}</Text>
+									<Text style={styles.sectionExperienceItemTitle}>{cleanText(experience.role)}</Text>
 									<Text style={styles.sectionExperienceItemText}>
-										{experience.company}, {experience.location}
+										{cleanText(experience.company)}, {cleanText(experience.location)}
 									</Text>
 								</View>
 								<View style={styles.sectionExperienceItemHeaderDates}>
-									<Text style={styles.sectionExperienceItemHeaderDate}>{experience.startDate}</Text>
-									<Text style={styles.sectionExperienceItemHeaderDate}>{experience.endDate}</Text>
+									<Text style={styles.sectionExperienceItemHeaderDate}>{cleanText(experience.startDate)}</Text>
+									<Text style={styles.sectionExperienceItemHeaderDate}>{cleanText(experience.endDate)}</Text>
 								</View>
 							</View>
 							<View style={styles.sectionExperienceItemBullets}>
@@ -69,7 +70,7 @@ export const PdfRenderer: FC<PdfRendererProps> = ({ data, ...props }) => {
 									<View key={index} style={styles.sectionExperienceItemBulletContainer}>
 										<Text style={styles.sectionExperienceItemBulletBullet}>•</Text>
 										<Text key={index} style={styles.sectionExperienceItemBullet}>
-											{bullet}
+											{cleanText(bullet)}
 										</Text>
 									</View>
 								))}
@@ -81,9 +82,9 @@ export const PdfRenderer: FC<PdfRendererProps> = ({ data, ...props }) => {
 					<SectionTitle>EDUCATION</SectionTitle>
 					{data.education.map((education, index) => (
 						<View key={index} style={styles.sectionEducationItem}>
-							<Text style={styles.sectionEducationItemTitle}>{education.institution}</Text>
-							<Text style={styles.sectionEducationItemText}>{education.degree}</Text>
-							<Text style={styles.sectionEducationItemText}>{education.year}</Text>
+							<Text style={styles.sectionEducationItemTitle}>{cleanText(education.institution)}</Text>
+							<Text style={styles.sectionEducationItemText}>{cleanText(education.degree)}</Text>
+							<Text style={styles.sectionEducationItemText}>{cleanText(education.year)}</Text>
 						</View>
 					))}
 				</View>

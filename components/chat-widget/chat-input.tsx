@@ -1,5 +1,5 @@
 'use client';
-import { Button, Field, HStack, Input, InputGroup, Kbd, StackProps, Textarea, VStack } from '@chakra-ui/react';
+import { Button, Field, HStack, Input, InputGroup, StackProps, VStack } from '@chakra-ui/react';
 import { FC } from 'react';
 import { LuMessageCircle, LuZap } from 'react-icons/lu';
 import { useWorkspaceForm } from '@/lib/hooks/useWorkspaceForm';

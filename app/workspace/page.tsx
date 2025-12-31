@@ -1,26 +1,29 @@
-import { ChatWidget } from '@/components/chat-widget';
 import { ResumeUpload } from '@/components/file-upload';
+import { GridItem, HStack, SimpleGrid, Stack } from '@chakra-ui/react';
 import { JobDescription } from '@/components/job-description';
-import { ResumePreview } from '@/components/resume-preview';
-import { SimpleGrid, GridItem, VStack } from '@chakra-ui/react';
-import { FC } from 'react';
+import { SectionTitle } from '@/components/ui/section-title';
+import { ContinueButton } from '@/components/workspace/continue-button';
 
-const WorkspacePage: FC<PageProps<'/workspace'>> = async () => {
+export default function WorkspacePage({}: PageProps<'/workspace'>) {
 	return (
-		<SimpleGrid columns={12} gap={4} height={'full'} width={'full'} overflow={'hidden'}>
-			<GridItem colSpan={3} height={'full'} overflow={'hidden'}>
-				<VStack height={'full'} width={'full'}>
-					<ResumeUpload />
-					<JobDescription flex={1} overflow={'auto'} />
-				</VStack>
-			</GridItem>
-			<GridItem colSpan={4} height={'full'} overflow={'hidden'}>
-				<ChatWidget />
-			</GridItem>
-			<GridItem colSpan={5} height={'full'} overflow={'hidden'}>
-				<ResumePreview width={'full'} height={'full'} />
-			</GridItem>
-		</SimpleGrid>
+		<Stack gap={6} height={'full'}>
+			<HStack justify={'space-between'}>
+				<SectionTitle
+					title="New Workspace"
+					description="Create a new workspace to get started"
+					headingStyle={{ size: 'xl', color: 'fg.muted' }}
+					descriptionStyle={{ fontSize: 'md', color: 'GrayText' }}
+				/>
+				<ContinueButton />
+			</HStack>
+			<SimpleGrid columns={2} gap={4} height={'full'}>
+				<GridItem colSpan={1}>
+					<ResumeUpload height={'full'} />
+				</GridItem>
+				<GridItem colSpan={1}>
+					<JobDescription height={'full'} />
+				</GridItem>
+			</SimpleGrid>
+		</Stack>
 	);
-};
-export default WorkspacePage;
+}

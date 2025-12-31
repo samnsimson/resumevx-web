@@ -4,7 +4,7 @@ import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanst
 
 import { client } from '../client.gen';
 import { AuthApi, DocumentApi, type Options, SessionStateApi, SubscriptionsApi, UserApi } from '../sdk.gen';
-import type { CancelSubscriptionData, CancelSubscriptionError, CancelSubscriptionResponse, CreateCheckoutSessionData, CreateCheckoutSessionError, CreateCheckoutSessionResponse, CreatePortalSessionData, CreatePortalSessionError, CreatePortalSessionResponse, DeleteAccountData, DeleteAccountResponse2, ExtractDocumentData, ExtractDocumentError, ExtractDocumentResponse, GetCurrentUserData, GetCurrentUserResponse, GetSessionData, GetSessionResponse, GetSessionStateData, GetSessionStateResponse, GetSubscriptionData, GetSubscriptionResponse, GetUserData, GetUserError, GetUserResponse, ParseDocumentData, ParseDocumentError, ParseDocumentResponse, RewriteDocumentData, RewriteDocumentError, RewriteDocumentResponse, SignInData, SignInError, SignInResponse, SignOutData, SignUpData, SignUpError, SignUpResponse, StripeWebhookData, UpdateSubscriptionData, UpdateSubscriptionError, UpdateSubscriptionResponse, UploadDocumentData, UploadDocumentError, UploadDocumentResponse } from '../types.gen';
+import type { CancelSubscriptionData, CancelSubscriptionError, CancelSubscriptionResponse, CreateCheckoutSessionData, CreateCheckoutSessionError, CreateCheckoutSessionResponse, CreatePortalSessionData, CreatePortalSessionError, CreatePortalSessionResponse, DeleteAccountData, DeleteAccountResponse2, ExtractDocumentData, ExtractDocumentError, ExtractDocumentResponse, GetCurrentUserData, GetCurrentUserResponse, GetSessionData, GetSessionResponse, GetSessionStateData, GetSessionStateResponse, GetSubscriptionData, GetSubscriptionResponse, GetUserData, GetUserError, GetUserResponse, ParseDocumentData, ParseDocumentError, ParseDocumentResponse, RewriteDocumentData, RewriteDocumentError, RewriteDocumentResponse, SaveSessionStateData, SaveSessionStateError, SaveSessionStateResponse, SignInData, SignInError, SignInResponse, SignOutData, SignUpData, SignUpError, SignUpResponse, StripeWebhookData, UpdateSubscriptionData, UpdateSubscriptionError, UpdateSubscriptionResponse, UploadDocumentData, UploadDocumentError, UploadDocumentResponse } from '../types.gen';
 
 /**
  * Login
@@ -350,3 +350,20 @@ export const getSessionStateOptions = (options?: Options<GetSessionStateData>) =
     },
     queryKey: getSessionStateQueryKey(options)
 });
+
+/**
+ * Save Session State
+ */
+export const saveSessionStateMutation = (options?: Partial<Options<SaveSessionStateData>>): UseMutationOptions<SaveSessionStateResponse, SaveSessionStateError, Options<SaveSessionStateData>> => {
+    const mutationOptions: UseMutationOptions<SaveSessionStateResponse, SaveSessionStateError, Options<SaveSessionStateData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await SessionStateApi.saveSessionState({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};

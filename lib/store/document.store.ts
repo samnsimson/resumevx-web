@@ -4,7 +4,7 @@ import { createJSONStorage, devtools, persist } from 'zustand/middleware';
 import { DocumentData } from '@/lib/api/types.gen';
 import { createEncryptedStorage } from './utils';
 
-type LoadingState = 'uploading' | 'parsing' | 'extracting' | 'none';
+type LoadingState = 'uploading' | 'parsing' | 'extracting' | 'saving' | 'none';
 
 interface FormData {
 	file: File | null;

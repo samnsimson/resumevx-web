@@ -6,7 +6,7 @@ import { HiArrowRight } from 'react-icons/hi2';
 import { useWorkspaceForm } from '@/lib/hooks/useWorkspaceForm';
 import { useDocumentStore } from '@/lib/store/document.store';
 import { useRouter } from 'next/navigation';
-import { extractDocumentMutation, parseDocumentMutation, uploadDocumentMutation } from '@/lib/api/@tanstack/react-query.gen';
+import { extractDocumentMutation, parseDocumentMutation, saveSessionStateMutation, uploadDocumentMutation } from '@/lib/api/@tanstack/react-query.gen';
 import { useMutation } from '@tanstack/react-query';
 import { toaster } from '@/components/ui/toaster';
 import { ProgressIndicator } from '@/components/file-upload/progress-indicator';
@@ -25,11 +25,19 @@ export const ContinueButton: FC<ContinueButtonProps> = ({ ...props }) => {
 	const { mutateAsync: uploadDocument } = useMutation({ ...uploadDocumentMutation() });
 	const { mutateAsync: parseDocument } = useMutation({ ...parseDocumentMutation() });
 	const { mutateAsync: extractDocument } = useMutation({ ...extractDocumentMutation() });
+	const { mutateAsync: saveSessionState } = useMutation({ ...saveSessionStateMutation() });
 
 	const uploadFile = async (file: File) => {
 		setLoadingState('uploading');
 		const result = await uploadDocument({ body: { file } });
 		if (!result) throw new Error('Failed to upload file');
+		return result;
+	};
+
+	const saveJobDescription = async (jobDescription: string) => {
+		setLoadingState('saving');
+		const result = await saveSessionState({ body: { jobDescription } });
+		if (!result) throw new Error('Failed to save job description');
 		return result;
 	};
 
@@ -50,9 +58,11 @@ export const ContinueButton: FC<ContinueButtonProps> = ({ ...props }) => {
 	const handleContinue = async () => {
 		try {
 			if (!form || !formData) return;
-			if (!form.getValues('jobDescription') || !formData.file) return;
+			const jobDescription = form.getValues('jobDescription');
+			if (!jobDescription || !formData.file) return;
 			setOpenDialog(true);
 			const uploadedDocument = await uploadFile(formData.file);
+			const sessionState = await saveJobDescription(jobDescription);
 			const parsedDocument = await parseFile(formData.file);
 			const extractedDocument = await extractFile(parsedDocument);
 			setResumeData(extractedDocument);

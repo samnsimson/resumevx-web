@@ -10,19 +10,46 @@ interface WorkSpaceSidebarProps extends HTMLAttributes<HTMLDivElement> {
 export const WorkSpaceSidebar: FC<WorkSpaceSidebarProps> = ({ ...props }) => {
 	return (
 		<Stack height={'full'} width={'full'} gap={4} padding={4} {...props}>
-			<Button size={'xl'} width={'fit-content'} variant={'ghost'} colorPalette={'blue'} rounded={'full'} _hover={{ textDecoration: 'none' }} asChild>
-				<Link href={'/workspace/new'}>
+			<Button
+				size={'xl'}
+				width={'fit-content'}
+				rounded={'full'}
+				color={{ base: 'fg.muted', _hover: 'white' }}
+				colorPalette={{ base: 'gray', _hover: 'blue' }}
+				variant={{ base: 'ghost', _hover: 'solid' }}
+				_hover={{ textDecoration: 'none' }}
+				asChild
+			>
+				<Link href={'/workspace'}>
 					<Icon as={HiOutlineHome} boxSize={'24px'} />
 					Home
 				</Link>
 			</Button>
-			<Button size={'xl'} width={'fit-content'} variant={'ghost'} colorPalette={'blue'} rounded={'full'} _hover={{ textDecoration: 'none' }} asChild>
+			<Button
+				size={'xl'}
+				width={'fit-content'}
+				rounded={'full'}
+				color={{ base: 'fg.muted', _hover: 'white' }}
+				colorPalette={{ base: 'gray', _hover: 'blue' }}
+				variant={{ base: 'ghost', _hover: 'solid' }}
+				_hover={{ textDecoration: 'none' }}
+				asChild
+			>
 				<Link href={'/workspace/templates'}>
 					<Icon as={HiOutlineCodeBracket} boxSize={'24px'} />
 					Resume Templates
 				</Link>
 			</Button>
-			<Button size={'xl'} width={'fit-content'} variant={'ghost'} colorPalette={'blue'} rounded={'full'} _hover={{ textDecoration: 'none' }} asChild>
+			<Button
+				size={'xl'}
+				width={'fit-content'}
+				rounded={'full'}
+				color={{ base: 'fg.muted', _hover: 'white' }}
+				colorPalette={{ base: 'gray', _hover: 'blue' }}
+				variant={{ base: 'ghost', _hover: 'solid' }}
+				_hover={{ textDecoration: 'none' }}
+				asChild
+			>
 				<Link href={'/workspace/resumes'}>
 					<Icon as={HiOutlineDocument} boxSize={'24px'} />
 					My Resumes

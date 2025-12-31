@@ -4,10 +4,11 @@ import { Stack, StackProps } from '@chakra-ui/react';
 import { LuSparkle } from 'react-icons/lu';
 import { ChatInput } from '@/components/chat-widget/chat-input';
 import { ChatConversation } from '@/components/chat-widget/chat-conversation';
-import { AppCard } from '../ui/app-card';
+import { AppCard } from '@/components/ui/app-card';
+import { SessionState } from '@/lib/api/types.gen';
 
 interface ChatWidgetProps extends StackProps {
-	[x: string]: unknown;
+	sessionState: SessionState;
 }
 
 export const ChatWidget: FC<ChatWidgetProps> = ({ ...props }) => {
