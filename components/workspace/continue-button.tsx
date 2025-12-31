@@ -66,7 +66,7 @@ export const ContinueButton: FC<ContinueButtonProps> = ({ ...props }) => {
 			const parsedDocument = await parseFile(formData.file);
 			const extractedDocument = await extractFile(parsedDocument);
 			setResumeData(extractedDocument);
-			router.push('/workspace/assistant');
+			router.refresh();
 		} catch (error: any) {
 			console.error(error);
 			const errorMessage = error.message || 'Failed to continue';
