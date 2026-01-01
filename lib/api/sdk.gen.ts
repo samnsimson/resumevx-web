@@ -2,7 +2,7 @@
 
 import { type Client, formDataBodySerializer, type Options as Options2, type TDataShape } from './client';
 import { client } from './client.gen';
-import type { CancelSubscriptionData, CancelSubscriptionErrors, CancelSubscriptionResponses, CreateCheckoutSessionData, CreateCheckoutSessionErrors, CreateCheckoutSessionResponses, CreatePortalSessionData, CreatePortalSessionErrors, CreatePortalSessionResponses, DeleteAccountData, DeleteAccountResponses, ExtractDocumentData, ExtractDocumentErrors, ExtractDocumentResponses, GetCurrentUserData, GetCurrentUserResponses, GetSessionData, GetSessionResponses, GetSessionStateData, GetSessionStateResponses, GetSubscriptionData, GetSubscriptionResponses, GetUserData, GetUserErrors, GetUserResponses, ParseDocumentData, ParseDocumentErrors, ParseDocumentResponses, RewriteDocumentData, RewriteDocumentErrors, RewriteDocumentResponses, SaveSessionStateData, SaveSessionStateErrors, SaveSessionStateResponses, SignInData, SignInErrors, SignInResponses, SignOutData, SignOutResponses, SignUpData, SignUpErrors, SignUpResponses, StripeWebhookData, StripeWebhookResponses, UpdateSubscriptionData, UpdateSubscriptionErrors, UpdateSubscriptionResponses, UploadDocumentData, UploadDocumentErrors, UploadDocumentResponses } from './types.gen';
+import type { CancelSubscriptionData, CancelSubscriptionErrors, CancelSubscriptionResponses, ClearSessionStateData, ClearSessionStateResponses, CreateCheckoutSessionData, CreateCheckoutSessionErrors, CreateCheckoutSessionResponses, CreatePortalSessionData, CreatePortalSessionErrors, CreatePortalSessionResponses, DeleteAccountData, DeleteAccountResponses, ExtractDocumentData, ExtractDocumentErrors, ExtractDocumentResponses, GenerateDocumentData, GenerateDocumentResponses, GetCurrentUserData, GetCurrentUserResponses, GetSessionData, GetSessionResponses, GetSessionStateData, GetSessionStateResponses, GetSubscriptionData, GetSubscriptionResponses, GetUserData, GetUserErrors, GetUserResponses, ParseDocumentData, ParseDocumentErrors, ParseDocumentResponses, RewriteDocumentData, RewriteDocumentErrors, RewriteDocumentResponses, SaveSessionStateData, SaveSessionStateErrors, SaveSessionStateResponses, SignInData, SignInErrors, SignInResponses, SignOutData, SignOutResponses, SignUpData, SignUpErrors, SignUpResponses, StripeWebhookData, StripeWebhookResponses, UpdateSubscriptionData, UpdateSubscriptionErrors, UpdateSubscriptionResponses, UploadDocumentData, UploadDocumentErrors, UploadDocumentResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -143,6 +143,13 @@ export class DocumentApi {
             }
         });
     }
+    
+    /**
+     * Generate Document
+     */
+    public static generateDocument<ThrowOnError extends boolean = false>(options?: Options<GenerateDocumentData, ThrowOnError>) {
+        return (options?.client ?? client).get<GenerateDocumentResponses, unknown, ThrowOnError>({ url: '/document/generate', ...options });
+    }
 }
 
 export class SubscriptionsApi {
@@ -218,6 +225,13 @@ export class SubscriptionsApi {
 }
 
 export class SessionStateApi {
+    /**
+     * Clear Session State
+     */
+    public static clearSessionState<ThrowOnError extends boolean = false>(options?: Options<ClearSessionStateData, ThrowOnError>) {
+        return (options?.client ?? client).delete<ClearSessionStateResponses, unknown, ThrowOnError>({ url: '/session-state', ...options });
+    }
+    
     /**
      * Get Session State
      */

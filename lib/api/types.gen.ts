@@ -897,6 +897,20 @@ export type RewriteDocumentResponses = {
 
 export type RewriteDocumentResponse = RewriteDocumentResponses[keyof RewriteDocumentResponses];
 
+export type GenerateDocumentData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/document/generate';
+};
+
+export type GenerateDocumentResponses = {
+    /**
+     * Successful Response
+     */
+    200: unknown;
+};
+
 export type GetSubscriptionData = {
     body?: never;
     path?: never;
@@ -1028,6 +1042,24 @@ export type StripeWebhookResponses = {
      */
     200: unknown;
 };
+
+export type ClearSessionStateData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/session-state';
+};
+
+export type ClearSessionStateResponses = {
+    /**
+     * Response Clearsessionstate
+     *
+     * Successful Response
+     */
+    200: boolean;
+};
+
+export type ClearSessionStateResponse = ClearSessionStateResponses[keyof ClearSessionStateResponses];
 
 export type GetSessionStateData = {
     body?: never;
