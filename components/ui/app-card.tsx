@@ -18,7 +18,7 @@ interface AppCardHeadlessProps extends CardBodyProps {
 
 export const AppCard: FC<AppCardProps> = ({ title, description, icon, children, body, actions, ...props }) => {
 	return (
-		<Card.Root width={'full'} rounded={'xl'} {...props}>
+		<Card.Root width={'full'} rounded={'xl'} divideY={'1px'} divideColor={'border'} {...props}>
 			<Card.Header paddingY={0} paddingX={4}>
 				<HStack justify={'space-between'}>
 					<SectionTitle title={title} description={description} icon={icon} />

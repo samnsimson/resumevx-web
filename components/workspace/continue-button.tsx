@@ -15,7 +15,7 @@ interface ContinueButtonProps extends ButtonProps {
 	[x: string]: any;
 }
 
-export const ContinueButton: FC<ContinueButtonProps> = ({ ...props }) => {
+export function ContinueButton({ ...props }: ContinueButtonProps) {
 	const router = useRouter();
 	const { form } = useWorkspaceForm();
 	const { formData, setResumeData, setLoadingState } = useDocumentStore((state) => state);
@@ -96,4 +96,4 @@ export const ContinueButton: FC<ContinueButtonProps> = ({ ...props }) => {
 			</Dialog.Root>
 		</Fragment>
 	);
-};
+}

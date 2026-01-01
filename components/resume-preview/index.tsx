@@ -35,7 +35,7 @@ export const ResumePreview: FC<ResumePreviewProps> = ({ document, ...props }) =>
 			body={{ overflow: 'hidden', bg: 'bg.subtle' }}
 			{...props}
 		>
-			<Stack flex={1} minHeight={0} height={'full'} rounded={'lg'} overflowY={'auto'} overflowX={'hidden'}>
+			<Stack flex={1} minHeight={0} height={'full'} rounded={'lg'} overflowY={'scroll'}>
 				<Show when={document} fallback={NoDataPlaceholder()}>
 					{(document) => <PdfViewer blob={document} />}
 				</Show>

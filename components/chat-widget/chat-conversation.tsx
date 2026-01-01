@@ -21,18 +21,7 @@ export const ChatConversation: FC<ChatConversationProps> = ({ ...props }) => {
 	}, [messages, isSubmitting]);
 
 	return (
-		<VStack
-			flex={1}
-			minHeight={0}
-			rounded={'lg'}
-			bgColor={'bg.muted'}
-			paddingX={3}
-			width={'full'}
-			border={'1px solid'}
-			borderColor={'border.emphasized'}
-			overflow={'hidden'}
-			{...props}
-		>
+		<VStack flex={1} minHeight={0} paddingX={3} width={'full'} overflow={'hidden'} {...props}>
 			{messages.length === 0 ? (
 				<VStack flex={1} justify={'center'} width={'full'}>
 					<ChatEmptyState />
