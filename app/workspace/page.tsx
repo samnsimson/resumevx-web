@@ -3,14 +3,26 @@ import { GridItem, HStack, Show, SimpleGrid, Stack } from '@chakra-ui/react';
 import { JobDescription } from '@/components/job-description';
 import { SectionTitle } from '@/components/ui/section-title';
 import { ContinueButton } from '@/components/workspace/continue-button';
-import { SessionStateApi } from '@/lib/api';
+import { DocumentApi, SessionStateApi } from '@/lib/api';
 import { headers } from 'next/headers';
 import { ChatWidget } from '@/components/chat-widget';
 import { ResumePreview } from '@/components/resume-preview';
 import { StartOverButton } from '@/components/workspace/start-over-button';
+import { parseHeaders } from '@/lib/utils/server.utils';
 
 export default async function WorkspacePage({}: PageProps<'/workspace'>) {
-	const { data: sessionState } = await SessionStateApi.getSessionState({ headers: await headers() });
+	let document: any = null;
+	const requestHeaders = await headers();
+	const { data: sessionState } = await SessionStateApi.getSessionState({ headers: requestHeaders });
+
+	if (sessionState && sessionState.documentData) {
+		const body = { templateName: 'default' as const, documentData: sessionState.documentData };
+		const { data, error } = await DocumentApi.generateDocument({ body, headers: parseHeaders(requestHeaders) });
+		if (error) console.error('🚀 ~ WorkspacePage ~ error:', error);
+		if (data) document = data;
+		console.log('🚀 ~ WorkspacePage ~ data:', typeof document);
+	}
+
 	return (
 		<Stack gap={6} height={'full'}>
 			<HStack justify={'space-between'}>
@@ -32,7 +44,7 @@ export default async function WorkspacePage({}: PageProps<'/workspace'>) {
 							<ChatWidget height={'full'} sessionState={sessionState} />
 						</GridItem>
 						<GridItem colSpan={1} height={'full'} minHeight={0} overflow={'hidden'}>
-							<ResumePreview height={'full'} sessionState={sessionState} />
+							<ResumePreview height={'full'} document={document} />
 						</GridItem>
 					</SimpleGrid>
 				)}

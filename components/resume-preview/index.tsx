@@ -6,12 +6,11 @@ import { LuZap } from 'react-icons/lu';
 import { NoDataPlaceholder } from './no-data-palceholder';
 import { AppCard } from '@/components/ui/app-card';
 import { DownloadPdfButton } from './download-pdf-button';
-import { SessionState } from '@/lib/api/types.gen';
 import { HiOutlineBookmark } from 'react-icons/hi2';
 
 const PdfViewer = dynamic(() => import('./pdf-viewer').then((mod) => ({ default: mod.PdfViewer })), { ssr: false });
 interface ResumePreviewProps extends StackProps {
-	sessionState: SessionState;
+	document: Blob | null;
 }
 
 export const ActionButtons = () => {
@@ -25,7 +24,7 @@ export const ActionButtons = () => {
 	);
 };
 
-export const ResumePreview: FC<ResumePreviewProps> = ({ sessionState, ...props }) => {
+export const ResumePreview: FC<ResumePreviewProps> = ({ document, ...props }) => {
 	return (
 		<AppCard
 			title="Preview"
@@ -37,17 +36,10 @@ export const ResumePreview: FC<ResumePreviewProps> = ({ sessionState, ...props }
 			{...props}
 		>
 			<Stack flex={1} minHeight={0} height={'full'} rounded={'lg'} overflowY={'auto'} overflowX={'hidden'}>
-				<Show when={!sessionState.documentData}>
-					<NoDataPlaceholder />
+				<Show when={document} fallback={NoDataPlaceholder()}>
+					{(document) => <PdfViewer blob={document} />}
 				</Show>
-				<Show when={sessionState.documentUrl}>{(documentUrl) => <PdfViewer url={documentUrl} />}</Show>
 			</Stack>
 		</AppCard>
 	);
 };
-
-{
-	/* {(resume) => (
-						<BlobProvider document={createElement(PdfRenderer, { data: resume })}>{({ url }) => }</BlobProvider>
-					)} */
-}

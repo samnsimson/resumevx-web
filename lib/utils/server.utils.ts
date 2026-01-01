@@ -1,4 +1,5 @@
 import { createCipheriv, createDecipheriv, randomBytes } from 'crypto';
+import { ReadonlyHeaders } from 'next/dist/server/web/spec-extension/adapters/headers';
 
 export const encrypt = (data: string, secretKey: string) => {
 	const iv = randomBytes(16);
@@ -16,4 +17,10 @@ export const decrypt = (data: string, secretKey: string): string => {
 	let decrypted = decipher.update(encryptedData, 'hex', 'utf8');
 	decrypted += decipher.final('utf8');
 	return decrypted;
+};
+
+export const parseHeaders = (headers: ReadonlyHeaders): Record<string, string> => {
+	const headersObj: Record<string, string> = {};
+	headers.forEach((value, key) => (headersObj[key] = value));
+	return headersObj;
 };

@@ -261,6 +261,22 @@ export type ExtractDocumentRequest = {
 };
 
 /**
+ * GenerateDocumentRequest
+ */
+export type GenerateDocumentRequest = {
+    /**
+     * Templatename
+     *
+     * Template name
+     */
+    templateName?: 'default' | null;
+    /**
+     * Document data
+     */
+    documentData: DocumentData;
+};
+
+/**
  * HTTPValidationError
  */
 export type HttpValidationError = {
@@ -898,11 +914,20 @@ export type RewriteDocumentResponses = {
 export type RewriteDocumentResponse = RewriteDocumentResponses[keyof RewriteDocumentResponses];
 
 export type GenerateDocumentData = {
-    body?: never;
+    body: GenerateDocumentRequest;
     path?: never;
     query?: never;
     url: '/document/generate';
 };
+
+export type GenerateDocumentErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GenerateDocumentError = GenerateDocumentErrors[keyof GenerateDocumentErrors];
 
 export type GenerateDocumentResponses = {
     /**

@@ -4,6 +4,6 @@ export const createClientConfig: CreateClientConfig = (config) => ({
 	...config,
 	credentials: 'include',
 	baseUrl: 'http://localhost:8000/api',
-	parseAs: 'json',
+	parseAs: 'auto',
 	headers: { ...config?.headers },
 });

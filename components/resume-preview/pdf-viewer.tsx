@@ -8,10 +8,10 @@ import { LoadingPlaceholder } from './loading-placeholder';
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 interface PdfViewerProps {
-	url: string;
+	blob: Blob;
 }
 
-export const PdfViewer: FC<PdfViewerProps> = ({ url }) => {
+export const PdfViewer: FC<PdfViewerProps> = ({ blob }) => {
 	const [numPages, setNumPages] = useState<number>(0);
 
 	function onDocumentLoadSuccess({ numPages }: any): void {
@@ -19,7 +19,7 @@ export const PdfViewer: FC<PdfViewerProps> = ({ url }) => {
 	}
 
 	return (
-		<Document file={url} onLoadSuccess={onDocumentLoadSuccess} loading={LoadingPlaceholder()} error={ErrorPlaceholder()} className={'document-viewer'}>
+		<Document file={blob} onLoadSuccess={onDocumentLoadSuccess} loading={LoadingPlaceholder()} error={ErrorPlaceholder()} className={'document-viewer'}>
 			{Array.from(new Array(numPages), (el, index) => (
 				<Page key={`page_${index + 1}`} pageNumber={index + 1} renderTextLayer={false} renderAnnotationLayer={false} width={undefined} />
 			))}
