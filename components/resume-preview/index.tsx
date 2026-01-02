@@ -1,12 +1,10 @@
 'use client';
 import { FC } from 'react';
 import dynamic from 'next/dynamic';
-import { HStack, Icon, IconButton, Show, Stack, StackProps } from '@chakra-ui/react';
+import { Show, Stack, StackProps, Tabs } from '@chakra-ui/react';
 import { LuZap } from 'react-icons/lu';
 import { NoDataPlaceholder } from './no-data-palceholder';
 import { AppCard } from '@/components/ui/app-card';
-import { DownloadPdfButton } from './download-pdf-button';
-import { HiOutlineBookmark } from 'react-icons/hi2';
 
 const PdfViewer = dynamic(() => import('./pdf-viewer').then((mod) => ({ default: mod.PdfViewer })), { ssr: false });
 interface ResumePreviewProps extends StackProps {
@@ -15,12 +13,16 @@ interface ResumePreviewProps extends StackProps {
 
 export const ActionButtons = () => {
 	return (
-		<HStack>
-			<IconButton colorPalette="blue" variant="ghost" size="sm" rounded="full">
-				<Icon as={HiOutlineBookmark} />
-			</IconButton>
-			<DownloadPdfButton />
-		</HStack>
+		<Tabs.Root defaultValue="members" rounded={'full'} variant={'enclosed'} size={'sm'}>
+			<Tabs.List rounded={'full'} border={'1px solid'} borderColor={'border.emphasized'}>
+				<Tabs.Trigger value="projects" rounded={'full'} _selected={{ bg: 'green.600', fontWeight: 'bold', color: 'white' }}>
+					Generated
+				</Tabs.Trigger>
+				<Tabs.Trigger value="members" rounded={'full'} _selected={{ bg: 'green.600', fontWeight: 'bold', color: 'white' }}>
+					Original
+				</Tabs.Trigger>
+			</Tabs.List>
+		</Tabs.Root>
 	);
 };
 

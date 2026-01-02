@@ -1,27 +1,33 @@
 'use client';
 import { Box, Heading, HStack, Show, StackProps, Text, Icon, HeadingProps, TextProps } from '@chakra-ui/react';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { IconType } from 'react-icons';
 
 export interface SectionTitleProps extends StackProps {
 	title: string;
 	description?: string;
-	icon?: IconType;
+	icon?: IconType | ReactNode;
 	headingStyle?: HeadingProps;
 	descriptionStyle?: TextProps;
 }
 
+export const RenderIcon = ({ icon }: { icon?: IconType | ReactNode }) => {
+	if (!icon) return null;
+	if (typeof icon === 'function') return <Icon as={icon} size={'lg'} color={'blue.600'} />;
+	return icon as ReactNode;
+};
+
 export const SectionTitle: FC<SectionTitleProps> = ({ title, description, icon, headingStyle, descriptionStyle, ...props }) => {
 	return (
-		<HStack paddingY={3} gap={6} flexShrink={0} bgColor={'transparent'} {...props}>
-			{icon ? <Icon as={icon} size={'lg'} color={'LinkText'} /> : null}
+		<HStack paddingY={3} gap={6} bgColor={'transparent'} {...props}>
+			<RenderIcon icon={icon} />
 			<Box width={'full'}>
-				<Heading size={'sm'} color={'LinkText'} {...headingStyle}>
+				<Heading size={'sm'} color={'blue.600'} {...headingStyle}>
 					{title}
 				</Heading>
 				<Show when={!!description}>
 					<Text fontSize={'sm'} color={'GrayText'} {...descriptionStyle}>
-						Provide the job description in the input box below
+						{description}
 					</Text>
 				</Show>
 			</Box>

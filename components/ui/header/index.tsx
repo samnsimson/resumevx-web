@@ -16,7 +16,7 @@ export const Header: FC<HeaderProps> = ({ ...props }) => {
 				<Heading fontWeight={'bold'}>Resume vX</Heading>
 			</Box>
 			<Spacer />
-			<HStack height={'full'} gap={4} paddingX={4}>
+			<HStack gap={4} paddingX={4}>
 				<ColorModeButton rounded={'full'} colorPalette={'blue'} variant={'ghost'} size={'lg'} />
 				<IconButton rounded={'full'} colorPalette={'blue'} variant={'ghost'} size={'lg'} asChild>
 					<Link href={'/workspace/profile'}>
