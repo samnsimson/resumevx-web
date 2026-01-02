@@ -8,6 +8,7 @@ import { headers } from 'next/headers';
 export default async function DashboardLayout({ chat, preview, dataInput }: LayoutProps<'/dashboard'>) {
 	const requestHeaders = await headers();
 	const { data: sessionState } = await SessionStateApi.getSessionState({ headers: requestHeaders });
+
 	return (
 		<Stack flex={1} height={'100vh'} gap={0} bg={'bg.panel'} divideY={'1px'} divideColor={'border'} overflow={'hidden'}>
 			<Header bg={'bg.panel'} />
