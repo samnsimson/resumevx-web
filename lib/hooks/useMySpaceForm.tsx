@@ -1,21 +1,21 @@
 'use client';
 import { createContext, FC, PropsWithChildren, useContext } from 'react';
 import { useForm, UseFormReturn } from 'react-hook-form';
-import { WorkspaceSchema } from '@/lib/types';
+import { MySpaceSchema } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { workspaceSchema } from '@/lib/schema/workspace.schema';
 import { useDocumentStore } from '../store/document.store';
 
-interface WorkspaceFormContext {
-	form?: UseFormReturn<WorkspaceSchema>;
+interface MySpaceFormContext {
+	form?: UseFormReturn<MySpaceSchema>;
 }
 
-const workspaceFormContext = createContext<WorkspaceFormContext>({});
+const workspaceFormContext = createContext<MySpaceFormContext>({});
 
-export const WorkspaceFormProvider: FC<PropsWithChildren> = ({ children }) => {
+export const MySpaceFormProvider: FC<PropsWithChildren> = ({ children }) => {
 	const { formData, setFormData } = useDocumentStore((state) => state);
 	const defaultValues = { jobDescription: formData.jobDescription, input: formData.input };
-	const form = useForm<WorkspaceSchema>({ mode: 'onChange', resolver: zodResolver(workspaceSchema), defaultValues });
+	const form = useForm<MySpaceSchema>({ mode: 'onChange', resolver: zodResolver(workspaceSchema), defaultValues });
 
 	form.subscribe({
 		name: ['jobDescription', 'input'],
@@ -25,8 +25,8 @@ export const WorkspaceFormProvider: FC<PropsWithChildren> = ({ children }) => {
 	return <workspaceFormContext.Provider value={{ form }}>{children}</workspaceFormContext.Provider>;
 };
 
-export const useWorkspaceForm = () => {
+export const useMySpaceForm = () => {
 	const context = useContext(workspaceFormContext);
-	if (!context) throw new Error('useWorkspaceForm must be used within a WorkspaceFormProvider');
+	if (!context) throw new Error('useMySpaceForm must be used within a MySpaceFormProvider');
 	return context;
 };

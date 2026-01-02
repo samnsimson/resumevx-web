@@ -2,7 +2,7 @@
 import { FC } from 'react';
 import { CardRootProps, Field, Textarea } from '@chakra-ui/react';
 import { LuBriefcase } from 'react-icons/lu';
-import { useWorkspaceForm } from '@/lib/hooks/useWorkspaceForm';
+import { useMySpaceForm } from '@/lib/hooks/useMySpaceForm';
 import { Controller } from 'react-hook-form';
 import { AppCard } from '../ui/app-card';
 
@@ -11,10 +11,10 @@ interface JobDescriptionProps extends CardRootProps {
 }
 
 export const JobDescription: FC<JobDescriptionProps> = ({ ...props }) => {
-	const { form } = useWorkspaceForm();
+	const { form } = useMySpaceForm();
 	if (!form) return null;
 	return (
-		<AppCard title="Paste the job description" description="Provide the job description in the input box below" icon={LuBriefcase} flex={1} {...props}>
+		<AppCard title="Job description" description="Provide the job description in the input box below" icon={LuBriefcase} flex={1} {...props}>
 			<Controller
 				control={form.control}
 				name="jobDescription"

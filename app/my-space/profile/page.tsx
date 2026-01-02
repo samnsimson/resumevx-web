@@ -8,7 +8,7 @@ import { redirect } from 'next/navigation';
 import { FC } from 'react';
 import { LuLock, LuSave } from 'react-icons/lu';
 
-const ProfilePage: FC<PageProps<'/workspace/profile'>> = async () => {
+const ProfilePage: FC<PageProps<'/my-space/profile'>> = async () => {
 	const { data } = await UserApi.getCurrentUser({ headers: await headers() });
 	if (!data) return redirect('/auth/login');
 

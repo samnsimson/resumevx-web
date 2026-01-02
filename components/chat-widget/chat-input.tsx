@@ -1,6 +1,6 @@
 'use client';
 import { FC, useState } from 'react';
-import { Button, HStack, Input, InputGroup, StackProps, VStack } from '@chakra-ui/react';
+import { Button, HStack, Input, InputGroup, Stack, StackProps } from '@chakra-ui/react';
 import { LuMessageCircle, LuZap } from 'react-icons/lu';
 import { useMutation } from '@tanstack/react-query';
 import { rewriteDocumentMutation } from '@/lib/api/@tanstack/react-query.gen';
@@ -51,7 +51,7 @@ export const ChatInput: FC<ChatInputProps> = ({ sessionState, ...props }) => {
 	}
 
 	return (
-		<VStack width={'full'} gap={4} flexShrink={0} {...props} asChild>
+		<Stack padding={4} gap={4} {...props}>
 			<form onSubmit={onSubmit}>
 				<HStack width={'full'} gap={4}>
 					<InputGroup flex="1" startElement={<LuMessageCircle />}>
@@ -83,6 +83,6 @@ export const ChatInput: FC<ChatInputProps> = ({ sessionState, ...props }) => {
 					Send message
 				</Button>
 			</form>
-		</VStack>
+		</Stack>
 	);
 };

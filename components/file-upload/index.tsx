@@ -31,7 +31,7 @@ export const ResumeUpload: FC<ResumeUploadProps> = ({ ...props }) => {
 	};
 
 	return (
-		<AppCard title="Upload your resume" description=" Upload your resume to be parsed for use" icon={LuUpload} {...props}>
+		<AppCard title="Upload resume" description=" Upload your resume to be parsed for use" icon={LuUpload} {...props}>
 			<FileUpload.Root alignItems="stretch" maxFiles={1} height={'full'} accept={['application/pdf']} onFileAccept={handleFileAccept}>
 				<FileUpload.HiddenInput />
 				<ResumeDropZone />
