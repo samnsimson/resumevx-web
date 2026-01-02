@@ -8,7 +8,7 @@ import { TemplateSelector } from '@/components/template-selector';
 
 export default async function DataInputPage() {
 	return (
-		<Stack width={'full'} height={'full'} bg={'bg.emphasized'}>
+		<Stack width={'full'} height={'full'} bg={'bg.muted'}>
 			<AppCard
 				title="Let's get started"
 				description="Upload your resume and paste the job description to continue"

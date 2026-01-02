@@ -19,7 +19,7 @@ export default async function MySpaceLayout({ chat, preview, dataInput }: Layout
 					<MySpaceFormProvider>
 						<HStack width={'full'} height={'full'} gap={0} divideX={'1px'}>
 							<Show when={sessionState} fallback={dataInput}>
-								<Stack width={'8/12'} height={'full'} bg={'bg.emphasized'}>
+								<Stack width={'8/12'} height={'full'} bg={'bg.muted'}>
 									{preview}
 								</Stack>
 								<Stack width={'4/12'} height={'full'}>

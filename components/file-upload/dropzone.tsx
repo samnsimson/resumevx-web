@@ -1,5 +1,5 @@
 'use client';
-import { FileUpload, Icon, Box, FileUploadDropzoneProps, useFileUploadContext } from '@chakra-ui/react';
+import { FileUpload, Icon, Box, FileUploadDropzoneProps, useFileUploadContext, Heading, Text, Show } from '@chakra-ui/react';
 import { FC } from 'react';
 import { LuCheckCheck, LuUpload } from 'react-icons/lu';
 
@@ -14,11 +14,13 @@ export const ResumeDropZone: FC<ResumeDropZoneProps> = ({ ...props }) => {
 	return (
 		<FileUpload.Dropzone background={hasFiles ? 'bg.panel' : 'bg.muted'} rounded={'lg'} boxSize={'full'} {...props}>
 			<Icon size="md" color="fg.muted">
-				{hasFiles ? <LuCheckCheck color="green" /> : <LuUpload />}
+				<Show when={hasFiles} fallback={<Icon as={LuUpload} size={'lg'} color={'GrayText'} />}>
+					<LuCheckCheck color="green" size={24} />
+				</Show>
 			</Icon>
 			<FileUpload.DropzoneContent>
-				<Box>{hasFiles ? 'Resume uploaded' : 'Drag and drop files here'}</Box>
-				<Box color="fg.muted">{hasFiles ? 'Remove it to upload a new one' : 'Only PDF files are supported'}</Box>
+				<Heading size={'sm'}>{hasFiles ? 'Resume uploaded' : 'Drag and drop your resume here'}</Heading>
+				<Text color="fg.muted">{hasFiles ? 'Remove it to upload a new one' : 'Only PDF files are supported'}</Text>
 			</FileUpload.DropzoneContent>
 		</FileUpload.Dropzone>
 	);

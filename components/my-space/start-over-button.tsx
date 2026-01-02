@@ -6,6 +6,8 @@ import { useMutation } from '@tanstack/react-query';
 import { clearSessionStateMutation } from '@/lib/api/@tanstack/react-query.gen';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useDocumentStore } from '@/lib/store/document.store';
+import { useChatStore } from '@/lib/store/chat.store';
 
 interface StartOverButtonProps extends ButtonProps {
 	[x: string]: any;
@@ -14,19 +16,21 @@ interface StartOverButtonProps extends ButtonProps {
 export const StartOverButton: FC<StartOverButtonProps> = ({ ...props }) => {
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
-	const { mutateAsync: clearSessionState } = useMutation({ ...clearSessionStateMutation() });
+	const { clearFormData, clearResumeData } = useDocumentStore((state) => state);
+	const { clearMessages } = useChatStore((state) => state);
+	const { mutate: clearSessionState } = useMutation({
+		...clearSessionStateMutation(),
+		onMutate: () => setIsLoading(true),
+		onSuccess: () => clearData(() => router.refresh()),
+		onSettled: () => setIsLoading(false),
+	});
 
-	const handleStartOver = async () => {
-		try {
-			setIsLoading(true);
-			const result = await clearSessionState({});
-			if (result) router.refresh();
-		} catch (error) {
-			console.error(error);
-		} finally {
-			setIsLoading(false);
-		}
-	};
+	function clearData(cb: () => void = () => null) {
+		clearFormData();
+		clearResumeData();
+		clearMessages();
+		if (cb) cb();
+	}
 
 	return (
 		<Button
@@ -36,7 +40,7 @@ export const StartOverButton: FC<StartOverButtonProps> = ({ ...props }) => {
 			rounded={'full'}
 			loading={isLoading}
 			disabled={isLoading}
-			onClick={handleStartOver}
+			onClick={() => clearSessionState({})}
 			{...props}
 		>
 			<LuRefreshCcw />
