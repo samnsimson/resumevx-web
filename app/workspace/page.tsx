@@ -1,7 +1,6 @@
 import { ResumeUpload } from '@/components/file-upload';
-import { GridItem, HStack, Show, SimpleGrid } from '@chakra-ui/react';
+import { Container, GridItem, Show, SimpleGrid } from '@chakra-ui/react';
 import { JobDescription } from '@/components/job-description';
-import { SectionTitle } from '@/components/ui/section-title';
 import { ContinueButton } from '@/components/workspace/continue-button';
 import { DocumentApi, SessionStateApi } from '@/lib/api';
 import { headers } from 'next/headers';
@@ -9,6 +8,7 @@ import { ChatWidget } from '@/components/chat-widget';
 import { ResumePreview } from '@/components/resume-preview';
 import { StartOverButton } from '@/components/workspace/start-over-button';
 import { parseHeaders } from '@/lib/utils/server.utils';
+import { AppCard } from '@/components/ui/app-card';
 
 export default async function WorkspacePage({}: PageProps<'/workspace'>) {
 	let document: Blob | null = null;
@@ -22,39 +22,48 @@ export default async function WorkspacePage({}: PageProps<'/workspace'>) {
 	}
 
 	return (
-		<SimpleGrid columns={12} flex={1} minHeight={0} divideX={'1px'} divideColor={'border'}>
-			<GridItem colSpan={sessionState ? 7 : 12} padding={4} flex={1} minHeight={0}>
-				<HStack justify={'space-between'}>
-					<SectionTitle
-						title="New Workspace"
-						description="Create a new workspace to get started"
-						headingStyle={{ size: 'xl', color: 'fg.muted' }}
-						descriptionStyle={{ fontSize: 'md', color: 'GrayText' }}
-					/>
-					<Show when={sessionState} fallback={<ContinueButton />}>
-						{(sessionState) => <StartOverButton sessionStateId={sessionState.id} />}
-					</Show>
-				</HStack>
-				<Show
-					when={document}
-					fallback={
-						<SimpleGrid columns={2} gap={4} flex={1} minHeight={0}>
-							<GridItem colSpan={1}>
-								<ResumeUpload height={'full'} />
-							</GridItem>
-							<GridItem colSpan={1}>
-								<JobDescription height={'full'} />
-							</GridItem>
-						</SimpleGrid>
+		<SimpleGrid columns={12} height={'full'} divideX={'1px'} divideColor={'border'}>
+			<GridItem colSpan={sessionState ? 8 : 12} display={'flex'} flexDirection={'row'} flex={1} minHeight={0}>
+				<AppCard
+					title="Workspace"
+					description="Preview and edit your resume"
+					background={'transparent'}
+					divideY={'none'}
+					border={'none'}
+					flex={1}
+					minHeight={0}
+					headerStyle={{ paddingY: 2, paddingX: 0, width: 'full', maxWidth: '4xl', marginX: 'auto' }}
+					bodyStyle={{ display: 'flex', overflowY: 'scroll', padding: 0 }}
+					titleStyle={{ fontSize: 'xl', color: 'fg' }}
+					actions={
+						<Show when={sessionState} fallback={<ContinueButton />}>
+							{(sessionState) => <StartOverButton sessionStateId={sessionState.id} />}
+						</Show>
 					}
 				>
-					{(document) => <ResumePreview flex={1} minHeight={0} document={document} />}
-				</Show>
+					<Container maxWidth={'4xl'} padding={0}>
+						<Show
+							when={document}
+							fallback={
+								<SimpleGrid columns={2} gap={4} flex={1} minHeight={0}>
+									<GridItem colSpan={1}>
+										<ResumeUpload height={'full'} />
+									</GridItem>
+									<GridItem colSpan={1}>
+										<JobDescription height={'full'} />
+									</GridItem>
+								</SimpleGrid>
+							}
+						>
+							{(document) => <ResumePreview flex={1} minHeight={0} document={document} />}
+						</Show>
+					</Container>
+				</AppCard>
 			</GridItem>
 			<Show when={sessionState}>
 				{(sessionState) => (
-					<GridItem colSpan={5} height={'full'}>
-						<ChatWidget height={'full'} sessionState={sessionState} />
+					<GridItem colSpan={4} display={'flex'} flexDirection={'row'} flex={1} minHeight={0}>
+						<ChatWidget flex={1} sessionState={sessionState} />
 					</GridItem>
 				)}
 			</Show>

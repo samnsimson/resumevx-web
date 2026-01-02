@@ -1,6 +1,6 @@
 'use client';
 import { FC } from 'react';
-import { Stack, StackProps } from '@chakra-ui/react';
+import { StackProps } from '@chakra-ui/react';
 import { LuSparkle } from 'react-icons/lu';
 import { ChatInput } from '@/components/chat-widget/chat-input';
 import { ChatConversation } from '@/components/chat-widget/chat-conversation';
@@ -18,15 +18,12 @@ export const ChatWidget: FC<ChatWidgetProps> = ({ sessionState, ...props }) => {
 			description="Chat with AI to refine your results"
 			rounded={'none'}
 			icon={LuSparkle}
-			height={'full'}
 			border={'none'}
-			body={{ overflow: 'hidden', padding: 0 }}
+			bodyStyle={{ display: 'flex', divideY: '1px', padding: 0 }}
 			{...props}
 		>
-			<Stack gap={4} width={'full'} height={'full'} minHeight={0}>
-				<ChatConversation flex={1} minHeight={0} sessionState={sessionState} />
-				<ChatInput flexShrink={0} sessionState={sessionState} />
-			</Stack>
+			<ChatConversation sessionState={sessionState} padding={4} />
+			<ChatInput sessionState={sessionState} padding={4} bg={'bg.panel'} />
 		</AppCard>
 	);
 };

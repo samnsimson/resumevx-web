@@ -32,10 +32,10 @@ export const ResumePreview: FC<ResumePreviewProps> = ({ document, ...props }) =>
 			icon={LuZap}
 			height={'full'}
 			actions={ActionButtons()}
-			body={{ overflow: 'hidden', bg: 'bg.subtle' }}
+			bodyStyle={{ bg: 'bg.muted', padding: 0 }}
 			{...props}
 		>
-			<Stack flex={1} minHeight={0} height={'full'} rounded={'lg'} overflowY={'scroll'}>
+			<Stack flex={1} minHeight={0} height={'full'} overflowY={'scroll'}>
 				<Show when={document} fallback={NoDataPlaceholder()}>
 					{(document) => <PdfViewer blob={document} />}
 				</Show>

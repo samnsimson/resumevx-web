@@ -30,7 +30,7 @@ export const StartOverButton: FC<StartOverButtonProps> = ({ ...props }) => {
 
 	return (
 		<Button
-			variant={'solid'}
+			variant={'surface'}
 			colorPalette={'blue'}
 			size={'xl'}
 			rounded={'full'}

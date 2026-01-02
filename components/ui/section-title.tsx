@@ -3,7 +3,7 @@ import { Box, Heading, HStack, Show, StackProps, Text, Icon, HeadingProps, TextP
 import { FC } from 'react';
 import { IconType } from 'react-icons';
 
-interface SectionTitleProps extends StackProps {
+export interface SectionTitleProps extends StackProps {
 	title: string;
 	description?: string;
 	icon?: IconType;

@@ -8,7 +8,7 @@ const WorkspaceLayout: FC<LayoutProps<'/workspace'>> = async ({ children }) => {
 	return (
 		<Stack height={'100vh'} gap={0} bg={'bg.panel'} divideY={'1px'} divideColor={'border'} overflow={'hidden'}>
 			<Header bg={'bg.panel'} />
-			<SimpleGrid columns={12} gap={0} flex={1} minHeight={0} divideX={'1px'} divideColor={'border'}>
+			<SimpleGrid width={'full'} columns={12} gap={0} flex={1} minHeight={0} divideX={'1px'} divideColor={'border'}>
 				<GridItem colSpan={2} flex={1} minHeight={0} bg={'bg.panel'}>
 					<WorkSpaceSidebar />
 				</GridItem>
