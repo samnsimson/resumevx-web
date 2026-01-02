@@ -1,5 +1,5 @@
 import { AppCard } from '@/components/ui/app-card';
-import { StartOverButton } from '@/components/my-space/start-over-button';
+import { StartOverButton } from '@/components/dashboard/start-over-button';
 import { headers } from 'next/headers';
 import { DocumentApi, SessionStateApi } from '@/lib/api';
 import { parseHeaders } from '@/lib/utils';
@@ -7,7 +7,7 @@ import { ResumePreview } from '@/components/resume-preview';
 import { Container, HStack, IconButton, Show, Stack } from '@chakra-ui/react';
 import { LuBookmark, LuDownload } from 'react-icons/lu';
 
-export default async function PreviewPage({ searchParams }: PageProps<'/my-space'>) {
+export default async function PreviewPage({ searchParams }: PageProps<'/dashboard'>) {
 	const params = await searchParams;
 	const requestHeaders = await headers();
 	const { data: sessionState } = await SessionStateApi.getSessionState({ headers: parseHeaders(requestHeaders) });

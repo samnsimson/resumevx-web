@@ -1,5 +1,5 @@
 'use client';
-import { FileUpload, Icon, Box, FileUploadDropzoneProps, useFileUploadContext, Heading, Text, Show } from '@chakra-ui/react';
+import { FileUpload, Icon, FileUploadDropzoneProps, useFileUploadContext, Heading, Text, Show } from '@chakra-ui/react';
 import { FC } from 'react';
 import { LuCheckCheck, LuUpload } from 'react-icons/lu';
 

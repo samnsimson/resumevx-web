@@ -3,7 +3,7 @@
 import { FC, Fragment, useState } from 'react';
 import { Button, ButtonProps, Dialog } from '@chakra-ui/react';
 import { HiArrowRight } from 'react-icons/hi2';
-import { useMySpaceForm } from '@/lib/hooks/useMySpaceForm';
+import { useDataInputForm } from '@/lib/hooks/useDataInputForm';
 import { useDocumentStore } from '@/lib/store/document.store';
 import { useRouter } from 'next/navigation';
 import { extractDocumentMutation, parseDocumentMutation, saveSessionStateMutation, uploadDocumentMutation } from '@/lib/api/@tanstack/react-query.gen';
@@ -17,7 +17,7 @@ interface ContinueButtonProps extends ButtonProps {
 
 export function ContinueButton({ ...props }: ContinueButtonProps) {
 	const router = useRouter();
-	const { form } = useMySpaceForm();
+	const { form } = useDataInputForm();
 	const { formData, setResumeData, setLoadingState } = useDocumentStore((state) => state);
 	const jobDescription = form?.watch('jobDescription');
 	const isDisabled = !form || !formData || !jobDescription || !formData.file;

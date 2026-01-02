@@ -1,16 +1,16 @@
 // import { ResumeUpload } from '@/components/file-upload';
 // import { Container, GridItem, Show, SimpleGrid } from '@chakra-ui/react';
 // import { JobDescription } from '@/components/job-description';
-// import { ContinueButton } from '@/components/my-space/continue-button';
+// import { ContinueButton } from '@/components/dashboard/continue-button';
 // import { DocumentApi, SessionStateApi } from '@/lib/api';
 // import { headers } from 'next/headers';
 // import { ChatWidget } from '@/components/chat-widget';
 // import { ResumePreview } from '@/components/resume-preview';
-// import { StartOverButton } from '@/components/my-space/start-over-button';
+// import { StartOverButton } from '@/components/dashboard/start-over-button';
 // import { parseHeaders } from '@/lib/utils/server.utils';
 // import { AppCard } from '@/components/ui/app-card';
 
-export default async function MySpacePage({}: PageProps<'/my-space'>) {
+export default async function DashboardPage({}: PageProps<'/dashboard'>) {
 	// let document: Blob | null = null;
 	// const requestHeaders = await headers();
 	// const { data: sessionState } = await SessionStateApi.getSessionState({ headers: requestHeaders });
@@ -25,7 +25,7 @@ export default async function MySpacePage({}: PageProps<'/my-space'>) {
 	// 	<SimpleGrid columns={12} height={'full'} divideX={'1px'} divideColor={'border'}>
 	// 		<GridItem colSpan={sessionState ? 8 : 12} display={'flex'} flexDirection={'row'} flex={1} minHeight={0}>
 	// 			<AppCard
-	// 				title="MySpace"
+	// 				title="Dashboard"
 	// 				description="Preview and edit your resume"
 	// 				background={'transparent'}
 	// 				divideY={'none'}

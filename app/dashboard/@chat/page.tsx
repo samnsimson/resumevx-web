@@ -5,7 +5,7 @@ import { SessionStateApi } from '@/lib/api';
 import { Stack } from '@chakra-ui/react';
 import { headers } from 'next/headers';
 
-export default async function ChatPage({}: PageProps<'/my-space'>) {
+export default async function ChatPage({}: PageProps<'/dashboard'>) {
 	const requestHeaders = await headers();
 	const { data: sessionState } = await SessionStateApi.getSessionState({ headers: requestHeaders });
 	if (!sessionState) return null;

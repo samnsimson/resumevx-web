@@ -1,7 +1,7 @@
 import { ResumeUpload } from '@/components/file-upload';
 import { JobDescription } from '@/components/job-description';
 import { AppCard } from '@/components/ui/app-card';
-import { ContinueButton } from '@/components/my-space/continue-button';
+import { ContinueButton } from '@/components/dashboard/continue-button';
 import { Button, GridItem, SimpleGrid, Stack } from '@chakra-ui/react';
 import { HiOutlineEye } from 'react-icons/hi2';
 import { TemplateSelector } from '@/components/template-selector';

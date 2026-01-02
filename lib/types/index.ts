@@ -6,4 +6,4 @@ export type LoginSchema = z.infer<typeof loginSchema>;
 export type RegisterSchema = z.infer<typeof registerSchema>;
 export type VerifyEmailOtpSchema = z.infer<typeof verifyEmailOtpSchema>;
 export type CreateOrgSchema = z.infer<typeof createOrgSchema>;
-export type MySpaceSchema = z.infer<typeof workspaceSchema>;
+export type DashboardSchema = z.infer<typeof workspaceSchema>;

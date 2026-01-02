@@ -19,7 +19,7 @@ export const Header: FC<HeaderProps> = ({ ...props }) => {
 			<HStack gap={4} paddingX={4}>
 				<ColorModeButton rounded={'full'} colorPalette={'blue'} variant={'ghost'} size={'lg'} />
 				<IconButton rounded={'full'} colorPalette={'blue'} variant={'ghost'} size={'lg'} asChild>
-					<Link href={'/my-space/profile'}>
+					<Link href={'/dashboard/profile'}>
 						<LuUser />
 					</Link>
 				</IconButton>
