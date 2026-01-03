@@ -27,7 +27,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({ ...props }) => {
 			setIsLoading(true);
 			await signUp(
 				{ body: { name, username, email, password } },
-				{ onSuccess: () => router.push('/workspace'), onError: (error) => console.error(error) },
+				{ onSuccess: () => router.push('/dashboard'), onError: (error) => console.error(error) },
 			);
 		} catch (error: any) {
 			toaster.error({ title: 'Registeration failed', description: error.message });

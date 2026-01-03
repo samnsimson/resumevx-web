@@ -1,21 +1,22 @@
 import { AppCard } from '@/components/ui/app-card';
 import { StartOverButton } from '@/components/dashboard/start-over-button';
 import { headers } from 'next/headers';
-import { DocumentApi, SessionStateApi } from '@/lib/api';
+import { DocumentApi, SessionState } from '@/lib/api';
 import { parseHeaders } from '@/lib/utils';
 import { ResumePreview } from '@/components/resume-preview';
 import { Container, HStack, IconButton, Show, Stack } from '@chakra-ui/react';
 import { LuBookmark, LuDownload } from 'react-icons/lu';
 
-export default async function PreviewPage({ searchParams }: PageProps<'/dashboard'>) {
-	const params = await searchParams;
-	const requestHeaders = await headers();
-	const { data: sessionState } = await SessionStateApi.getSessionState({ headers: parseHeaders(requestHeaders) });
+interface PreviewPageProps {
+	sessionState?: SessionState | null;
+}
+
+export async function PreviewPage({ sessionState }: PreviewPageProps) {
 	if (!sessionState || !sessionState.documentData) return null;
+
+	const requestHeaders = await headers();
 	const body = { templateName: 'default' as const, documentData: sessionState.documentData };
 	const { data } = await DocumentApi.generateDocument({ body, headers: parseHeaders(requestHeaders) });
-
-	console.log('searchParams', params);
 
 	return (
 		<Stack height={'full'} overflow={'scroll'}>

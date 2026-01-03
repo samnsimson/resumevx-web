@@ -1,13 +1,14 @@
 import { ChatConversation } from '@/components/chat-widget/chat-conversation';
 import { ChatHeader } from '@/components/chat-widget/chat-header';
 import { ChatInput } from '@/components/chat-widget/chat-input';
-import { SessionStateApi } from '@/lib/api';
+import { SessionState } from '@/lib/api';
 import { Stack } from '@chakra-ui/react';
-import { headers } from 'next/headers';
 
-export default async function ChatPage({}: PageProps<'/dashboard'>) {
-	const requestHeaders = await headers();
-	const { data: sessionState } = await SessionStateApi.getSessionState({ headers: requestHeaders });
+interface ChatPageProps {
+	sessionState?: SessionState | null;
+}
+
+export async function ChatPage({ sessionState }: ChatPageProps) {
 	if (!sessionState) return null;
 
 	return (

@@ -1,5 +1,6 @@
 'use client';
-import { Button, Icon, Link, Stack } from '@chakra-ui/react';
+import Link from 'next/link';
+import { Button, Icon, Stack } from '@chakra-ui/react';
 import { FC, HTMLAttributes } from 'react';
 import { HiOutlineCodeBracket, HiOutlineDocument, HiOutlineHome } from 'react-icons/hi2';
 
@@ -20,7 +21,7 @@ export const WorkSpaceSidebar: FC<WorkSpaceSidebarProps> = ({ ...props }) => {
 				_hover={{ textDecoration: 'none' }}
 				asChild
 			>
-				<Link href={'/workspace'}>
+				<Link href={'/dashboard'}>
 					<Icon as={HiOutlineHome} boxSize={'24px'} />
 					Home
 				</Link>
@@ -35,7 +36,7 @@ export const WorkSpaceSidebar: FC<WorkSpaceSidebarProps> = ({ ...props }) => {
 				_hover={{ textDecoration: 'none' }}
 				asChild
 			>
-				<Link href={'/workspace/templates'}>
+				<Link href={'/dashboard/templates'}>
 					<Icon as={HiOutlineCodeBracket} boxSize={'24px'} />
 					Resume Templates
 				</Link>
@@ -50,7 +51,7 @@ export const WorkSpaceSidebar: FC<WorkSpaceSidebarProps> = ({ ...props }) => {
 				_hover={{ textDecoration: 'none' }}
 				asChild
 			>
-				<Link href={'/workspace/resumes'}>
+				<Link href={'/dashboard/resumes'}>
 					<Icon as={HiOutlineDocument} boxSize={'24px'} />
 					My Resumes
 				</Link>

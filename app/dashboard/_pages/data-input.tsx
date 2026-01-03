@@ -6,7 +6,7 @@ import { Button, GridItem, SimpleGrid, Stack } from '@chakra-ui/react';
 import { HiOutlineEye } from 'react-icons/hi2';
 import { TemplateSelector } from '@/components/template-selector';
 
-export default async function DataInputPage() {
+export async function DataInputPage() {
 	return (
 		<Stack width={'full'} height={'full'} bg={'bg.muted'}>
 			<AppCard

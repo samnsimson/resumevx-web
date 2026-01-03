@@ -6,7 +6,9 @@ export async function proxy(request: NextRequest) {
 	try {
 		const { data } = await AuthApi.getSession({ headers: await headers() });
 		if (!data || !data.user || !data.session) return NextResponse.redirect(new URL('/auth/login', request.url));
-		return NextResponse.next();
+		const response = NextResponse.next();
+		response.headers.set('x-current-path', request.nextUrl.pathname);
+		return response;
 	} catch (error: any) {
 		console.error('Error from proxy', error);
 		return NextResponse.redirect(new URL(`/error?source=proxy&type=unknown`, request.url));

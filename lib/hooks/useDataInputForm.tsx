@@ -3,7 +3,7 @@ import { createContext, FC, PropsWithChildren, useContext } from 'react';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { DashboardSchema } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { workspaceSchema } from '@/lib/schema/workspace.schema';
+import { dataInputFormSchema } from '@/lib/schema/data-input-form.schema';
 import { useDocumentStore } from '../store/document.store';
 
 interface DataInputFormContext {
@@ -15,7 +15,7 @@ const dataInputFormContext = createContext<DataInputFormContext>({});
 export const DashboardFormProvider: FC<PropsWithChildren> = ({ children }) => {
 	const { formData, setFormData } = useDocumentStore((state) => state);
 	const defaultValues = { jobDescription: formData.jobDescription, input: formData.input };
-	const form = useForm<DashboardSchema>({ mode: 'onChange', resolver: zodResolver(workspaceSchema), defaultValues });
+	const form = useForm<DashboardSchema>({ mode: 'onChange', resolver: zodResolver(dataInputFormSchema), defaultValues });
 
 	form.subscribe({
 		name: ['jobDescription', 'input'],

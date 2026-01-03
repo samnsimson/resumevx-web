@@ -22,8 +22,8 @@ export const SubscriptionCard: FC<SubscriptionCardProps> = ({ subscriptionInfo, 
 		try {
 			setIsCreatingCheckoutSession(true);
 			const priceId = 'price_1SVjD4RxuN7gvrMkdnA8CQCR';
-			const successUrl = `${window.location.origin}/workspace/profile`;
-			const cancelUrl = `${window.location.origin}/workspace/profile`;
+			const successUrl = `${window.location.origin}/dashboard/profile`;
+			const cancelUrl = `${window.location.origin}/dashboard/profile`;
 			const session = await createCheckoutSession({ body: { priceId, successUrl, cancelUrl } });
 			router.push(session.url);
 		} catch (error: any) {

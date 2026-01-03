@@ -27,7 +27,7 @@ export const LoginForm: FC<LoginFormProps> = ({ ...props }) => {
 			await signIn(
 				{ body: { username, password } },
 				{
-					onSuccess: () => router.push('/workspace'),
+					onSuccess: () => router.push('/dashboard'),
 					onError: (error) => console.error(error),
 				},
 			);
