@@ -473,6 +473,9 @@ export type SessionState = {
      * Documentparsed
      */
     documentParsed?: string | null;
+    /**
+     * Documentdata
+     */
     documentData?: DocumentData | null;
     /**
      * Jobdescription

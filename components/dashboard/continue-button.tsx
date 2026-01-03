@@ -49,13 +49,17 @@ export function ContinueButton({ ...props }: ContinueButtonProps) {
 	};
 
 	const processInputData = async (formDataBody: { file: File; job_description: string; template_name: string }) => {
-		const result = await client.sse.post({
+		return await client.sse.post({
 			body: formDataBody,
 			url: '/gateway/process-input-data',
 			headers: { 'Content-Type': null },
 			bodySerializer: formDataBodySerializer.bodySerializer,
+			onSseError: (error: any) => {
+				console.error('SSE Error:', error);
+				const errorMessage = error.message || 'Failed to continue';
+				toaster.error({ title: 'Error', description: errorMessage, closable: true });
+			},
 		});
-		await processStream(result.stream);
 	};
 
 	const handleContinue = async () => {
@@ -65,7 +69,8 @@ export function ContinueButton({ ...props }: ContinueButtonProps) {
 			if (!formValues) return;
 			setOpenDialog(true);
 			const formDataBody = createFormDataBody(formValues.jobDescription, formValues.file);
-			await processInputData(formDataBody);
+			const result = await processInputData(formDataBody);
+			await processStream(result.stream);
 			router.refresh();
 		} catch (error: any) {
 			console.error(error);
