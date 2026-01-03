@@ -1,15 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
-import { FC, Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { Button, ButtonProps, Dialog } from '@chakra-ui/react';
 import { HiArrowRight } from 'react-icons/hi2';
 import { useDataInputForm } from '@/lib/hooks/useDataInputForm';
 import { useDocumentStore } from '@/lib/store/document.store';
 import { useRouter } from 'next/navigation';
-import { extractDocumentMutation, parseDocumentMutation, saveSessionStateMutation, uploadDocumentMutation } from '@/lib/api/@tanstack/react-query.gen';
-import { useMutation } from '@tanstack/react-query';
 import { toaster } from '@/components/ui/toaster';
 import { ProgressIndicator } from '@/components/file-upload/progress-indicator';
+import { client } from '@/lib/api/client.gen';
+import { formDataBodySerializer } from '@/lib/api/client';
 
 interface ContinueButtonProps extends ButtonProps {
 	[x: string]: any;
@@ -18,54 +17,55 @@ interface ContinueButtonProps extends ButtonProps {
 export function ContinueButton({ ...props }: ContinueButtonProps) {
 	const router = useRouter();
 	const { form } = useDataInputForm();
-	const { formData, setResumeData, setLoadingState } = useDocumentStore((state) => state);
+	const { formData, setLoadingState } = useDocumentStore((state) => state);
 	const jobDescription = form?.watch('jobDescription');
 	const isDisabled = !form || !formData || !jobDescription || !formData.file;
 	const [openDialog, setOpenDialog] = useState(false);
-	const { mutateAsync: uploadDocument } = useMutation({ ...uploadDocumentMutation() });
-	const { mutateAsync: parseDocument } = useMutation({ ...parseDocumentMutation() });
-	const { mutateAsync: extractDocument } = useMutation({ ...extractDocumentMutation() });
-	const { mutateAsync: saveSessionState } = useMutation({ ...saveSessionStateMutation() });
 
-	const uploadFile = async (file: File) => {
-		setLoadingState('uploading');
-		const result = await uploadDocument({ body: { file } });
-		if (!result) throw new Error('Failed to upload file');
-		return result;
+	const validateFormData = (): boolean => {
+		return !!(form && formData);
 	};
 
-	const saveJobDescription = async (jobDescription: string) => {
-		setLoadingState('saving');
-		const result = await saveSessionState({ body: { jobDescription } });
-		if (!result) throw new Error('Failed to save job description');
-		return result;
+	const getFormValues = (): { jobDescription: string; file: File } | null => {
+		if (!form || !formData) return null;
+		const jobDescription: string = form.getValues('jobDescription');
+		if (!jobDescription || !formData.file) return null;
+		return { jobDescription, file: formData.file };
 	};
 
-	const parseFile = async (file: File) => {
-		setLoadingState('parsing');
-		const result = await parseDocument({ body: { file } });
-		if (!result) throw new Error('Failed to parse file');
-		return result;
+	const createFormDataBody = (jobDescription: string, file: File) => {
+		return { file, job_description: jobDescription, template_name: 'default' };
 	};
 
-	const extractFile = async (content: string) => {
-		setLoadingState('extracting');
-		const result = await extractDocument({ body: { fileContent: content } });
-		if (!result) throw new Error('Failed to extract file');
-		return result;
+	const processStream = async (stream: AsyncIterable<any>) => {
+		for await (const data of stream) {
+			const status = (data as any).status;
+			if (status === 'uploading') setLoadingState('uploading');
+			else if (status === 'saving') setLoadingState('saving');
+			else if (status === 'extracting') setLoadingState('extracting');
+			else if (status === 'parsing') setLoadingState('parsing');
+			else setLoadingState('none');
+		}
+	};
+
+	const processInputData = async (formDataBody: { file: File; job_description: string; template_name: string }) => {
+		const result = await client.sse.post({
+			body: formDataBody,
+			url: '/gateway/process-input-data',
+			headers: { 'Content-Type': null },
+			bodySerializer: formDataBodySerializer.bodySerializer,
+		});
+		await processStream(result.stream);
 	};
 
 	const handleContinue = async () => {
 		try {
-			if (!form || !formData) return;
-			const jobDescription = form.getValues('jobDescription');
-			if (!jobDescription || !formData.file) return;
+			if (!validateFormData()) return;
+			const formValues = getFormValues();
+			if (!formValues) return;
 			setOpenDialog(true);
-			const uploadedDocument = await uploadFile(formData.file);
-			const sessionState = await saveJobDescription(jobDescription);
-			const parsedDocument = await parseFile(formData.file);
-			const extractedDocument = await extractFile(parsedDocument);
-			setResumeData(extractedDocument);
+			const formDataBody = createFormDataBody(formValues.jobDescription, formValues.file);
+			await processInputData(formDataBody);
 			router.refresh();
 		} catch (error: any) {
 			console.error(error);

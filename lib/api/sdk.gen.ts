@@ -2,7 +2,8 @@
 
 import { type Client, formDataBodySerializer, type Options as Options2, type TDataShape } from './client';
 import { client } from './client.gen';
-import type { CancelSubscriptionData, CancelSubscriptionErrors, CancelSubscriptionResponses, ClearSessionStateData, ClearSessionStateResponses, CreateCheckoutSessionData, CreateCheckoutSessionErrors, CreateCheckoutSessionResponses, CreatePortalSessionData, CreatePortalSessionErrors, CreatePortalSessionResponses, DeleteAccountData, DeleteAccountResponses, ExtractDocumentData, ExtractDocumentErrors, ExtractDocumentResponses, GenerateDocumentData, GenerateDocumentErrors, GenerateDocumentResponses, GetCurrentUserData, GetCurrentUserResponses, GetSessionData, GetSessionResponses, GetSessionStateData, GetSessionStateResponses, GetSubscriptionData, GetSubscriptionResponses, GetUserData, GetUserErrors, GetUserResponses, ParseDocumentData, ParseDocumentErrors, ParseDocumentResponses, RewriteDocumentData, RewriteDocumentErrors, RewriteDocumentResponses, SaveSessionStateData, SaveSessionStateErrors, SaveSessionStateResponses, SignInData, SignInErrors, SignInResponses, SignOutData, SignOutResponses, SignUpData, SignUpErrors, SignUpResponses, StripeWebhookData, StripeWebhookResponses, UpdateSubscriptionData, UpdateSubscriptionErrors, UpdateSubscriptionResponses, UploadDocumentData, UploadDocumentErrors, UploadDocumentResponses } from './types.gen';
+import { cancelSubscriptionResponseTransformer, getCurrentUserResponseTransformer, getSessionResponseTransformer, getUserResponseTransformer, saveSessionStateResponseTransformer, signInResponseTransformer, signUpResponseTransformer, updateSubscriptionResponseTransformer } from './transformers.gen';
+import type { CancelSubscriptionData, CancelSubscriptionErrors, CancelSubscriptionResponses, ClearSessionStateData, ClearSessionStateResponses, CreateCheckoutSessionData, CreateCheckoutSessionErrors, CreateCheckoutSessionResponses, CreatePortalSessionData, CreatePortalSessionErrors, CreatePortalSessionResponses, DeleteAccountData, DeleteAccountResponses, ExtractDocumentData, ExtractDocumentErrors, ExtractDocumentResponses, GenerateDocumentData, GenerateDocumentErrors, GenerateDocumentResponses, GetCurrentUserData, GetCurrentUserResponses, GetSessionData, GetSessionResponses, GetSessionStateData, GetSessionStateResponses, GetSubscriptionData, GetSubscriptionResponses, GetUserData, GetUserErrors, GetUserResponses, ParseDocumentData, ParseDocumentErrors, ParseDocumentResponses, ProcessInputDataData, ProcessInputDataErrors, ProcessInputDataResponses, RewriteDocumentData, RewriteDocumentErrors, RewriteDocumentResponses, SaveSessionStateData, SaveSessionStateErrors, SaveSessionStateResponses, SignInData, SignInErrors, SignInResponses, SignOutData, SignOutResponses, SignUpData, SignUpErrors, SignUpResponses, StripeWebhookData, StripeWebhookResponses, UpdateSubscriptionData, UpdateSubscriptionErrors, UpdateSubscriptionResponses, UploadDocumentData, UploadDocumentErrors, UploadDocumentResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -24,6 +25,7 @@ export class AuthApi {
      */
     public static signIn<ThrowOnError extends boolean = false>(options: Options<SignInData, ThrowOnError>) {
         return (options.client ?? client).post<SignInResponses, SignInErrors, ThrowOnError>({
+            responseTransformer: signInResponseTransformer,
             url: '/auth/sign-in',
             ...options,
             headers: {
@@ -38,6 +40,7 @@ export class AuthApi {
      */
     public static signUp<ThrowOnError extends boolean = false>(options: Options<SignUpData, ThrowOnError>) {
         return (options.client ?? client).post<SignUpResponses, SignUpErrors, ThrowOnError>({
+            responseTransformer: signUpResponseTransformer,
             url: '/auth/sign-up',
             ...options,
             headers: {
@@ -58,7 +61,11 @@ export class AuthApi {
      * Get Session
      */
     public static getSession<ThrowOnError extends boolean = false>(options?: Options<GetSessionData, ThrowOnError>) {
-        return (options?.client ?? client).get<GetSessionResponses, unknown, ThrowOnError>({ url: '/auth/get-session', ...options });
+        return (options?.client ?? client).get<GetSessionResponses, unknown, ThrowOnError>({
+            responseTransformer: getSessionResponseTransformer,
+            url: '/auth/get-session',
+            ...options
+        });
     }
     
     /**
@@ -74,14 +81,39 @@ export class UserApi {
      * Get Current User
      */
     public static getCurrentUser<ThrowOnError extends boolean = false>(options?: Options<GetCurrentUserData, ThrowOnError>) {
-        return (options?.client ?? client).get<GetCurrentUserResponses, unknown, ThrowOnError>({ url: '/user/me', ...options });
+        return (options?.client ?? client).get<GetCurrentUserResponses, unknown, ThrowOnError>({
+            responseTransformer: getCurrentUserResponseTransformer,
+            url: '/user/me',
+            ...options
+        });
     }
     
     /**
      * Get User
      */
     public static getUser<ThrowOnError extends boolean = false>(options: Options<GetUserData, ThrowOnError>) {
-        return (options.client ?? client).get<GetUserResponses, GetUserErrors, ThrowOnError>({ url: '/user/{id}', ...options });
+        return (options.client ?? client).get<GetUserResponses, GetUserErrors, ThrowOnError>({
+            responseTransformer: getUserResponseTransformer,
+            url: '/user/{id}',
+            ...options
+        });
+    }
+}
+
+export class GatewayApi {
+    /**
+     * Process Input Data
+     */
+    public static processInputData<ThrowOnError extends boolean = false>(options: Options<ProcessInputDataData, ThrowOnError>) {
+        return (options.client ?? client).post<ProcessInputDataResponses, ProcessInputDataErrors, ThrowOnError>({
+            ...formDataBodySerializer,
+            url: '/gateway/process-input-data',
+            ...options,
+            headers: {
+                'Content-Type': null,
+                ...options.headers
+            }
+        });
     }
 }
 
@@ -172,6 +204,7 @@ export class SubscriptionsApi {
      */
     public static updateSubscription<ThrowOnError extends boolean = false>(options: Options<UpdateSubscriptionData, ThrowOnError>) {
         return (options.client ?? client).put<UpdateSubscriptionResponses, UpdateSubscriptionErrors, ThrowOnError>({
+            responseTransformer: updateSubscriptionResponseTransformer,
             url: '/subscriptions/subscription',
             ...options,
             headers: {
@@ -186,6 +219,7 @@ export class SubscriptionsApi {
      */
     public static cancelSubscription<ThrowOnError extends boolean = false>(options: Options<CancelSubscriptionData, ThrowOnError>) {
         return (options.client ?? client).post<CancelSubscriptionResponses, CancelSubscriptionErrors, ThrowOnError>({
+            responseTransformer: cancelSubscriptionResponseTransformer,
             url: '/subscriptions/subscription/cancel',
             ...options,
             headers: {
@@ -251,6 +285,7 @@ export class SessionStateApi {
      */
     public static saveSessionState<ThrowOnError extends boolean = false>(options: Options<SaveSessionStateData, ThrowOnError>) {
         return (options.client ?? client).post<SaveSessionStateResponses, SaveSessionStateErrors, ThrowOnError>({
+            responseTransformer: saveSessionStateResponseTransformer,
             url: '/session-state',
             ...options,
             headers: {

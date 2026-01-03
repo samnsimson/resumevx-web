@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { AuthApi, DocumentApi, type Options, SessionStateApi, SubscriptionsApi, UserApi } from '../sdk.gen';
-import type { CancelSubscriptionData, CancelSubscriptionError, CancelSubscriptionResponse, ClearSessionStateData, ClearSessionStateResponse, CreateCheckoutSessionData, CreateCheckoutSessionError, CreateCheckoutSessionResponse, CreatePortalSessionData, CreatePortalSessionError, CreatePortalSessionResponse, DeleteAccountData, DeleteAccountResponse2, ExtractDocumentData, ExtractDocumentError, ExtractDocumentResponse, GenerateDocumentData, GenerateDocumentError, GetCurrentUserData, GetCurrentUserResponse, GetSessionData, GetSessionResponse, GetSessionStateData, GetSessionStateResponse, GetSubscriptionData, GetSubscriptionResponse, GetUserData, GetUserError, GetUserResponse, ParseDocumentData, ParseDocumentError, ParseDocumentResponse, RewriteDocumentData, RewriteDocumentError, RewriteDocumentResponse, SaveSessionStateData, SaveSessionStateError, SaveSessionStateResponse, SignInData, SignInError, SignInResponse, SignOutData, SignUpData, SignUpError, SignUpResponse, StripeWebhookData, UpdateSubscriptionData, UpdateSubscriptionError, UpdateSubscriptionResponse, UploadDocumentData, UploadDocumentError, UploadDocumentResponse } from '../types.gen';
+import { AuthApi, DocumentApi, GatewayApi, type Options, SessionStateApi, SubscriptionsApi, UserApi } from '../sdk.gen';
+import type { CancelSubscriptionData, CancelSubscriptionError, CancelSubscriptionResponse, ClearSessionStateData, ClearSessionStateResponse, CreateCheckoutSessionData, CreateCheckoutSessionError, CreateCheckoutSessionResponse, CreatePortalSessionData, CreatePortalSessionError, CreatePortalSessionResponse, DeleteAccountData, DeleteAccountResponse2, ExtractDocumentData, ExtractDocumentError, ExtractDocumentResponse, GenerateDocumentData, GenerateDocumentError, GetCurrentUserData, GetCurrentUserResponse, GetSessionData, GetSessionResponse, GetSessionStateData, GetSessionStateResponse, GetSubscriptionData, GetSubscriptionResponse, GetUserData, GetUserError, GetUserResponse, ParseDocumentData, ParseDocumentError, ParseDocumentResponse, ProcessInputDataData, ProcessInputDataError, RewriteDocumentData, RewriteDocumentError, RewriteDocumentResponse, SaveSessionStateData, SaveSessionStateError, SaveSessionStateResponse, SignInData, SignInError, SignInResponse, SignOutData, SignUpData, SignUpError, SignUpResponse, StripeWebhookData, UpdateSubscriptionData, UpdateSubscriptionError, UpdateSubscriptionResponse, UploadDocumentData, UploadDocumentError, UploadDocumentResponse } from '../types.gen';
 
 /**
  * Login
@@ -161,6 +161,23 @@ export const getUserOptions = (options: Options<GetUserData>) => queryOptions<Ge
     },
     queryKey: getUserQueryKey(options)
 });
+
+/**
+ * Process Input Data
+ */
+export const processInputDataMutation = (options?: Partial<Options<ProcessInputDataData>>): UseMutationOptions<unknown, ProcessInputDataError, Options<ProcessInputDataData>> => {
+    const mutationOptions: UseMutationOptions<unknown, ProcessInputDataError, Options<ProcessInputDataData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await GatewayApi.processInputData({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
 
 /**
  * Upload Document

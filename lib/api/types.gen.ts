@@ -51,6 +51,24 @@ export type BodyParseDocument = {
 };
 
 /**
+ * Body_processInputData
+ */
+export type BodyProcessInputData = {
+    /**
+     * Template Name
+     */
+    template_name: string;
+    /**
+     * Job Description
+     */
+    job_description: string;
+    /**
+     * File
+     */
+    file: Blob | File;
+};
+
+/**
  * Body_uploadDocument
  */
 export type BodyUploadDocument = {
@@ -404,11 +422,11 @@ export type Session = {
     /**
      * Createdat
      */
-    createdAt?: string;
+    createdAt?: Date;
     /**
      * Updatedat
      */
-    updatedAt?: string;
+    updatedAt?: Date;
     /**
      * Userid
      */
@@ -420,7 +438,7 @@ export type Session = {
     /**
      * Expiresat
      */
-    expiresAt?: string;
+    expiresAt?: Date;
 };
 
 /**
@@ -434,11 +452,11 @@ export type SessionState = {
     /**
      * Createdat
      */
-    createdAt?: string;
+    createdAt?: Date;
     /**
      * Updatedat
      */
-    updatedAt?: string;
+    updatedAt?: Date;
     /**
      * Sessionid
      */
@@ -503,11 +521,11 @@ export type Subscription = {
     /**
      * Createdat
      */
-    createdAt?: string;
+    createdAt?: Date;
     /**
      * Updatedat
      */
-    updatedAt?: string;
+    updatedAt?: Date;
     /**
      * Userid
      */
@@ -534,11 +552,11 @@ export type Subscription = {
     /**
      * Currentperiodstart
      */
-    currentPeriodStart?: string | null;
+    currentPeriodStart?: Date | null;
     /**
      * Currentperiodend
      */
-    currentPeriodEnd?: string | null;
+    currentPeriodEnd?: Date | null;
     /**
      * Cancelatperiodend
      */
@@ -546,7 +564,7 @@ export type Subscription = {
     /**
      * Canceledat
      */
-    canceledAt?: string | null;
+    canceledAt?: Date | null;
 };
 
 /**
@@ -614,11 +632,11 @@ export type User = {
     /**
      * Createdat
      */
-    createdAt?: string;
+    createdAt?: Date;
     /**
      * Updatedat
      */
-    updatedAt?: string;
+    updatedAt?: Date;
     /**
      * Name
      */
@@ -810,6 +828,29 @@ export type GetUserResponses = {
 };
 
 export type GetUserResponse = GetUserResponses[keyof GetUserResponses];
+
+export type ProcessInputDataData = {
+    body: BodyProcessInputData;
+    path?: never;
+    query?: never;
+    url: '/gateway/process-input-data';
+};
+
+export type ProcessInputDataErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type ProcessInputDataError = ProcessInputDataErrors[keyof ProcessInputDataErrors];
+
+export type ProcessInputDataResponses = {
+    /**
+     * Successful Response
+     */
+    200: unknown;
+};
 
 export type UploadDocumentData = {
     body: BodyUploadDocument;
