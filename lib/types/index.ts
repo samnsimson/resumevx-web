@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { createOrgSchema, loginSchema, registerSchema, verifyEmailOtpSchema } from '@/lib/schema/auth.schema';
-import { dataInputFormSchema } from '@/lib/schema/dashboard.schema';
+import { dataInputFormSchema } from '@/lib/schema/data-input-form.schema';
 
 export type LoginSchema = z.infer<typeof loginSchema>;
 export type RegisterSchema = z.infer<typeof registerSchema>;

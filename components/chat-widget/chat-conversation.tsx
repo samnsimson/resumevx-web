@@ -1,6 +1,6 @@
 'use client';
 import { FC, useEffect, useRef } from 'react';
-import { Box, For, HStack, Icon, Show, Stack, StackProps, Text } from '@chakra-ui/react';
+import { Box, For, HStack, Icon, Show, Stack, StackProps, Text, VStack } from '@chakra-ui/react';
 import { ChatEmptyState } from './chat-empty-state';
 import { useChatStore } from '@/lib/store/chat.store';
 import { HiUser } from 'react-icons/hi2';
@@ -19,8 +19,8 @@ export const ChatConversation: FC<ChatConversationProps> = ({ ...props }) => {
 	}, [messages, isSubmitting]);
 
 	return (
-		<Stack overflow={'scroll'} padding={4} {...props}>
-			<Stack gap={4}>
+		<Stack overflow={'scroll'} padding={4} boxSize={'full'} {...props}>
+			<VStack gap={4} boxSize={'full'}>
 				<Show when={messages.length > 0} fallback={ChatEmptyState()}>
 					<For each={messages}>
 						{(message) => {
@@ -49,7 +49,7 @@ export const ChatConversation: FC<ChatConversationProps> = ({ ...props }) => {
 						}}
 					</For>
 				</Show>
-			</Stack>
+			</VStack>
 		</Stack>
 	);
 };

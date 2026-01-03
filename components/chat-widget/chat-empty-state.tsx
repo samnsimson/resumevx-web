@@ -3,7 +3,7 @@ import { HiChatBubbleOvalLeft } from 'react-icons/hi2';
 
 export const ChatEmptyState = () => {
 	return (
-		<VStack flex={1} justify={'center'}>
+		<VStack flex={1} boxSize={'full'} justify={'center'}>
 			<EmptyState.Root>
 				<EmptyState.Content>
 					<EmptyState.Indicator>
