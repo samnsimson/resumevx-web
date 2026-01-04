@@ -2,7 +2,7 @@
 import { FC } from 'react';
 import { CardRootProps, FileUpload, FileUploadFileAcceptDetails } from '@chakra-ui/react';
 import { LuUpload } from 'react-icons/lu';
-import { UploadList } from '@/components/file-upload/upload-list';
+import { UploadList } from '@/components/dashboard/starter/file-upload/upload-list';
 import { useDocumentStore } from '@/lib/store/document.store';
 import { toaster } from '@/components/ui/toaster';
 import { AppCard } from '@/components/ui/app-card';

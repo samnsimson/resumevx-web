@@ -6,7 +6,7 @@ import { useDataInputForm } from '@/lib/hooks/useDataInputForm';
 import { useDocumentStore } from '@/lib/store/document.store';
 import { useRouter } from 'next/navigation';
 import { toaster } from '@/components/ui/toaster';
-import { ProgressIndicator } from '@/components/file-upload/progress-indicator';
+import { ProgressIndicator } from '@/components/dashboard/starter/file-upload/progress-indicator';
 import { client } from '@/lib/api/client.gen';
 import { formDataBodySerializer } from '@/lib/api/client';
 

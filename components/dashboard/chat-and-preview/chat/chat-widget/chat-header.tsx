@@ -1,6 +1,6 @@
 'use client';
 import { FC, HTMLAttributes } from 'react';
-import { SectionTitle } from '../ui/section-title';
+import { SectionTitle } from '../../../../ui/section-title';
 import { LuSparkles } from 'react-icons/lu';
 import { HStack } from '@chakra-ui/react';
 import { ChatSettingsMenu } from './chat-settings-menu';

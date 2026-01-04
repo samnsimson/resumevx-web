@@ -1,11 +1,11 @@
 import { headers } from 'next/headers';
 import { SessionStateApi } from '@/lib/api';
 import { Stack } from '@chakra-ui/react';
-import { ChatHeader } from '@/components/chat-widget/chat-header';
-import { ChatConversation } from '@/components/chat-widget/chat-conversation';
-import { ChatInput } from '@/components/chat-widget/chat-input';
+import { ChatHeader } from '@/components/dashboard/chat-and-preview/chat/chat-widget/chat-header';
+import { ChatConversation } from '@/components/dashboard/chat-and-preview/chat/chat-widget/chat-conversation';
+import { ChatInput } from '@/components/dashboard/chat-and-preview/chat/chat-widget/chat-input';
 
-export default async function ChatPage() {
+export async function ChatComponent() {
 	const nextHeaders = await headers();
 	const { data: sessionState } = await SessionStateApi.getSessionState({ headers: nextHeaders });
 	if (!sessionState) return null;

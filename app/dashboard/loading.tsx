@@ -1,9 +1,9 @@
-import { Center, Spinner } from '@chakra-ui/react';
+import { Spinner, Stack } from '@chakra-ui/react';
 
 export default function loading() {
 	return (
-		<Center height={'full'} width={'full'}>
+		<Stack boxSize={'full'} justify={'center'} align={'center'} bg={'bg.muted'}>
 			<Spinner size={'lg'} />
-		</Center>
+		</Stack>
 	);
 }

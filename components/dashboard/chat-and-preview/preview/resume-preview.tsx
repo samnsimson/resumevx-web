@@ -3,7 +3,7 @@ import { FC } from 'react';
 import dynamic from 'next/dynamic';
 import { Show, Stack, StackProps, Tabs } from '@chakra-ui/react';
 import { LuZap } from 'react-icons/lu';
-import { NoDataPlaceholder } from './no-data-palceholder';
+import { NoDataPlaceholder } from './ui/no-data-palceholder';
 import { AppCard } from '@/components/ui/app-card';
 
 const PdfViewer = dynamic(() => import('./pdf-viewer').then((mod) => ({ default: mod.PdfViewer })), { ssr: false });
@@ -13,13 +13,13 @@ interface ResumePreviewProps extends StackProps {
 
 export const ActionButtons = () => {
 	return (
-		<Tabs.Root defaultValue="members" rounded={'full'} variant={'enclosed'} size={'sm'}>
+		<Tabs.Root defaultValue="original" variant={'enclosed'} size={'sm'}>
 			<Tabs.List rounded={'full'} border={'1px solid'} borderColor={'border.emphasized'}>
-				<Tabs.Trigger value="projects" rounded={'full'} _selected={{ bg: 'green.600', fontWeight: 'bold', color: 'white' }}>
-					Generated
-				</Tabs.Trigger>
-				<Tabs.Trigger value="members" rounded={'full'} _selected={{ bg: 'green.600', fontWeight: 'bold', color: 'white' }}>
+				<Tabs.Trigger value="original" rounded={'full'} _selected={{ bg: 'green.600', fontWeight: 'bold', color: 'white' }}>
 					Original
+				</Tabs.Trigger>
+				<Tabs.Trigger value="generated" rounded={'full'} _selected={{ bg: 'green.600', fontWeight: 'bold', color: 'white' }}>
+					Generated
 				</Tabs.Trigger>
 			</Tabs.List>
 		</Tabs.Root>

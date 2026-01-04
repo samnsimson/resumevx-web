@@ -2,8 +2,8 @@
 import { FC } from 'react';
 import { StackProps } from '@chakra-ui/react';
 import { LuSparkle } from 'react-icons/lu';
-import { ChatInput } from '@/components/chat-widget/chat-input';
-import { ChatConversation } from '@/components/chat-widget/chat-conversation';
+import { ChatInput } from '@/components/dashboard/chat-and-preview/chat/chat-widget/chat-input';
+import { ChatConversation } from '@/components/dashboard/chat-and-preview/chat/chat-widget/chat-conversation';
 import { AppCard } from '@/components/ui/app-card';
 import { SessionState } from '@/lib/api/types.gen';
 

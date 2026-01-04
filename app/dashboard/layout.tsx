@@ -1,16 +1,9 @@
 import { Header } from '@/components/ui/header';
-import { HStack, Show, Stack } from '@chakra-ui/react';
+import { HStack, Stack } from '@chakra-ui/react';
 import { WorkSpaceSidebar } from '@/components/dashboard/sidebar';
-import { headers } from 'next/headers';
-import { SessionStateApi } from '@/lib/api';
 import { DataInputFormProvider } from '@/lib/hooks/useDataInputForm';
 
-export default async function DashboardLayout({ children, chat, preview }: LayoutProps<'/dashboard'>) {
-	const nextHeaders = await headers();
-	const currentPath = nextHeaders.get('x-current-path');
-	const isMainDashboard = currentPath === '/dashboard';
-	const { data: sessionState } = await SessionStateApi.getSessionState({ headers: nextHeaders });
-
+export default async function DashboardLayout({ children }: LayoutProps<'/dashboard'>) {
 	return (
 		<Stack flex={1} height={'100vh'} gap={0} bg={'bg.panel'} divideY={'1px'} divideColor={'border'} overflow={'hidden'}>
 			<Header bg={'bg.panel'} />
@@ -18,18 +11,9 @@ export default async function DashboardLayout({ children, chat, preview }: Layou
 				<Stack width={'2/12'} height={'full'}>
 					<WorkSpaceSidebar />
 				</Stack>
-				<DataInputFormProvider>
-					<HStack boxSize={'full'} divideX={'1px'} divideColor={'border'} gap={0}>
-						<Show when={isMainDashboard && sessionState} fallback={children}>
-							<Stack width={'8/12'} height={'full'} bg={'bg.muted'}>
-								{preview}
-							</Stack>
-							<Stack width={'4/12'} height={'full'}>
-								{chat}
-							</Stack>
-						</Show>
-					</HStack>
-				</DataInputFormProvider>
+				<Stack width={'10/12'} height={'full'} bg={'bg.muted'}>
+					<DataInputFormProvider>{children}</DataInputFormProvider>
+				</Stack>
 			</HStack>
 		</Stack>
 	);
