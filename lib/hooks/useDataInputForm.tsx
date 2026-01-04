@@ -12,7 +12,7 @@ interface DataInputFormContext {
 
 const dataInputFormContext = createContext<DataInputFormContext>({});
 
-export const DashboardFormProvider: FC<PropsWithChildren> = ({ children }) => {
+export const DataInputFormProvider: FC<PropsWithChildren> = ({ children }) => {
 	const { formData, setFormData } = useDocumentStore((state) => state);
 	const defaultValues = { jobDescription: formData.jobDescription, input: formData.input };
 	const form = useForm<DashboardSchema>({ mode: 'onChange', resolver: zodResolver(dataInputFormSchema), defaultValues });
@@ -27,6 +27,6 @@ export const DashboardFormProvider: FC<PropsWithChildren> = ({ children }) => {
 
 export const useDataInputForm = () => {
 	const context = useContext(dataInputFormContext);
-	if (!context) throw new Error('useDataInputForm must be used within a DashboardFormProvider');
+	if (!context) throw new Error('useDataInputForm must be used within a DataInputFormProvider');
 	return context;
 };

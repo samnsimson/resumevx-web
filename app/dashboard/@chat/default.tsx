@@ -1,3 +1,3 @@
 export default function ChatDefaultPage() {
-	return null;
+	return <div>ChatDefaultPage</div>;
 }

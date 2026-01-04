@@ -1,6 +1,6 @@
 'use client';
 import { FC } from 'react';
-import { CardRootProps, Field, Textarea } from '@chakra-ui/react';
+import { CardRootProps, Field, Show, Spinner, Textarea } from '@chakra-ui/react';
 import { LuBriefcase } from 'react-icons/lu';
 import { useDataInputForm } from '@/lib/hooks/useDataInputForm';
 import { Controller } from 'react-hook-form';
@@ -12,27 +12,30 @@ interface JobDescriptionProps extends CardRootProps {
 
 export const JobDescription: FC<JobDescriptionProps> = ({ ...props }) => {
 	const { form } = useDataInputForm();
-	if (!form) return null;
 	return (
 		<AppCard title="Job description" description="Provide the job description in the input box below" icon={LuBriefcase} flex={1} {...props}>
-			<Controller
-				control={form.control}
-				name="jobDescription"
-				render={({ field }) => (
-					<Field.Root height={'full'} required invalid={!!form.formState.errors.jobDescription}>
-						<Textarea
-							variant={'subtle'}
-							border={'1px solid'}
-							borderColor={'border.emphasized'}
-							rounded={'lg'}
-							height={'full'}
-							placeholder="Enter job description"
-							{...field}
-						/>
-						<Field.ErrorText>{form.formState.errors.jobDescription?.message}</Field.ErrorText>
-					</Field.Root>
+			<Show when={form} fallback={<Spinner />}>
+				{(form) => (
+					<Controller
+						control={form.control}
+						name="jobDescription"
+						render={({ field }) => (
+							<Field.Root height={'full'} required invalid={!!form.formState.errors.jobDescription}>
+								<Textarea
+									variant={'subtle'}
+									border={'1px solid'}
+									borderColor={'border.emphasized'}
+									rounded={'lg'}
+									height={'full'}
+									placeholder="Enter job description"
+									{...field}
+								/>
+								<Field.ErrorText>{form.formState.errors.jobDescription?.message}</Field.ErrorText>
+							</Field.Root>
+						)}
+					/>
 				)}
-			/>
+			</Show>
 		</AppCard>
 	);
 };

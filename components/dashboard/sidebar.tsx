@@ -51,7 +51,7 @@ export const WorkSpaceSidebar: FC<WorkSpaceSidebarProps> = ({ ...props }) => {
 				_hover={{ textDecoration: 'none' }}
 				asChild
 			>
-				<Link href={'/dashboard/resumes'}>
+				<Link href={'/dashboard/my-resume'}>
 					<Icon as={HiOutlineDocument} boxSize={'24px'} />
 					My Resumes
 				</Link>

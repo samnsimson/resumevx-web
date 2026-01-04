@@ -1,3 +1,3 @@
 export default function StartDefaultPage() {
-	return null;
+	return <div>StartDefaultPage</div>;
 }

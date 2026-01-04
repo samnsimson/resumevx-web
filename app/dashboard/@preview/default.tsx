@@ -1,3 +1,3 @@
 export default function PreviewDefaultPage() {
-	return null;
+	return <div>PreviewDefaultPage</div>;
 }
