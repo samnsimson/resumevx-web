@@ -1,9 +1,9 @@
 'use client';
-import { Center, EmptyState, Spinner } from '@chakra-ui/react';
+import { EmptyState, Spinner, Stack } from '@chakra-ui/react';
 
 export const LoadingPlaceholder = () => {
 	return (
-		<Center height={'full'} width={'full'}>
+		<Stack boxSize={'full'} justify={'center'} align={'center'}>
 			<EmptyState.Root>
 				<EmptyState.Content>
 					<EmptyState.Indicator>
@@ -12,6 +12,6 @@ export const LoadingPlaceholder = () => {
 					<EmptyState.Description color={'GrayText'}>Loading</EmptyState.Description>
 				</EmptyState.Content>
 			</EmptyState.Root>
-		</Center>
+		</Stack>
 	);
 };

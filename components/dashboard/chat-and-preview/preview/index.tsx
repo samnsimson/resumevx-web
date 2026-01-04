@@ -5,8 +5,7 @@ import { StartOverButton } from '@/components/dashboard/chat-and-preview/preview
 import { ResumePreview } from '@/components/dashboard/chat-and-preview/preview/resume-preview';
 import { SaveButton } from '@/components/dashboard/chat-and-preview/preview/ui/save-button';
 import { AppCard } from '@/components/ui/app-card';
-import { Stack, Container, HStack, Show } from '@chakra-ui/react';
-import { Loader } from '@/components/ui/loader';
+import { Stack, Container, HStack } from '@chakra-ui/react';
 import { DownloadPdfButton } from './ui/download-pdf-button';
 
 interface PreviewComponentProps {
@@ -20,10 +19,11 @@ async function getDownloadUrl(data: Blob) {
 }
 
 export async function PreviewComponent({ sessionState }: PreviewComponentProps) {
-	if (!sessionState.documentData) return null;
+	if (!sessionState.documentData || !sessionState.documentUrl) return null;
 	const nextHeaders = await headers();
 	const body = { templateName: 'default' as const, documentData: sessionState.documentData };
-	const { data } = await DocumentApi.generateDocument({ body, headers: parseHeaders(nextHeaders) });
+	const { data, error } = await DocumentApi.generateDocument({ body, headers: parseHeaders(nextHeaders) });
+	if (error && !data) throw new Error(error.detail?.join(', ') || 'Failed to generate document');
 	const downloadUrl = await getDownloadUrl(data as Blob);
 
 	return (
@@ -45,9 +45,7 @@ export async function PreviewComponent({ sessionState }: PreviewComponentProps) 
 						</HStack>
 					}
 				>
-					<Show when={data as Blob} fallback={Loader({ size: 'lg' })}>
-						{(data: Blob) => <ResumePreview document={data} />}
-					</Show>
+					<ResumePreview generatedBlob={data as Blob} originalUrl={sessionState.documentUrl} />
 				</AppCard>
 			</Container>
 		</Stack>

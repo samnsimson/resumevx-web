@@ -975,7 +975,7 @@ export type GenerateDocumentError = GenerateDocumentErrors[keyof GenerateDocumen
 
 export type GenerateDocumentResponses = {
     /**
-     * Successful Response
+     * Generated PDF document
      */
     200: unknown;
 };
