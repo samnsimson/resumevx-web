@@ -2,7 +2,7 @@ import { DangerZone } from '@/components/profile/danger-zone';
 import { SubscriptionCard } from '@/components/profile/subscription-card';
 import { AppCardHeadless } from '@/components/ui/app-card';
 import { SubscriptionsApi, UserApi } from '@/lib/api';
-import { Button, Container, Field, Heading, HStack, Input, SimpleGrid, Text, VStack } from '@chakra-ui/react';
+import { Button, Container, Field, Heading, HStack, Input, SimpleGrid, Stack, Text, VStack } from '@chakra-ui/react';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { FC } from 'react';
@@ -15,8 +15,8 @@ const ProfilePage: FC<PageProps<'/dashboard/profile'>> = async () => {
 	const { data: subscription } = await SubscriptionsApi.getSubscription({ headers: await headers() });
 
 	return (
-		<Container paddingY={4} maxWidth={'5xl'}>
-			<VStack height={'full'} width={'full'} gap={6} overflow={'scroll'}>
+		<Stack boxSize={'full'} bg={'bg.muted'}>
+			<Container paddingY={4} maxWidth={'5xl'} spaceY={6}>
 				<VStack align={'start'} width={'full'} gap={0}>
 					<Heading size={'2xl'}>Profile</Heading>
 					<Text color={'GrayText'}>Manage your profile information and settings</Text>
@@ -59,8 +59,8 @@ const ProfilePage: FC<PageProps<'/dashboard/profile'>> = async () => {
 				</SimpleGrid>
 				<SubscriptionCard subscriptionInfo={subscription} />
 				<DangerZone />
-			</VStack>
-		</Container>
+			</Container>
+		</Stack>
 	);
 };
 export default ProfilePage;

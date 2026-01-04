@@ -7,6 +7,8 @@ import { DataInputFormProvider } from '@/lib/hooks/useDataInputForm';
 
 export default async function DashboardLayout({ children, chat, preview }: LayoutProps<'/dashboard'>) {
 	const nextHeaders = await headers();
+	const currentPath = nextHeaders.get('x-current-path');
+	const isMainDashboard = currentPath === '/dashboard';
 	const { data: sessionState } = await SessionStateApi.getSessionState({ headers: nextHeaders });
 
 	return (
@@ -18,7 +20,7 @@ export default async function DashboardLayout({ children, chat, preview }: Layou
 				</Stack>
 				<DataInputFormProvider>
 					<HStack boxSize={'full'} divideX={'1px'} divideColor={'border'} gap={0}>
-						<Show when={sessionState} fallback={children}>
+						<Show when={isMainDashboard && sessionState} fallback={children}>
 							<Stack width={'8/12'} height={'full'} bg={'bg.muted'}>
 								{preview}
 							</Stack>
