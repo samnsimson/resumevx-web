@@ -13,7 +13,7 @@ export interface SectionTitleProps extends StackProps {
 
 export const RenderIcon = ({ icon }: { icon?: IconType | ReactNode }) => {
 	if (!icon) return null;
-	if (typeof icon === 'function') return <Icon as={icon} size={'lg'} color={'blue.600'} />;
+	if (typeof icon === 'function') return <Icon as={icon} size={'lg'} color={'LinkText'} />;
 	return icon as ReactNode;
 };
 
@@ -22,7 +22,7 @@ export const SectionTitle: FC<SectionTitleProps> = ({ title, description, icon, 
 		<HStack paddingY={3} gap={6} bgColor={'transparent'} {...props}>
 			<RenderIcon icon={icon} />
 			<Box width={'full'}>
-				<Heading size={'sm'} color={'blue.600'} {...headingStyle}>
+				<Heading size={'sm'} color={'LinkText'} {...headingStyle}>
 					{title}
 				</Heading>
 				<Show when={!!description}>

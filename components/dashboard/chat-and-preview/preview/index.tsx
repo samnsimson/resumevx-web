@@ -5,8 +5,9 @@ import { StartOverButton } from '@/components/dashboard/chat-and-preview/preview
 import { ResumePreview } from '@/components/dashboard/chat-and-preview/preview/resume-preview';
 import { SaveButton } from '@/components/dashboard/chat-and-preview/preview/ui/save-button';
 import { AppCard } from '@/components/ui/app-card';
-import { Stack, Container, HStack } from '@chakra-ui/react';
+import { Stack, Container, HStack, Show } from '@chakra-ui/react';
 import { DownloadPdfButton } from './ui/download-pdf-button';
+import { LoadingPlaceholder } from './ui/loading-placeholder';
 
 interface PreviewComponentProps {
 	sessionState: SessionState;
@@ -45,7 +46,9 @@ export async function PreviewComponent({ sessionState }: PreviewComponentProps) 
 						</HStack>
 					}
 				>
-					<ResumePreview generatedBlob={data as Blob} originalUrl={sessionState.documentUrl} />
+					<Show when={data} fallback={<LoadingPlaceholder />}>
+						{(data) => <ResumePreview generatedBlob={data as unknown as Blob} originalUrl={sessionState.documentUrl ?? ''} />}
+					</Show>
 				</AppCard>
 			</Container>
 		</Stack>
