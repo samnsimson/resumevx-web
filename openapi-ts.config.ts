@@ -1,7 +1,7 @@
 import { defineConfig } from '@hey-api/openapi-ts';
 
 export default defineConfig({
-	input: 'http://localhost:8000/api/openapi.json',
+	input: 'https://frezume-svc-production.up.railway.app/api/openapi.json',
 	output: 'lib/api',
 	plugins: [
 		{ name: '@hey-api/typescript' },

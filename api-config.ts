@@ -5,6 +5,6 @@ export const createClientConfig: CreateClientConfig = (config) => ({
 	...config,
 	parseAs: 'auto',
 	credentials: 'include',
-	baseUrl: process.env.API_URL,
+	baseUrl: 'https://frezume-svc-production.up.railway.app/api',
 	headers: { ...config?.headers },
 });
