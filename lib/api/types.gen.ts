@@ -69,6 +69,16 @@ export type BodyProcessInputData = {
 };
 
 /**
+ * Body_saveDocument
+ */
+export type BodySaveDocument = {
+    /**
+     * File
+     */
+    file: Blob | File;
+};
+
+/**
  * Body_uploadDocument
  */
 export type BodyUploadDocument = {
@@ -382,6 +392,12 @@ export type RewriteDocumentRequest = {
  */
 export type SaveSessionStateDto = {
     /**
+     * Templatename
+     *
+     * Template name
+     */
+    templateName?: string | null;
+    /**
      * Documentname
      *
      * Document name
@@ -403,6 +419,22 @@ export type SaveSessionStateDto = {
      * Document data
      */
     documentData?: DocumentData | null;
+    /**
+     * Generateddocumentname
+     *
+     * Generated document name
+     */
+    generatedDocumentName?: string | null;
+    /**
+     * Genereateddocumenturl
+     *
+     * Generated document URL
+     */
+    genereatedDocumentUrl?: string | null;
+    /**
+     * Generated document data
+     */
+    generatedDocumentData?: DocumentData | null;
     /**
      * Jobdescription
      *
@@ -462,6 +494,10 @@ export type SessionState = {
      */
     sessionId: string;
     /**
+     * Templatename
+     */
+    templateName?: string | null;
+    /**
      * Documentname
      */
     documentName?: string | null;
@@ -477,6 +513,18 @@ export type SessionState = {
      * Documentdata
      */
     documentData?: DocumentData | null;
+    /**
+     * Generateddocumentname
+     */
+    generatedDocumentName?: string | null;
+    /**
+     * Genereateddocumenturl
+     */
+    genereatedDocumentUrl?: string | null;
+    /**
+     * Generateddocumentdata
+     */
+    generatedDocumentData?: DocumentData | null;
     /**
      * Jobdescription
      */
@@ -976,6 +1024,29 @@ export type GenerateDocumentError = GenerateDocumentErrors[keyof GenerateDocumen
 export type GenerateDocumentResponses = {
     /**
      * Generated PDF document
+     */
+    200: unknown;
+};
+
+export type SaveDocumentData = {
+    body: BodySaveDocument;
+    path?: never;
+    query?: never;
+    url: '/document/save';
+};
+
+export type SaveDocumentErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type SaveDocumentError = SaveDocumentErrors[keyof SaveDocumentErrors];
+
+export type SaveDocumentResponses = {
+    /**
+     * Successful Response
      */
     200: unknown;
 };
