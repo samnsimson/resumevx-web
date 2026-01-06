@@ -76,7 +76,7 @@ export const ChatInput: FC<ChatInputProps> = ({ sessionState, ...props }) => {
 					width={'full'}
 					size={'xl'}
 					rounded={'lg'}
-					disabled={!sessionState.jobDescription}
+					disabled={!sessionState.jobDescription || input.trim() === ''}
 					loading={isSubmitting}
 				>
 					<LuZap />
