@@ -1,5 +1,5 @@
 'use client';
-import { Box, Button, Container, Flex, Heading, HStack, SimpleGrid, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, Container, Heading, HStack, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { LuPlay, LuUpload, LuMessageSquare } from 'react-icons/lu';
@@ -44,11 +44,11 @@ export function Hero() {
 									size="xl"
 									variant="ghost"
 									color="gray.400"
-									leftIcon={<LuPlay />}
 									_hover={{ color: 'white', bg: 'whiteAlpha.100' }}
 									border="1px solid"
 									borderColor="whiteAlpha.200"
 								>
+									<LuPlay />
 									Watch Demo
 								</Button>
 							</Link>
@@ -57,11 +57,7 @@ export function Hero() {
 				</VStack>
 
 				{/* Right: Mockup UI */}
-				<motion.div
-					initial={{ opacity: 0, x: 20 }}
-					animate={{ opacity: 1, x: 0 }}
-					transition={{ duration: 0.6, delay: 0.3 }}
-				>
+				<motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.3 }}>
 					<Box position="relative">
 						{/* File Upload Zone */}
 						<Card.Root
@@ -111,15 +107,9 @@ export function Hero() {
 									</Text>
 									<Box w={2} h={2} bg="green.400" borderRadius="full" />
 								</HStack>
-								<Box
-									bg="whiteAlpha.50"
-									borderRadius="lg"
-									p={3}
-									border="1px solid"
-									borderColor="whiteAlpha.100"
-								>
+								<Box bg="whiteAlpha.50" borderRadius="lg" p={3} border="1px solid" borderColor="whiteAlpha.100">
 									<Text fontSize="sm" color="gray.300">
-										I've optimized your resume to match the job description. Here are the key improvements...
+										I&apos;ve optimized your resume to match the job description. Here are the key improvements...
 									</Text>
 								</Box>
 								<HStack gap={2}>
@@ -144,4 +134,3 @@ export function Hero() {
 		</Container>
 	);
 }
-
