@@ -18,10 +18,19 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Set build-time environment variables (if needed)
+# Accept build arguments (must be provided by Railway or build command)
+ARG API_URL
+ARG NEXT_PUBLIC_API_URL
+ARG NODE_ENV=production
+
+# Set build-time environment variables
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV API_URL="https://api.frezume.com"
-ENV NEXT_PUBLIC_API_URL="https://api.frezume.com"
+ENV API_URL=${API_URL}
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+ENV NODE_ENV=${NODE_ENV}
+
+# Generate API client before building
+RUN pnpm api:generate:prod
 
 # Build the Next.js application
 RUN pnpm build

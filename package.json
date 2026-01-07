@@ -8,7 +8,8 @@
 		"start": "next start",
 		"lint": "eslint",
 		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
-		"api:generate": "openapi-ts"
+		"api:generate": "NODE_ENV=development openapi-ts",
+		"api:generate:prod": "NODE_ENV=production openapi-ts"
 	},
 	"dependencies": {
 		"@arcjet/inspect": "1.0.0-beta.16",
