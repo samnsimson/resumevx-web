@@ -7,3 +7,10 @@ export type RegisterSchema = z.infer<typeof registerSchema>;
 export type VerifyEmailOtpSchema = z.infer<typeof verifyEmailOtpSchema>;
 export type CreateOrgSchema = z.infer<typeof createOrgSchema>;
 export type DashboardSchema = z.infer<typeof dataInputFormSchema>;
+
+export interface DecodedJWT {
+	exp?: number;
+	iat?: number;
+	sub?: string;
+	[key: string]: unknown;
+}
