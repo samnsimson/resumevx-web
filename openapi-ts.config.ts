@@ -1,7 +1,11 @@
+import 'dotenv/config';
 import { defineConfig } from '@hey-api/openapi-ts';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || process.env.API_URL;
+if (!apiUrl) throw new Error('NEXT_PUBLIC_API_URL or API_URL is not set');
+
 export default defineConfig({
-	input: 'https://frezume-svc-production.up.railway.app/api/openapi.json',
+	input: `${apiUrl}/openapi.json`,
 	output: 'lib/api',
 	plugins: [
 		{ name: '@hey-api/typescript' },
