@@ -24,13 +24,8 @@ export const LoginForm: FC<LoginFormProps> = ({ ...props }) => {
 	const onSubmit = async ({ username, password }: LoginSchema) => {
 		try {
 			setIsLoading(true);
-			await signIn(
-				{ body: { username, password } },
-				{
-					onSuccess: () => router.push('/dashboard'),
-					onError: (error) => console.error(error),
-				},
-			);
+			await signIn({ body: { username, password } });
+			router.push('/dashboard');
 		} catch (error: any) {
 			toaster.error({ title: 'Login failed', description: error.message, closable: true });
 		} finally {
