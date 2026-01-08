@@ -27,6 +27,8 @@ export const JobDescription: FC<JobDescriptionProps> = ({ ...props }) => {
 									borderColor={'border.emphasized'}
 									rounded={'lg'}
 									height={'full'}
+									autoresize={true}
+									rows={6}
 									placeholder="Enter job description"
 									{...field}
 								/>

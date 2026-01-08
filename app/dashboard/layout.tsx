@@ -11,13 +11,13 @@ export default async function DashboardLayout({ children }: LayoutProps<'/dashbo
 	if (!session.user.emailVerified) return redirect('/auth/verify-email');
 
 	return (
-		<Stack flex={1} height={'100vh'} gap={0} bg={'bg.panel'} divideY={'1px'} divideColor={'border'} overflow={'hidden'}>
+		<Stack flex={1} height={'100vh'} gap={0} bg={'bg.panel'} divideY={'1px'} divideColor={'border'}>
 			<Header bg={'bg.panel'} />
 			<HStack width={'full'} height={'calc(100vh - 72px)'} gap={0} divideX={'1px'}>
 				<Stack width={'2/12'} height={'full'}>
 					<WorkSpaceSidebar />
 				</Stack>
-				<Stack width={'10/12'} height={'full'} bg={'bg.muted'}>
+				<Stack width={'10/12'} height={'full'} bg={'bg.muted'} overflow={'scroll'}>
 					<DataInputFormProvider>{children}</DataInputFormProvider>
 				</Stack>
 			</HStack>

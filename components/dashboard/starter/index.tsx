@@ -19,13 +19,11 @@ export async function StarterComponent() {
 			actions={<ContinueButton />}
 		>
 			<SimpleGrid columns={{ base: 1, md: 12 }} gap={4} height={'full'}>
-				<GridItem colSpan={{ base: 1, md: 4 }}>
-					<ResumeUpload height={'full'} />
+				<GridItem colSpan={{ base: 1, md: 6 }} spaceY={6}>
+					<ResumeUpload />
+					<JobDescription />
 				</GridItem>
-				<GridItem colSpan={{ base: 1, md: 4 }}>
-					<JobDescription height={'full'} />
-				</GridItem>
-				<GridItem colSpan={{ base: 1, md: 4 }}>
+				<GridItem colSpan={{ base: 1, md: 6 }}>
 					<ResumeTemplate />
 				</GridItem>
 			</SimpleGrid>
