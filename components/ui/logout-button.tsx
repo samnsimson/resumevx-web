@@ -30,7 +30,7 @@ export const LogoutButton: FC<LogoutButtonProps> = ({ label, icon: Icon, iconOnl
 			clearFormData();
 			clearResumeData();
 			clearMessages();
-			router.replace('/auth/login');
+			router.refresh();
 		} catch (error) {
 			console.error(error);
 		} finally {
