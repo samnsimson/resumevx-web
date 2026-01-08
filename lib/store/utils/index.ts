@@ -10,9 +10,7 @@ export const createEncryptedStorage = (): StateStorage => {
 			const encryptedValue = sessionStorage.getItem(name);
 			if (!encryptedValue) return null;
 			try {
-				const decryptedValue = decrypt(encryptedValue, secretKey);
-				const decrypted = JSON.parse(decryptedValue);
-				return decrypted;
+				return decrypt(encryptedValue, secretKey);
 			} catch (error) {
 				console.error('Error decrypting or parsing data:', error);
 				return null;

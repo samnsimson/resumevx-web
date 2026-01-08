@@ -19,3 +19,7 @@ export const verifyEmailOtpSchema = z.object({
 export const createOrgSchema = z.object({
 	name: z.string().min(1, { message: 'Name is required' }),
 });
+
+export const otpSchema = z.object({
+	otp: z.array(z.string().min(1)).min(1, { message: 'Pin is required' }).length(6, { message: 'Pin must be 6 digits long' }),
+});

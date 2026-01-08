@@ -10,14 +10,14 @@ export const encrypt = (data: string, secretKey: string) => {
 	return iv.toString('hex') + ':' + encrypted;
 };
 
-export const decrypt = (data: string, secretKey: string): string => {
-	if (!data || !data.includes(':')) return '';
+export const decrypt = <T>(data: string, secretKey: string): T | null => {
+	if (!data || !data.includes(':')) return null;
 	const [ivHex, encryptedData] = data.split(':');
 	const iv = Buffer.from(ivHex, 'hex');
 	const decipher = createDecipheriv('aes-256-cbc', Buffer.from(secretKey, 'hex'), iv);
 	let decrypted = decipher.update(encryptedData, 'hex', 'utf8');
 	decrypted += decipher.final('utf8');
-	return decrypted;
+	return JSON.parse(decrypted) as T;
 };
 
 export const parseHeaders = (headers: ReadonlyHeaders): Record<string, string> => {
@@ -26,7 +26,7 @@ export const parseHeaders = (headers: ReadonlyHeaders): Record<string, string> =
 	return headersObj;
 };
 
-export const decodeJWT = (token: string): DecodedJWT | null => {
+export const decodeJWT = <T>(token: string): DecodedJWT<T> | null => {
 	try {
 		const parts = token.split('.');
 		if (parts.length !== 3) return null;
@@ -34,7 +34,7 @@ export const decodeJWT = (token: string): DecodedJWT | null => {
 		const paddedPayload = payload + '='.repeat((4 - (payload.length % 4)) % 4);
 		const base64Payload = paddedPayload.replace(/-/g, '+').replace(/_/g, '/');
 		const decodedPayload = Buffer.from(base64Payload, 'base64').toString('utf-8');
-		return JSON.parse(decodedPayload) as DecodedJWT;
+		return JSON.parse(decodedPayload) as DecodedJWT<T>;
 	} catch (error) {
 		console.error('Error decoding JWT:', error);
 		return null;

@@ -3,7 +3,7 @@
 import { type Client, formDataBodySerializer, type Options as Options2, type TDataShape } from './client';
 import { client } from './client.gen';
 import { cancelSubscriptionResponseTransformer, getCurrentUserResponseTransformer, getSessionResponseTransformer, getUserResponseTransformer, saveSessionStateResponseTransformer, signInResponseTransformer, signUpResponseTransformer, updateSubscriptionResponseTransformer } from './transformers.gen';
-import type { CancelSubscriptionData, CancelSubscriptionErrors, CancelSubscriptionResponses, ClearSessionStateData, ClearSessionStateResponses, CreateCheckoutSessionData, CreateCheckoutSessionErrors, CreateCheckoutSessionResponses, CreatePortalSessionData, CreatePortalSessionErrors, CreatePortalSessionResponses, DeleteAccountData, DeleteAccountResponses, ExtractDocumentData, ExtractDocumentErrors, ExtractDocumentResponses, GenerateDocumentData, GenerateDocumentErrors, GenerateDocumentResponses, GetCurrentUserData, GetCurrentUserResponses, GetSessionData, GetSessionResponses, GetSessionStateData, GetSessionStateResponses, GetSubscriptionData, GetSubscriptionResponses, GetUserData, GetUserErrors, GetUserResponses, ParseDocumentData, ParseDocumentErrors, ParseDocumentResponses, ProcessInputDataData, ProcessInputDataErrors, ProcessInputDataResponses, RewriteDocumentData, RewriteDocumentErrors, RewriteDocumentResponses, SaveDocumentData, SaveDocumentErrors, SaveDocumentResponses, SaveSessionStateData, SaveSessionStateErrors, SaveSessionStateResponses, SignInData, SignInErrors, SignInResponses, SignOutData, SignOutResponses, SignUpData, SignUpErrors, SignUpResponses, StripeWebhookData, StripeWebhookResponses, UpdateSubscriptionData, UpdateSubscriptionErrors, UpdateSubscriptionResponses, UploadDocumentData, UploadDocumentErrors, UploadDocumentResponses } from './types.gen';
+import type { CancelSubscriptionData, CancelSubscriptionErrors, CancelSubscriptionResponses, ClearSessionStateData, ClearSessionStateResponses, CreateCheckoutSessionData, CreateCheckoutSessionErrors, CreateCheckoutSessionResponses, CreatePortalSessionData, CreatePortalSessionErrors, CreatePortalSessionResponses, DeleteAccountData, DeleteAccountResponses, ExtractDocumentData, ExtractDocumentErrors, ExtractDocumentResponses, GenerateDocumentData, GenerateDocumentErrors, GenerateDocumentResponses, GetCurrentUserData, GetCurrentUserResponses, GetSessionData, GetSessionResponses, GetSessionStateData, GetSessionStateResponses, GetSubscriptionData, GetSubscriptionResponses, GetUserData, GetUserErrors, GetUserResponses, ParseDocumentData, ParseDocumentErrors, ParseDocumentResponses, ProcessInputDataData, ProcessInputDataErrors, ProcessInputDataResponses, RewriteDocumentData, RewriteDocumentErrors, RewriteDocumentResponses, SaveDocumentData, SaveDocumentErrors, SaveDocumentResponses, SaveSessionStateData, SaveSessionStateErrors, SaveSessionStateResponses, SendVerificationOtpData, SendVerificationOtpResponses, SignInData, SignInErrors, SignInResponses, SignOutData, SignOutResponses, SignUpData, SignUpErrors, SignUpResponses, StripeWebhookData, StripeWebhookResponses, UpdateSubscriptionData, UpdateSubscriptionErrors, UpdateSubscriptionResponses, UploadDocumentData, UploadDocumentErrors, UploadDocumentResponses, VerifyEmailData, VerifyEmailErrors, VerifyEmailResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -73,6 +73,27 @@ export class AuthApi {
      */
     public static deleteAccount<ThrowOnError extends boolean = false>(options?: Options<DeleteAccountData, ThrowOnError>) {
         return (options?.client ?? client).delete<DeleteAccountResponses, unknown, ThrowOnError>({ url: '/auth/account', ...options });
+    }
+    
+    /**
+     * Verify Email
+     */
+    public static verifyEmail<ThrowOnError extends boolean = false>(options: Options<VerifyEmailData, ThrowOnError>) {
+        return (options.client ?? client).post<VerifyEmailResponses, VerifyEmailErrors, ThrowOnError>({
+            url: '/auth/verify-email',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+    
+    /**
+     * Send Verification Otp
+     */
+    public static sendVerificationOtp<ThrowOnError extends boolean = false>(options?: Options<SendVerificationOtpData, ThrowOnError>) {
+        return (options?.client ?? client).post<SendVerificationOtpResponses, unknown, ThrowOnError>({ url: '/auth/send-verification-otp', ...options });
     }
 }
 

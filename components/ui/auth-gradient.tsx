@@ -2,7 +2,7 @@
 import { useColorModeValue } from '@/lib/hooks/useColorModeValue';
 import { Box } from '@chakra-ui/react';
 
-export function GradientBackground() {
+export function GradientBackground({ children }: { children: React.ReactNode }) {
 	const bgColor = useColorModeValue('white', 'black');
 	return (
 		<Box position="relative" minH="100vh" w="full" bg={bgColor}>
@@ -18,6 +18,7 @@ export function GradientBackground() {
                 `}
 			>
 				<Pattern />
+				{children}
 			</Box>
 		</Box>
 	);
@@ -28,7 +29,7 @@ export function Pattern() {
 		<Box
 			position="absolute"
 			inset={0}
-			zIndex={1}
+			zIndex={0.5}
 			background="transparent"
 			backgroundImage="radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.35) 1px, transparent 0)"
 			backgroundSize="20px 20px"

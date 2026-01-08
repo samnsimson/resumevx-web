@@ -25,12 +25,10 @@ export const RegisterForm: FC<RegisterFormProps> = ({ ...props }) => {
 	const onSubmit = async ({ name, username, email, password }: RegisterSchema) => {
 		try {
 			setIsLoading(true);
-			await signUp(
-				{ body: { name, username, email, password } },
-				{ onSuccess: () => router.push('/dashboard'), onError: (error) => console.error(error) },
-			);
+			await signUp({ body: { name, username, email, password } });
+			router.replace('/auth/verify-email?state=fresh');
 		} catch (error: any) {
-			toaster.error({ title: 'Registeration failed', description: error.message });
+			toaster.error({ title: 'Registeration failed', description: error.detail });
 		} finally {
 			setIsLoading(false);
 		}

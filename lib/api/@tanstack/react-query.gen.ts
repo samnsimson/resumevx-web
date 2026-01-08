@@ -4,7 +4,7 @@ import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanst
 
 import { client } from '../client.gen';
 import { AuthApi, DocumentApi, GatewayApi, type Options, SessionStateApi, SubscriptionsApi, UserApi } from '../sdk.gen';
-import type { CancelSubscriptionData, CancelSubscriptionError, CancelSubscriptionResponse, ClearSessionStateData, ClearSessionStateResponse, CreateCheckoutSessionData, CreateCheckoutSessionError, CreateCheckoutSessionResponse, CreatePortalSessionData, CreatePortalSessionError, CreatePortalSessionResponse, DeleteAccountData, DeleteAccountResponse2, ExtractDocumentData, ExtractDocumentError, ExtractDocumentResponse, GenerateDocumentData, GenerateDocumentError, GetCurrentUserData, GetCurrentUserResponse, GetSessionData, GetSessionResponse, GetSessionStateData, GetSessionStateResponse, GetSubscriptionData, GetSubscriptionResponse, GetUserData, GetUserError, GetUserResponse, ParseDocumentData, ParseDocumentError, ParseDocumentResponse, ProcessInputDataData, ProcessInputDataError, RewriteDocumentData, RewriteDocumentError, RewriteDocumentResponse, SaveDocumentData, SaveDocumentError, SaveSessionStateData, SaveSessionStateError, SaveSessionStateResponse, SignInData, SignInError, SignInResponse, SignOutData, SignUpData, SignUpError, SignUpResponse, StripeWebhookData, UpdateSubscriptionData, UpdateSubscriptionError, UpdateSubscriptionResponse, UploadDocumentData, UploadDocumentError, UploadDocumentResponse } from '../types.gen';
+import type { CancelSubscriptionData, CancelSubscriptionError, CancelSubscriptionResponse, ClearSessionStateData, ClearSessionStateResponse, CreateCheckoutSessionData, CreateCheckoutSessionError, CreateCheckoutSessionResponse, CreatePortalSessionData, CreatePortalSessionError, CreatePortalSessionResponse, DeleteAccountData, DeleteAccountResponse2, ExtractDocumentData, ExtractDocumentError, ExtractDocumentResponse, GenerateDocumentData, GenerateDocumentError, GetCurrentUserData, GetCurrentUserResponse, GetSessionData, GetSessionResponse, GetSessionStateData, GetSessionStateResponse, GetSubscriptionData, GetSubscriptionResponse, GetUserData, GetUserError, GetUserResponse, ParseDocumentData, ParseDocumentError, ParseDocumentResponse, ProcessInputDataData, ProcessInputDataError, RewriteDocumentData, RewriteDocumentError, RewriteDocumentResponse, SaveDocumentData, SaveDocumentError, SaveSessionStateData, SaveSessionStateError, SaveSessionStateResponse, SendVerificationOtpData, SendVerificationOtpResponse, SignInData, SignInError, SignInResponse, SignOutData, SignUpData, SignUpError, SignUpResponse, StripeWebhookData, UpdateSubscriptionData, UpdateSubscriptionError, UpdateSubscriptionResponse, UploadDocumentData, UploadDocumentError, UploadDocumentResponse, VerifyEmailData, VerifyEmailError, VerifyEmailResponse2 } from '../types.gen';
 
 /**
  * Login
@@ -116,6 +116,40 @@ export const deleteAccountMutation = (options?: Partial<Options<DeleteAccountDat
     const mutationOptions: UseMutationOptions<DeleteAccountResponse2, DefaultError, Options<DeleteAccountData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await AuthApi.deleteAccount({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Verify Email
+ */
+export const verifyEmailMutation = (options?: Partial<Options<VerifyEmailData>>): UseMutationOptions<VerifyEmailResponse2, VerifyEmailError, Options<VerifyEmailData>> => {
+    const mutationOptions: UseMutationOptions<VerifyEmailResponse2, VerifyEmailError, Options<VerifyEmailData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await AuthApi.verifyEmail({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Send Verification Otp
+ */
+export const sendVerificationOtpMutation = (options?: Partial<Options<SendVerificationOtpData>>): UseMutationOptions<SendVerificationOtpResponse, DefaultError, Options<SendVerificationOtpData>> => {
+    const mutationOptions: UseMutationOptions<SendVerificationOtpResponse, DefaultError, Options<SendVerificationOtpData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await AuthApi.sendVerificationOtp({
                 ...options,
                 ...fnOptions,
                 throwOnError: true

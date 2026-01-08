@@ -1,19 +1,13 @@
-import { RegisterForm } from '@/components/form/register.form';
-import { Button, Heading, HStack, Separator, Stack, Text, VStack } from '@chakra-ui/react';
-import Link from 'next/link';
 import { FC } from 'react';
+import { RegisterForm } from '@/components/form/register.form';
+import { Button, HStack, Separator, Stack, Text } from '@chakra-ui/react';
 import { FaFacebook, FaGoogle } from 'react-icons/fa';
 import { LuSend } from 'react-icons/lu';
+import Link from 'next/link';
 
 const LoginPage: FC<PageProps<'/auth/login'>> = () => {
 	return (
 		<Stack gap={6}>
-			<VStack gap={1} align={'start'} mb={6}>
-				<Heading size={'4xl'} color={'gray.600'}>
-					Create an account
-				</Heading>
-				<Text color={'GrayText'}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error reprehenderit sequi odit, inventore</Text>
-			</VStack>
 			<RegisterForm />
 			<Button variant={'surface'} colorPalette={'gray'} size={'xl'} width={'full'} asChild>
 				<Link href={'/auth/login'}>
