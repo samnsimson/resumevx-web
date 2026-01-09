@@ -7,7 +7,6 @@ import { rewriteDocumentMutation } from '@/lib/api/@tanstack/react-query.gen';
 import { useChatStore } from '@/lib/store/chat.store';
 import { useDocumentStore } from '@/lib/store/document.store';
 import { DocumentDataOutput, SessionState } from '@/lib/api/types.gen';
-import { toaster } from '@/components/ui/toaster';
 import { useRouter } from 'next/navigation';
 
 interface ChatInputProps extends StackProps {
@@ -35,22 +34,12 @@ export const ChatInput: FC<ChatInputProps> = ({ sessionState, ...props }) => {
 		addMessage({ role: 'assistant', content: error instanceof Error ? error.message : errorMessage });
 	}
 
-	function showToaster() {
-		toaster.error({
-			title: 'No resume found',
-			description: 'Please upload a resume to continue',
-			closable: true,
-		});
-	}
-
 	async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		const jobDescription = sessionState.jobDescription ?? '';
-		if (!sessionState.documentData) return showToaster();
 		addMessage({ role: 'user', content: input });
 		setSubmitting(true);
 		setInput('');
-		rewriteDocument({ body: { inputMessage: input, jobRequirement: jobDescription, resumeContent: JSON.stringify(sessionState.documentData) } });
+		rewriteDocument({ body: { inputMessage: input } });
 	}
 
 	return (

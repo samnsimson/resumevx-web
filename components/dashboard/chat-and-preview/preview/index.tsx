@@ -20,9 +20,9 @@ async function getDownloadUrl(data: Blob) {
 }
 
 export async function PreviewComponent({ sessionState }: PreviewComponentProps) {
-	if (!sessionState.documentData || !sessionState.documentUrl) return null;
+	if (!sessionState.generatedDocumentData || !sessionState.documentUrl) return null;
 	const nextHeaders = await headers();
-	const body = { templateName: 'default' as const, documentData: sessionState.documentData };
+	const body = { templateName: 'default' as const, documentData: sessionState.generatedDocumentData };
 	const { data, error } = await DocumentApi.generateDocument({ body, headers: parseHeaders(nextHeaders) });
 	if (error && !data) throw new Error(error.detail?.join(', ') || 'Failed to generate document');
 	const downloadUrl = await getDownloadUrl(data as Blob);
