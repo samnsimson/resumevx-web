@@ -5,6 +5,30 @@ export type ClientOptions = {
 };
 
 /**
+ * Achievement
+ */
+export type Achievement = {
+    /**
+     * Name
+     *
+     * Name of the achievement
+     */
+    name: string;
+    /**
+     * Description
+     *
+     * Description of the achievement
+     */
+    description?: string | null;
+    /**
+     * Year
+     *
+     * Year of the achievement
+     */
+    year?: string | null;
+};
+
+/**
  * Basics
  */
 export type Basics = {
@@ -101,6 +125,42 @@ export type CancelSubscriptionRequest = {
 };
 
 /**
+ * Certificate
+ */
+export type Certificate = {
+    /**
+     * Name
+     *
+     * Name of the certificate
+     */
+    name: string;
+    /**
+     * Description
+     *
+     * Description of the certificate
+     */
+    description?: string | null;
+    /**
+     * Issuer
+     *
+     * Issuer of the certificate
+     */
+    issuer?: string | null;
+    /**
+     * Year
+     *
+     * Year of the certificate
+     */
+    year?: string | null;
+    /**
+     * Url
+     *
+     * URL of the certificate
+     */
+    url?: string | null;
+};
+
+/**
  * CheckoutSession
  */
 export type CheckoutSession = {
@@ -183,7 +243,7 @@ export type DocumentData = {
     /**
      * Skills
      *
-     * Dictionary of skills grouped by category. Keys are category names (e.g., 'Programming Languages', 'Tools', 'Frameworks'), values are lists of skills in that category
+     * Dictionary of skills grouped by category
      */
     skills: {
         [key: string]: Array<string>;
@@ -194,6 +254,24 @@ export type DocumentData = {
      * List of educational qualifications
      */
     education: Array<Education>;
+    /**
+     * Certificates
+     *
+     * List of certificates
+     */
+    certificates: Array<Certificate>;
+    /**
+     * Projects
+     *
+     * List of projects
+     */
+    projects: Array<Project>;
+    /**
+     * Achievements
+     *
+     * List of achievements
+     */
+    achievements: Array<Achievement>;
 };
 
 /**
@@ -297,9 +375,9 @@ export type GenerateDocumentRequest = {
     /**
      * Templatename
      *
-     * Template name
+     * Template name: 'default', 'modern', or 'classic'
      */
-    templateName?: 'default' | null;
+    templateName?: 'default' | 'modern' | 'classic' | null;
     /**
      * Document data
      */
@@ -363,6 +441,54 @@ export type PortalSession = {
      * Billing portal session URL
      */
     url: string;
+};
+
+/**
+ * Project
+ */
+export type Project = {
+    /**
+     * Name
+     *
+     * Name of the project
+     */
+    name: string;
+    /**
+     * Description
+     *
+     * Description of the project
+     */
+    description?: string | null;
+    /**
+     * Link
+     *
+     * Link of the project
+     */
+    link?: string | null;
+    /**
+     * Startdate
+     *
+     * Start date of the project
+     */
+    startDate?: string | null;
+    /**
+     * Enddate
+     *
+     * End date of the project
+     */
+    endDate?: string | null;
+    /**
+     * Role
+     *
+     * Role of the project
+     */
+    role?: string | null;
+    /**
+     * Responsibilities
+     *
+     * Responsibilities of the project
+     */
+    responsibilities?: Array<string> | null;
 };
 
 /**
