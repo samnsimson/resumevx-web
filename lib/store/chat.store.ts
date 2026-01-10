@@ -1,6 +1,7 @@
 'use client';
 import { create } from 'zustand';
 import { createJSONStorage, devtools, persist } from 'zustand/middleware';
+import { Utils } from '@/lib/utils/client.utils';
 
 export interface ChatMessage {
 	id: string;
@@ -26,9 +27,7 @@ export const useChatStore = create<ChatStore>()(
 				setSubmitting: (isSubmitting) => set({ isSubmitting }),
 				clearMessages: () => set({ messages: [] }),
 				addMessage: (message) => {
-					set((state) => ({
-						messages: [...state.messages, { ...message, id: Math.random().toString(36).substring(2, 15), timestamp: new Date() }],
-					}));
+					set((state) => ({ messages: [...state.messages, { ...message, id: Utils.generateId(), timestamp: new Date() }] }));
 				},
 			}),
 			{

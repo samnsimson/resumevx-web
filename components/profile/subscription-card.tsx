@@ -1,8 +1,8 @@
 'use client';
 import { FC, useState } from 'react';
 import { CardRootProps, Heading, Icon, Text, VStack, HStack, Button, Show, List, Stack } from '@chakra-ui/react';
-import { LuCrown } from 'react-icons/lu';
-import { Subscription } from '@/lib/api';
+import { LuBadge, LuCrown } from 'react-icons/lu';
+import { Subscription, SubscriptionsApi } from '@/lib/api';
 import { AppCard, AppCardHeadless } from '../ui/app-card';
 import { useMutation } from '@tanstack/react-query';
 import { createCheckoutSessionMutation } from '@/lib/api/@tanstack/react-query.gen';
@@ -18,7 +18,7 @@ export const SubscriptionCard: FC<SubscriptionCardProps> = ({ subscriptionInfo, 
 	const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false);
 	const { mutateAsync: createCheckoutSession } = useMutation({ ...createCheckoutSessionMutation() });
 
-	async function onUpgradeSubscription() {
+	async function upgradeSubscription() {
 		try {
 			setIsCreatingCheckoutSession(true);
 			const priceId = 'price_1SVjD4RxuN7gvrMkdnA8CQCR';
@@ -32,32 +32,50 @@ export const SubscriptionCard: FC<SubscriptionCardProps> = ({ subscriptionInfo, 
 			setIsCreatingCheckoutSession(false);
 		}
 	}
+
+	const manageSubscription = async () => {
+		try {
+			setIsCreatingCheckoutSession(true);
+			const returnUrl = `${window.location.origin}/dashboard/profile`;
+			const { data } = await SubscriptionsApi.createPortalSession({ body: { returnUrl } });
+			if (!data) throw new Error('Failed to create portal session');
+			router.push(data.url);
+		} catch (error: any) {
+			toaster.error({ title: 'Failed to manage subscription', description: error.message ?? 'Failed to manage subscription', closable: true });
+		} finally {
+			setIsCreatingCheckoutSession(false);
+		}
+	};
+
 	return (
 		<AppCard title="Subscription" description="Manage your subscription and billing information" {...props}>
 			<Stack gap={4}>
 				<Show when={subscriptionInfo}>
-					{(subscription) => (
-						<HStack bg={'bg.muted'} rounded={'lg'} padding={4} gap={6} border={'1px solid'} borderColor={'border'}>
-							<Icon as={LuCrown} size={'2xl'} color={'yellow.500'} />
-							<VStack align={'start'} flex={1} gap={0}>
-								<Text fontWeight={'bold'} textTransform={'capitalize'}>
-									{subscription.plan}
-								</Text>
-								<Text color={'GrayText'}>{subscription.status}</Text>
-							</VStack>
-							<Button
-								variant={'solid'}
-								colorPalette={'blue'}
-								size={'sm'}
-								loading={isCreatingCheckoutSession}
-								disabled={isCreatingCheckoutSession}
-								onClick={onUpgradeSubscription}
-							>
-								<LuCrown />
-								Upgrade Subscription
-							</Button>
-						</HStack>
-					)}
+					{(subscription) => {
+						const isFreePlan = subscription.plan === 'free';
+						return (
+							<HStack bg={'bg.muted'} rounded={'lg'} padding={4} gap={6} border={'1px solid'} borderColor={'border'}>
+								<Icon as={LuCrown} size={'2xl'} color={'yellow.500'} />
+								<VStack align={'start'} flex={1} gap={0}>
+									<Text fontWeight={'bold'} textTransform={'capitalize'}>
+										{subscription.plan}
+									</Text>
+									<Text color={'GrayText'}>{subscription.status}</Text>
+								</VStack>
+								<Button
+									size={'sm'}
+									variant={'solid'}
+									colorPalette={'blue'}
+									loading={isCreatingCheckoutSession}
+									disabled={isCreatingCheckoutSession || isFreePlan}
+									onClick={isFreePlan ? upgradeSubscription : manageSubscription}
+								>
+									{isFreePlan ? <LuBadge /> : <LuCrown />}
+									{isFreePlan ? 'Upgrade Subscription' : 'Manage Subscription'}
+								</Button>
+							</HStack>
+						);
+					}}
 				</Show>
 				<AppCardHeadless bg={'bg.muted'} gap={4}>
 					<Heading size={'sm'}>Pro Plan Benefits</Heading>
