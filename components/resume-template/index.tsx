@@ -20,7 +20,7 @@ export const ResumeTemplate: FC<ResumeTemplateProps> = ({ ...props }) => {
 			}
 			{...props}
 		>
-			<TemplateSelector templates={['Default', 'Modern', 'Classic', 'Elegant']} />
+			<TemplateSelector templates={['Modern', 'Classic', 'Elegant']} />
 		</AppCard>
 	);
 };

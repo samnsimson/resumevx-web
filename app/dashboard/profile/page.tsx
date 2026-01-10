@@ -1,20 +1,19 @@
 import { DangerZone } from '@/components/profile/danger-zone';
+import { SaveProfileCard } from '@/components/profile/save-profile-card';
 import { SubscriptionCard } from '@/components/profile/subscription-card';
 import { AppCardHeadless } from '@/components/ui/app-card';
-import { SubscriptionsApi, UserApi } from '@/lib/api';
+import { UserApi } from '@/lib/api';
 import { parseHeaders } from '@/lib/utils';
-import { Button, Container, Field, Heading, HStack, Input, SimpleGrid, Stack, Text, VStack } from '@chakra-ui/react';
+import { Button, Container, Field, Heading, Input, SimpleGrid, Stack, Text, VStack } from '@chakra-ui/react';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { FC } from 'react';
-import { LuLock, LuSave } from 'react-icons/lu';
+import { LuLock } from 'react-icons/lu';
 
 const ProfilePage: FC<PageProps<'/dashboard/profile'>> = async () => {
 	const nextHeaders = await headers();
 	const { data } = await UserApi.getCurrentUser({ headers: parseHeaders(nextHeaders) });
 	if (!data) return redirect('/auth/login');
-
-	const { data: subscription } = await SubscriptionsApi.getSubscription({ headers: parseHeaders(nextHeaders) });
 
 	return (
 		<Stack boxSize={'full'} bg={'bg.muted'}>
@@ -24,26 +23,7 @@ const ProfilePage: FC<PageProps<'/dashboard/profile'>> = async () => {
 					<Text color={'GrayText'}>Manage your profile information and settings</Text>
 				</VStack>
 				<SimpleGrid width={'full'} columns={2} gap={4}>
-					<AppCardHeadless gap={4}>
-						<HStack gap={4}>
-							<Field.Root>
-								<Field.Label color={'GrayText'}>Name</Field.Label>
-								<Input variant={'subtle'} size={'xl'} type="text" value={data.name} />
-							</Field.Root>
-							<Field.Root>
-								<Field.Label color={'GrayText'}>Username</Field.Label>
-								<Input variant={'subtle'} size={'xl'} type="text" value={data.username} readOnly disabled />
-							</Field.Root>
-						</HStack>
-						<Field.Root>
-							<Field.Label color={'GrayText'}>Email</Field.Label>
-							<Input variant={'subtle'} size={'xl'} type="text" value={data.email} readOnly disabled />
-						</Field.Root>
-						<Button variant={'solid'} colorPalette={'blue'} size={'lg'}>
-							<LuSave />
-							Save Profile
-						</Button>
-					</AppCardHeadless>
+					<SaveProfileCard />
 					<AppCardHeadless gap={4}>
 						<Field.Root>
 							<Field.Label color={'GrayText'}>Old Password</Field.Label>
@@ -59,7 +39,7 @@ const ProfilePage: FC<PageProps<'/dashboard/profile'>> = async () => {
 						</Button>
 					</AppCardHeadless>
 				</SimpleGrid>
-				<SubscriptionCard subscriptionInfo={subscription} />
+				<SubscriptionCard />
 				<DangerZone />
 			</Container>
 		</Stack>

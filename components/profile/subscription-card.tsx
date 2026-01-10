@@ -2,19 +2,21 @@
 import { FC, useState } from 'react';
 import { CardRootProps, Heading, Icon, Text, VStack, HStack, Button, Show, List, Stack } from '@chakra-ui/react';
 import { LuBadge, LuCrown } from 'react-icons/lu';
-import { Subscription, SubscriptionsApi } from '@/lib/api';
+import { SubscriptionsApi } from '@/lib/api';
 import { AppCard, AppCardHeadless } from '../ui/app-card';
 import { useMutation } from '@tanstack/react-query';
 import { createCheckoutSessionMutation } from '@/lib/api/@tanstack/react-query.gen';
 import { useRouter } from 'next/navigation';
 import { toaster } from '../ui/toaster';
+import { useAccessControl } from '../providers/access-control.provider';
 
 interface SubscriptionCardProps extends CardRootProps {
-	subscriptionInfo?: Subscription | null;
+	[key: string]: any;
 }
 
-export const SubscriptionCard: FC<SubscriptionCardProps> = ({ subscriptionInfo, ...props }) => {
+export const SubscriptionCard: FC<SubscriptionCardProps> = ({ ...props }) => {
 	const router = useRouter();
+	const { isFreePlan, subscription } = useAccessControl();
 	const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false);
 	const { mutateAsync: createCheckoutSession } = useMutation({ ...createCheckoutSessionMutation() });
 
@@ -50,9 +52,8 @@ export const SubscriptionCard: FC<SubscriptionCardProps> = ({ subscriptionInfo, 
 	return (
 		<AppCard title="Subscription" description="Manage your subscription and billing information" {...props}>
 			<Stack gap={4}>
-				<Show when={subscriptionInfo}>
+				<Show when={subscription}>
 					{(subscription) => {
-						const isFreePlan = subscription.plan === 'free';
 						return (
 							<HStack bg={'bg.muted'} rounded={'lg'} padding={4} gap={6} border={'1px solid'} borderColor={'border'}>
 								<Icon as={LuCrown} size={'2xl'} color={'yellow.500'} />
