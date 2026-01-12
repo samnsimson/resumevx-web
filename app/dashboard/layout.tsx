@@ -5,12 +5,15 @@ import { DataInputFormProvider } from '@/lib/hooks/useDataInputForm';
 import { getSession, getSubscription } from '@/actions';
 import { redirect } from 'next/navigation';
 import { AccessControlProvider } from '@/components/providers/access-control.provider';
+import { headers } from 'next/headers';
 
 export default async function DashboardLayout({ children }: LayoutProps<'/dashboard'>) {
+	const nextHeaders = await headers();
 	const session = await getSession();
 	if (!session) return redirect('/auth/login');
 	if (!session.user.emailVerified) return redirect('/auth/verify-email');
 	const subscription = await getSubscription();
+	const currentPath = nextHeaders.get('x-current-path');
 
 	return (
 		<AccessControlProvider subscription={subscription} session={session}>
@@ -18,7 +21,7 @@ export default async function DashboardLayout({ children }: LayoutProps<'/dashbo
 				<Header bg={'bg.panel'} />
 				<HStack width={'full'} height={'calc(100vh - 72px)'} gap={0} divideX={'1px'}>
 					<Stack width={'2/12'} height={'full'}>
-						<WorkSpaceSidebar />
+						<WorkSpaceSidebar currentPath={currentPath} />
 					</Stack>
 					<Stack width={'10/12'} height={'full'} bg={'bg.muted'} overflow={'scroll'}>
 						<DataInputFormProvider>{children}</DataInputFormProvider>

@@ -1,6 +1,6 @@
 'use client';
 import { FC, useEffect, useRef } from 'react';
-import { Box, For, HStack, Icon, Show, Stack, StackProps, Text, VStack } from '@chakra-ui/react';
+import { Box, For, HStack, Icon, Show, Stack, StackProps, Text } from '@chakra-ui/react';
 import { ChatEmptyState } from './chat-empty-state';
 import { useChatStore } from '@/lib/store/chat.store';
 import { HiUser } from 'react-icons/hi2';
@@ -20,13 +20,13 @@ export const ChatConversation: FC<ChatConversationProps> = ({ ...props }) => {
 
 	return (
 		<Stack overflow={'scroll'} padding={4} boxSize={'full'} {...props}>
-			<VStack gap={4} boxSize={'full'}>
+			<Stack gap={4} boxSize={'full'}>
 				<Show when={messages.length > 0} fallback={ChatEmptyState()}>
 					<For each={messages}>
 						{(message) => {
 							const isUser = message.role === 'user';
 							return (
-								<HStack key={message.id} align={'start'} justify={isUser ? 'flex-end' : 'flex-start'} gap={3}>
+								<HStack key={message.id} align={'start'} justify={isUser ? 'end' : 'start'} gap={3}>
 									<Show when={message.role === 'assistant'}>
 										<Icon as={LuBot} size={'lg'} color={'green.600'} />
 									</Show>
@@ -49,7 +49,7 @@ export const ChatConversation: FC<ChatConversationProps> = ({ ...props }) => {
 						}}
 					</For>
 				</Show>
-			</VStack>
+			</Stack>
 		</Stack>
 	);
 };
