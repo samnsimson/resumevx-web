@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useDocumentStore } from '@/lib/store/document.store';
 import { useChatStore } from '@/lib/store/chat.store';
+import { useDataInputForm } from '@/lib/hooks/useDataInputForm';
 
 interface StartOverButtonProps extends ButtonProps {
 	[x: string]: any;
@@ -15,6 +16,7 @@ interface StartOverButtonProps extends ButtonProps {
 
 export const StartOverButton: FC<StartOverButtonProps> = ({ ...props }) => {
 	const router = useRouter();
+	const { form } = useDataInputForm();
 	const [isLoading, setIsLoading] = useState(false);
 	const { clearFormData, clearResumeData } = useDocumentStore((state) => state);
 	const { clearMessages } = useChatStore((state) => state);
@@ -29,6 +31,7 @@ export const StartOverButton: FC<StartOverButtonProps> = ({ ...props }) => {
 		clearFormData();
 		clearResumeData();
 		clearMessages();
+		form?.reset();
 		if (cb) cb();
 	}
 
