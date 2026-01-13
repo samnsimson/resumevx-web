@@ -18,7 +18,7 @@ export default async function DashboardLayout({ children }: LayoutProps<'/dashbo
 	return (
 		<AccessControlProvider subscription={subscription} session={session}>
 			<Stack flex={1} height={'100vh'} gap={0} bg={'bg.panel'} divideY={'1px'} divideColor={'border'}>
-				<Header bg={'bg.panel'} />
+				<Header />
 				<HStack width={'full'} height={'calc(100vh - 72px)'} gap={0} divideX={'1px'}>
 					<Stack width={'2/12'} height={'full'}>
 						<WorkSpaceSidebar currentPath={currentPath} />

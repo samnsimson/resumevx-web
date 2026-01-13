@@ -1,3 +1,4 @@
+'use client';
 import { FC } from 'react';
 import { Box, Heading, HStack, IconButton, Spacer, StackProps } from '@chakra-ui/react';
 import { LogoutButton } from '../logout-button';
@@ -13,7 +14,7 @@ export const Header: FC<HeaderProps> = ({ ...props }) => {
 	return (
 		<HStack minH={'72px'} justify={'space-between'} {...props}>
 			<Box paddingX={4}>
-				<Heading fontWeight={'bold'}>Resume vX</Heading>
+				<Heading fontWeight={'bold'}>Frezume</Heading>
 			</Box>
 			<Spacer />
 			<HStack gap={4} paddingX={4}>

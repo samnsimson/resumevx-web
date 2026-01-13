@@ -1,0 +1,116 @@
+import { createSystem, defaultConfig, defineConfig } from '@chakra-ui/react';
+import { buttonRecipe, inputRecipe } from '@/lib/config/theme.recipe';
+
+export const theme = createSystem(
+	defaultConfig,
+	defineConfig({
+		theme: {
+			recipes: {
+				button: buttonRecipe,
+				input: inputRecipe,
+			},
+			tokens: {
+				fonts: {
+					heading: { value: "'Poppins', sans-serif" },
+					body: { value: "'Poppins', sans-serif" },
+					mono: { value: 'IBM Plex Mono' },
+				},
+				colors: {
+					base: { light: { value: '#2a303c' }, medium: { value: '#242933' }, dark: { value: '#20252e' }, content: { value: '#b2ccd6' } },
+					primary: { DEFAULT: { value: '#9fe88d' }, content: { value: '#091307' } },
+					secondary: { DEFAULT: { value: '#ff7d5d' }, content: { value: '#160503' } },
+					accent: { DEFAULT: { value: '#c792e9' }, content: { value: '#0e0813' } },
+					neutral: { DEFAULT: { value: '#1c212b' }, content: { value: '#b2ccd6' } },
+					info: { DEFAULT: { value: '#28ebff' }, content: { value: '#011316' } },
+					success: { DEFAULT: { value: '#62efbd' }, content: { value: '#03140d' } },
+					warning: { DEFAULT: { value: '#efd057' }, content: { value: '#141003' } },
+					error: { DEFAULT: { value: '#ffae9b' }, content: { value: '#160b09' } },
+				},
+			},
+			semanticTokens: {
+				colors: {
+					fg: { DEFAULT: { value: '{colors.base.content}' } },
+					bg: {
+						muted: { value: { _dark: '{colors.neutral}' } },
+						panel: { value: { _dark: '{colors.base.dark}' } },
+						subtle: { value: { _dark: '{colors.base.medium}' } },
+						solid: { value: { _dark: '{colors.base.dark}' } },
+					},
+					border: { value: { _dark: '{colors.gray.900}' } },
+					primary: {
+						solid: { value: '{colors.primary}' },
+						contrast: { value: '{colors.primary.content}' },
+						fg: { value: '{colors.primary.content}' },
+						muted: { value: '{colors.primary}' },
+						subtle: { value: '{colors.primary}' },
+						emphasized: { value: '{colors.primary}' },
+						focusRing: { value: '{colors.primary}' },
+					},
+					secondary: {
+						solid: { value: '{colors.secondary}' },
+						contrast: { value: '{colors.secondary.content}' },
+						fg: { value: '{colors.secondary.content}' },
+						muted: { value: '{colors.secondary}' },
+						subtle: { value: '{colors.secondary}' },
+						emphasized: { value: '{colors.secondary}' },
+						focusRing: { value: '{colors.secondary}' },
+					},
+					accent: {
+						solid: { value: '{colors.accent}' },
+						contrast: { value: '{colors.accent.content}' },
+						fg: { value: '{colors.accent.content}' },
+						muted: { value: '{colors.accent}' },
+						subtle: { value: '{colors.accent}' },
+						emphasized: { value: '{colors.accent}' },
+						focusRing: { value: '{colors.accent}' },
+					},
+					neutral: {
+						solid: { value: '{colors.neutral}' },
+						contrast: { value: '{colors.neutral.content}' },
+						fg: { value: '{colors.neutral.content}' },
+						muted: { value: '{colors.neutral}' },
+						subtle: { value: '{colors.neutral}' },
+						emphasized: { value: '{colors.neutral}' },
+						focusRing: { value: '{colors.neutral}' },
+					},
+					info: {
+						solid: { value: '{colors.info}' },
+						contrast: { value: '{colors.info.content}' },
+						fg: { value: '{colors.info.content}' },
+						muted: { value: '{colors.info}' },
+						subtle: { value: '{colors.info}' },
+						emphasized: { value: '{colors.info}' },
+						focusRing: { value: '{colors.info}' },
+					},
+					success: {
+						solid: { value: '{colors.success}' },
+						contrast: { value: '{colors.success.content}' },
+						fg: { value: '{colors.success.content}' },
+						muted: { value: '{colors.success}' },
+						subtle: { value: '{colors.success}' },
+						emphasized: { value: '{colors.success}' },
+						focusRing: { value: '{colors.success}' },
+					},
+					warning: {
+						solid: { value: '{colors.warning}' },
+						contrast: { value: '{colors.warning.content}' },
+						fg: { value: '{colors.warning.content}' },
+						muted: { value: '{colors.warning}' },
+						subtle: { value: '{colors.warning}' },
+						emphasized: { value: '{colors.warning}' },
+						focusRing: { value: '{colors.warning}' },
+					},
+					error: {
+						solid: { value: '{colors.error}' },
+						contrast: { value: '{colors.error.content}' },
+						fg: { value: '{colors.error.content}' },
+						muted: { value: '{colors.error}' },
+						subtle: { value: '{colors.error}' },
+						emphasized: { value: '{colors.error}' },
+						focusRing: { value: '{colors.error}' },
+					},
+				},
+			},
+		},
+	}),
+);

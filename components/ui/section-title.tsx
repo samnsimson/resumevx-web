@@ -1,5 +1,5 @@
 'use client';
-import { Box, Heading, HStack, Show, StackProps, Text, Icon, HeadingProps, TextProps } from '@chakra-ui/react';
+import { Heading, HStack, Show, StackProps, Text, Icon, HeadingProps, TextProps, Stack } from '@chakra-ui/react';
 import { FC, ReactNode } from 'react';
 import { IconType } from 'react-icons';
 
@@ -13,7 +13,7 @@ export interface SectionTitleProps extends StackProps {
 
 export const RenderIcon = ({ icon }: { icon?: IconType | ReactNode }) => {
 	if (!icon) return null;
-	if (typeof icon === 'function') return <Icon as={icon} size={'lg'} color={'LinkText'} />;
+	if (typeof icon === 'function') return <Icon as={icon} size={'lg'} color={'accent'} />;
 	return icon as ReactNode;
 };
 
@@ -21,16 +21,16 @@ export const SectionTitle: FC<SectionTitleProps> = ({ title, description, icon, 
 	return (
 		<HStack paddingY={3} gap={6} bgColor={'transparent'} {...props}>
 			<RenderIcon icon={icon} />
-			<Box width={'full'}>
-				<Heading size={'sm'} color={'LinkText'} {...headingStyle}>
+			<Stack gap={1}>
+				<Heading color={'accent'} {...headingStyle}>
 					{title}
 				</Heading>
 				<Show when={!!description}>
-					<Text fontSize={'sm'} color={'GrayText'} {...descriptionStyle}>
+					<Text fontSize={'sm'} {...descriptionStyle}>
 						{description}
 					</Text>
 				</Show>
-			</Box>
+			</Stack>
 		</HStack>
 	);
 };

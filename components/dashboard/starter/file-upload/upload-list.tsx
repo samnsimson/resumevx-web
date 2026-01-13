@@ -23,15 +23,15 @@ export const UploadList: FC<UploadListProps> = ({ ...props }) => {
 		<FileUpload.ItemGroup>
 			<For each={files}>
 				{(file) => (
-					<FileUpload.Item width="full" p="4" file={file} key={file.name} layerStyle="fill.surface" colorPalette={'green'} asChild {...props}>
+					<FileUpload.Item width="full" p="4" file={file} key={file.name} layerStyle="fill.surface" colorPalette={'success'} asChild {...props}>
 						<HStack width={'full'} align={'center'} justify={'space-between'} gap={3}>
 							<HStack width={'full'} align={'center'} gap={3}>
 								<Icon as={LuFile} />
-								<Text fontSize={'sm'} fontWeight={'bold'}>
+								<Text fontSize={'sm'} fontWeight={'semibold'}>
 									{file.name}
 								</Text>
 							</HStack>
-							<IconButton size={'xs'} variant={'ghost'} colorPalette={'green'} rounded={'full'} onClick={() => removeFile(file)}>
+							<IconButton size={'xs'} variant={'ghost'} colorPalette={'success'} rounded={'full'} onClick={() => removeFile(file)}>
 								<Icon as={LuX} />
 							</IconButton>
 						</HStack>

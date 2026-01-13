@@ -4,10 +4,10 @@ import { parseHeaders } from '@/lib/utils';
 import { StartOverButton } from '@/components/dashboard/chat-and-preview/preview/ui/start-over-button';
 import { ResumePreview } from '@/components/dashboard/chat-and-preview/preview/resume-preview';
 import { SaveButton } from '@/components/dashboard/chat-and-preview/preview/ui/save-button';
-import { AppCard } from '@/components/ui/app-card';
-import { Stack, Container, HStack, Show } from '@chakra-ui/react';
+import { Stack, HStack, Show, Tabs, Container, Box } from '@chakra-ui/react';
 import { DownloadPdfButton } from './ui/download-pdf-button';
 import { LoadingPlaceholder } from './ui/loading-placeholder';
+import { SectionTitle } from '@/components/ui/section-title';
 
 interface PreviewComponentProps {
 	sessionState: SessionState;
@@ -28,29 +28,53 @@ export async function PreviewComponent({ sessionState }: PreviewComponentProps) 
 	const downloadUrl = await getDownloadUrl(data as Blob);
 
 	return (
-		<Stack height={'full'} overflow={'scroll'}>
-			<Container maxWidth={'4xl'} height={'full'}>
-				<AppCard
-					title="Preview"
-					description="Preview your resume and make changes"
-					bg={'transparent'}
-					rounded={'none'}
-					border={'none'}
-					divideY={'none'}
-					headerStyle={{ paddingTop: 4 }}
-					actions={
+		<Stack boxSize={'full'} overflow={'hidden'} gap={0}>
+			<Stack bg={'bg.panel'} flexShrink={0} minHeight={0} paddingBottom={4}>
+				<Container maxWidth={'4xl'}>
+					<HStack justify={'space-between'}>
+						<SectionTitle title="Preview" description="Preview your resume and make changes" headingStyle={{ fontSize: 'lg' }} />
 						<HStack>
-							<StartOverButton />
-							<SaveButton />
-							<DownloadPdfButton downloadUrl={downloadUrl} />
+							<StartOverButton size={'sm'} colorPalette={'primary'} />
+							<SaveButton size={'sm'} colorPalette={'primary'} />
+							<DownloadPdfButton size={'sm'} downloadUrl={downloadUrl} colorPalette={'primary'} />
 						</HStack>
-					}
-				>
-					<Show when={data} fallback={<LoadingPlaceholder />}>
-						{(data) => <ResumePreview generatedBlob={data as unknown as Blob} originalUrl={sessionState.documentUrl ?? ''} />}
-					</Show>
-				</AppCard>
-			</Container>
+					</HStack>
+				</Container>
+			</Stack>
+			<Tabs.Root colorPalette={'primary'} defaultValue="generated" boxSize={'full'} flexGrow={1} _before={{ display: 'none' }}>
+				<Box bg={'bg.panel'} flexShrink={0} minHeight={0} borderBottomWidth={'1px'} borderColor={'border'}>
+					<Container maxWidth={'4xl'}>
+						<Tabs.List flexShrink={0} minHeight={0} _before={{ display: 'none' }} border={'none'}>
+							<Tabs.Trigger value="generated" _selected={{ color: 'primary' }}>
+								AI Generated
+							</Tabs.Trigger>
+							<Tabs.Trigger value="original" _selected={{ color: 'primary' }}>
+								Original
+							</Tabs.Trigger>
+							<Tabs.Trigger value="cover-letter" _selected={{ color: 'primary' }}>
+								Cover Letter
+							</Tabs.Trigger>
+						</Tabs.List>
+					</Container>
+				</Box>
+				<Tabs.Content value="generated" padding={4} boxSize={'full'} overflow={'scroll'} flexGrow={1}>
+					<Container maxWidth={'4xl'}>
+						<Show when={data as unknown as Blob} fallback={<LoadingPlaceholder />}>
+							{(data: Blob) => <ResumePreview source={data} />}
+						</Show>
+					</Container>
+				</Tabs.Content>
+				<Tabs.Content value="original" padding={4} boxSize={'full'} overflow={'scroll'} flexGrow={1}>
+					<Container maxWidth={'4xl'}>
+						<Show when={sessionState.documentUrl} fallback={<LoadingPlaceholder />}>
+							{(url: string) => <ResumePreview source={url} />}
+						</Show>
+					</Container>
+				</Tabs.Content>
+				<Tabs.Content value="cover-letter" padding={4} boxSize={'full'} overflow={'scroll'} flexGrow={1}>
+					Manage your tasks for freelancers
+				</Tabs.Content>
+			</Tabs.Root>
 		</Stack>
 	);
 }

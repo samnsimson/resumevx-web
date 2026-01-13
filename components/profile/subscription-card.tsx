@@ -66,7 +66,7 @@ export const SubscriptionCard: FC<SubscriptionCardProps> = ({ ...props }) => {
 								<Button
 									size={'sm'}
 									variant={'solid'}
-									colorPalette={'blue'}
+									colorPalette={'primary'}
 									loading={isCreatingCheckoutSession}
 									disabled={isCreatingCheckoutSession || isFreePlan}
 									onClick={isFreePlan ? upgradeSubscription : manageSubscription}

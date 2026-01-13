@@ -27,7 +27,7 @@ export const SaveProfileCard: FC<SaveProfileCardProps> = ({ ...props }) => {
 				<Field.Label color={'GrayText'}>Email</Field.Label>
 				<Input variant={'subtle'} size={'xl'} type="text" value={user?.email} readOnly disabled />
 			</Field.Root>
-			<Button variant={'solid'} colorPalette={'blue'} size={'lg'}>
+			<Button variant={'solid'} colorPalette={'info'} size={'lg'}>
 				<LuSave />
 				Save Profile
 			</Button>

@@ -3,25 +3,22 @@ import { FC, useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { ErrorPlaceholder } from './ui/error-placeholder';
 import { LoadingPlaceholder } from './ui/loading-placeholder';
-import { useAppStore } from '@/lib/store/app.store';
+import { Show } from '@chakra-ui/react';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
-import { Show } from '@chakra-ui/react';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 interface PdfViewerProps {
-	generatedBlob: Blob;
-	originalUrl: string;
+	source: Blob | string;
 }
 
-export const PdfViewer: FC<PdfViewerProps> = ({ generatedBlob, originalUrl }) => {
-	const { previewTab } = useAppStore((state) => state);
+export const PdfViewer: FC<PdfViewerProps> = ({ source }) => {
 	const [pdf, setPdf] = useState<any>(null);
 
 	return (
 		<Document
-			file={previewTab.toLowerCase() === 'original' ? originalUrl : generatedBlob}
+			file={source}
 			onLoadStart={() => setPdf(null)}
 			onLoadSuccess={(pdf) => setPdf(pdf)}
 			loading={LoadingPlaceholder()}

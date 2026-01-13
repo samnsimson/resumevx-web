@@ -33,7 +33,7 @@ const ProfilePage: FC<PageProps<'/dashboard/profile'>> = async () => {
 							<Field.Label color={'GrayText'}>New Password</Field.Label>
 							<Input variant={'subtle'} size={'xl'} type="password" readOnly />
 						</Field.Root>
-						<Button variant={'solid'} colorPalette={'blue'} size={'lg'}>
+						<Button variant={'solid'} colorPalette={'info'} size={'lg'}>
 							<LuLock />
 							Change Password
 						</Button>

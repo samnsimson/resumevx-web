@@ -11,7 +11,7 @@ interface ChatAndPreviewComponentProps {
 
 export async function ChatAndPreviewComponent({ sessionState }: ChatAndPreviewComponentProps) {
 	return (
-		<HStack boxSize={'full'} divideX={'1px'} divideColor={'border'}>
+		<HStack boxSize={'full'} divideX={'1px'} divideColor={'border'} gap={0}>
 			<Stack width={'8/12'} height={'full'}>
 				<Suspense fallback={Loader({ size: 'lg' })}>
 					<PreviewComponent sessionState={sessionState} />

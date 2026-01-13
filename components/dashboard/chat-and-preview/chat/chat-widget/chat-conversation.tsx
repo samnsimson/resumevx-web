@@ -20,7 +20,7 @@ export const ChatConversation: FC<ChatConversationProps> = ({ ...props }) => {
 	}, [messages, isSubmitting]);
 
 	return (
-		<Stack ref={scrollRef} overflow={'scroll'} padding={4} boxSize={'full'} {...props}>
+		<Stack ref={scrollRef} overflow={'scroll'} padding={4} boxSize={'full'} bg={'bg.subtle'} {...props}>
 			<Stack gap={4} boxSize={'full'}>
 				<Show when={messages.length > 0} fallback={ChatEmptyState()}>
 					<For each={messages}>

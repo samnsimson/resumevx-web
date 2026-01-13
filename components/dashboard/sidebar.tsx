@@ -38,16 +38,16 @@ export const WorkSpaceSidebar: FC<WorkSpaceSidebarProps> = ({ ...props }) => {
 	);
 
 	return (
-		<Stack height={'full'} width={'full'} gap={4} padding={4} {...props}>
+		<Stack height={'full'} width={'full'} gap={4} padding={4} bg={'bg.subtle'} {...props}>
 			{NAV_ITEMS.map((item) => (
 				<Button
 					key={item.href}
-					size={'xl'}
 					width={'fit-content'}
 					rounded={'full'}
-					colorPalette={{ base: isActive(item.href) ? 'blue' : 'gray', _hover: 'blue' }}
+					fontWeight={'semibold'}
+					colorPalette={{ base: isActive(item.href) ? 'info' : 'neutral', _hover: 'info' }}
 					variant={{ base: isActive(item.href) ? 'surface' : 'ghost', _hover: 'solid' }}
-					_hover={{ textDecoration: 'none' }}
+					_hover={{ textDecoration: 'none', color: 'info.content' }}
 					asChild
 				>
 					<Link href={item.href}>

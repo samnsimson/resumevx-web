@@ -31,7 +31,7 @@ export const DangerZone: FC<DangerZoneProps> = ({ ...props }) => {
 					<Heading size={'md'}>Delete Account</Heading>
 					<Text color={'GrayText'}>Permanently delete your account and all associated data</Text>
 				</VStack>
-				<Button variant={'solid'} colorPalette={'red'} size={'sm'} loading={isDeleting} disabled={isDeleting} onClick={() => deleteAccount({})}>
+				<Button variant={'solid'} colorPalette={'error'} size={'sm'} loading={isDeleting} disabled={isDeleting} onClick={() => deleteAccount({})}>
 					<LuTrash />
 					Delete Account
 				</Button>
