@@ -22,7 +22,7 @@ export const SectionTitle: FC<SectionTitleProps> = ({ title, description, icon, 
 		<HStack paddingY={3} gap={6} bgColor={'transparent'} {...props}>
 			<RenderIcon icon={icon} />
 			<Stack gap={1}>
-				<Heading color={'accent'} {...headingStyle}>
+				<Heading size={'md'} {...headingStyle}>
 					{title}
 				</Heading>
 				<Show when={!!description}>

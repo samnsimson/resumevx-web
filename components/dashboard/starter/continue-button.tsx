@@ -84,7 +84,7 @@ export function ContinueButton({ ...props }: ContinueButtonProps) {
 
 	return (
 		<Fragment>
-			<Button variant={'solid'} colorPalette={'blue'} size={'xl'} rounded={'full'} disabled={isDisabled} onClick={handleContinue} {...props}>
+			<Button variant={'solid'} colorPalette={'primary'} size={'lg'} rounded={'full'} disabled={isDisabled} onClick={handleContinue} {...props}>
 				Save and Continue
 				<HiArrowRight />
 			</Button>

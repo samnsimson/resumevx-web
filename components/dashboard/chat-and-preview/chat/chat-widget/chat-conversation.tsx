@@ -29,13 +29,13 @@ export const ChatConversation: FC<ChatConversationProps> = ({ ...props }) => {
 							return (
 								<HStack key={message.id} align={'start'} justify={isUser ? 'end' : 'start'} gap={3} _last={{ paddingBottom: 4 }}>
 									<Show when={message.role === 'assistant'}>
-										<Icon as={LuBot} size={'lg'} color={'green.600'} />
+										<Icon as={LuBot} size={'lg'} color={'primary'} />
 									</Show>
 									<Box
 										maxWidth={'80%'}
 										padding={3}
 										rounded={'lg'}
-										bgColor={isUser ? 'blue.subtle' : 'bg.muted'}
+										bgColor={isUser ? 'bg.panel' : 'bg.muted'}
 										color={isUser ? 'fg' : 'fg.default'}
 									>
 										<Show when={isUser} fallback={<RenderMarkdown content={message.content} />}>
@@ -45,7 +45,7 @@ export const ChatConversation: FC<ChatConversationProps> = ({ ...props }) => {
 										</Show>
 									</Box>
 									<Show when={message.role === 'user'}>
-										<Icon as={HiUser} size={'lg'} color={'blue.600'} />
+										<Icon as={HiUser} size={'lg'} color={'info'} />
 									</Show>
 								</HStack>
 							);

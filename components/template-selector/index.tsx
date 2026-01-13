@@ -11,7 +11,7 @@ interface TemplateSelectorProps extends RadioCardRootProps {
 export const TemplateSelector: FC<TemplateSelectorProps> = ({ templates, ...props }) => {
 	const { isFreePlan } = useAccessControl();
 	return (
-		<RadioCard.Root variant={'outline'} colorPalette={'red'} gap={4} defaultValue={'default'} {...props}>
+		<RadioCard.Root variant={'surface'} gap={4} defaultValue={'default'} {...props}>
 			<RadioCard.Item value={'default'}>
 				<RadioCard.ItemHiddenInput />
 				<RadioCard.ItemControl>
@@ -28,12 +28,12 @@ export const TemplateSelector: FC<TemplateSelectorProps> = ({ templates, ...prop
 				</RadioCard.ItemControl>
 			</RadioCard.Item>
 			<Show when={isFreePlan}>
-				<Alert.Root status="info">
-					<Alert.Indicator>
+				<Alert.Root bg={'info'}>
+					<Alert.Indicator color={'info.content'}>
 						<LuRocket />
 					</Alert.Indicator>
 					<Alert.Content color="fg">
-						<Alert.Title color={{ _light: 'blue.700', _dark: 'blue.300' }}>
+						<Alert.Title color={'info.content'}>
 							<Mark textDecoration={'underline'} textUnderlineOffset={'2px'} marginRight={1} asChild>
 								<Link href="/dashboard/subscription">Upgrade</Link>
 							</Mark>

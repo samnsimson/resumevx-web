@@ -1,7 +1,7 @@
 'use client';
 import { FC, useState } from 'react';
 import { CardRootProps, Heading, Icon, Text, VStack, HStack, Button, Show, List, Stack } from '@chakra-ui/react';
-import { LuBadge, LuCrown } from 'react-icons/lu';
+import { LuCrown, LuRocket } from 'react-icons/lu';
 import { SubscriptionsApi } from '@/lib/api';
 import { AppCard, AppCardHeadless } from '../ui/app-card';
 import { useMutation } from '@tanstack/react-query';
@@ -68,10 +68,10 @@ export const SubscriptionCard: FC<SubscriptionCardProps> = ({ ...props }) => {
 									variant={'solid'}
 									colorPalette={'primary'}
 									loading={isCreatingCheckoutSession}
-									disabled={isCreatingCheckoutSession || isFreePlan}
+									disabled={isCreatingCheckoutSession}
 									onClick={isFreePlan ? upgradeSubscription : manageSubscription}
 								>
-									{isFreePlan ? <LuBadge /> : <LuCrown />}
+									{isFreePlan ? <LuRocket /> : <LuCrown />}
 									{isFreePlan ? 'Upgrade Subscription' : 'Manage Subscription'}
 								</Button>
 							</HStack>
